@@ -1,0 +1,1558 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="FRM Quiz">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="application-name" content="FRM Quiz">
+  <meta name="theme-color" content="#f1f0e9">
+  <title>Risk Notes — FRM I Book 1 Quiz + Study Prompts (public)</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f1f0e9;
+      --surface: #fffefa;
+      --ink: #203331;
+      --muted: #687573;
+      --line: #d9ded7;
+      --green: #286459;
+      --green-soft: #e3eee8;
+      --coral: #d96e51;
+      --coral-soft: #f8e9e2;
+      --yellow: #e5bd5d;
+      --shadow: 0 18px 50px rgb(34 53 49 / 8%);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image: radial-gradient(#d8ddd4 0.7px, transparent 0.7px);
+      background-size: 17px 17px;
+      font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button { font: inherit; }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      padding: 0 clamp(20px, 5vw, 76px);
+      border-bottom: 1px solid rgb(32 51 49 / 12%);
+    }
+
+    .wordmark {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .mark {
+      display: grid;
+      width: 29px;
+      aspect-ratio: 1;
+      place-items: center;
+      color: var(--surface);
+      background: var(--green);
+      border-radius: 50% 50% 50% 4px;
+      font-family: Georgia, serif;
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .header-note, .eyebrow, .micro-label {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 750;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .header-note { display: flex; align-items: center; gap: 9px; }
+    .live-dot { width: 7px; height: 7px; background: var(--coral); border-radius: 50%; }
+
+    main {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: clamp(30px, 5vw, 62px) 0 42px;
+    }
+
+    .intro {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 30px;
+      animation: arrive 450ms ease both;
+    }
+
+    .eyebrow { margin: 0 0 12px; color: var(--green); }
+
+    h1 {
+      max-width: 700px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 5vw, 57px);
+      font-weight: 500;
+      line-height: 1.02;
+    }
+
+    .intro-copy {
+      max-width: 355px;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .edition {
+      flex: 0 0 auto;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 750;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 13px 16px;
+      border: 1px solid var(--line);
+      border-bottom: 0;
+      background: rgb(255 254 250 / 75%);
+    }
+
+    .toolbar-group { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+
+    .micro-label { margin-right: 4px; font-size: 9px; letter-spacing: 1.15px; }
+
+    .segmented { display: inline-flex; padding: 3px; background: #e9ebe4; border-radius: 3px; }
+
+    .segmented button, .length-button {
+      min-height: 32px;
+      padding: 0 12px;
+      border: 0;
+      border-radius: 2px;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .segmented button[aria-pressed="true"] { color: var(--ink); background: var(--surface); box-shadow: 0 1px 4px rgb(32 51 49 / 10%); }
+    .length-button { min-width: 42px; border: 1px solid var(--line); background: var(--surface); }
+    .length-button[aria-pressed="true"] { color: var(--green); border-color: var(--green); background: var(--green-soft); }
+
+    button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      min-height: 520px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      padding: 23px 19px;
+      border-right: 1px solid var(--line);
+      background: #f8f8f2;
+    }
+
+    .sidebar-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 17px; }
+    .sidebar-head .micro-label { margin: 0; }
+    .progress-copy { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+
+    .progress-track { height: 5px; overflow: hidden; background: #e1e5de; border-radius: 4px; }
+    .progress-fill { width: 0; height: 100%; background: var(--green); transition: width 220ms ease; }
+
+    .question-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; margin-top: 18px; }
+
+    .number-button {
+      display: grid;
+      width: 100%;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      color: var(--muted);
+      background: var(--surface);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      transition: color 140ms ease, background 140ms ease, border-color 140ms ease;
+    }
+
+    .number-button[aria-current="step"] { color: white; border-color: var(--green); background: var(--green); }
+    .number-button.is-correct:not([aria-current="step"]) { color: var(--green); border-color: #a9c9bb; background: var(--green-soft); }
+    .number-button.is-wrong:not([aria-current="step"]) { color: #a34430; border-color: #ebc0b3; background: var(--coral-soft); }
+    .number-button.is-answered:not([aria-current="step"]):not(.is-correct):not(.is-wrong) { color: var(--ink); border-color: #97aaa2; }
+
+    .side-bottom { margin-top: auto; padding-top: 24px; }
+    .shuffle-button { display: flex; align-items: center; gap: 9px; padding: 7px 0; border: 0; color: var(--muted); background: transparent; cursor: pointer; font-size: 12px; }
+    .shuffle-button[aria-pressed="true"] { color: var(--green); font-weight: 700; }
+    .shuffle-icon { display: grid; width: 22px; aspect-ratio: 1; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: inherit; font-size: 13px; }
+
+    .score-note { display: flex; justify-content: space-between; margin-top: 15px; padding-top: 13px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+    .score-note strong { color: var(--ink); font-variant-numeric: tabular-nums; }
+
+    .quiz-panel { display: flex; min-width: 0; flex-direction: column; padding: clamp(22px, 4vw, 43px) clamp(22px, 5vw, 57px) 24px; }
+
+    .question-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .topic-tag { padding: 7px 9px; color: var(--green); background: var(--green-soft); border-radius: 2px; font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+    .question-count { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+
+    .question-title {
+      max-width: 730px;
+      margin: 26px 0 23px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(22px, 3vw, 31px);
+      font-weight: 500;
+      line-height: 1.28;
+      animation: arrive 250ms ease both;
+    }
+
+    .answers { display: grid; gap: 9px; }
+
+    .answer-option {
+      display: grid;
+      grid-template-columns: 32px minmax(0, 1fr) 18px;
+      align-items: center;
+      gap: 12px;
+      min-height: 58px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      color: var(--ink);
+      background: var(--surface);
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 140ms ease, background 140ms ease, transform 140ms ease;
+    }
+
+    .answer-option:hover:not(:disabled) { border-color: #87a89d; transform: translateX(2px); }
+    .answer-option.is-selected { border-color: var(--green); background: #f4f8f4; }
+    .answer-option.is-correct { border-color: #7eaa96; background: var(--green-soft); }
+    .answer-option.is-incorrect { border-color: #d89781; background: var(--coral-soft); }
+    .answer-option:disabled { cursor: default; }
+
+    .answer-letter { display: grid; width: 27px; aspect-ratio: 1; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--muted); font-family: Georgia, serif; font-size: 13px; }
+    .is-selected .answer-letter, .is-correct .answer-letter { color: var(--green); border-color: #8cb2a1; }
+    .is-incorrect .answer-letter { color: #a34430; border-color: #d89781; }
+    .answer-text { font-size: 13px; line-height: 1.45; }
+    .answer-mark { color: var(--green); font-size: 15px; font-weight: 800; }
+    .is-incorrect .answer-mark { color: #b34e37; }
+
+    .rationale {
+      margin-top: 15px;
+      padding: 13px 15px;
+      border-left: 3px solid var(--green);
+      color: var(--ink);
+      background: #f0f5f0;
+      font-size: 12px;
+      line-height: 1.55;
+      animation: arrive 200ms ease both;
+    }
+
+    .rationale.is-wrong { border-color: var(--coral); background: #fbf0eb; }
+    .rationale strong { display: block; margin-bottom: 3px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+
+    .panel-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 23px; }
+    .keyboard-hint { color: #87918d; font-size: 10px; }
+    .footer-actions { display: flex; gap: 8px; }
+
+    .action-button {
+      min-height: 40px;
+      padding: 0 17px;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      color: var(--ink);
+      background: var(--surface);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 750;
+      transition: background 140ms ease, transform 140ms ease;
+    }
+
+    .action-button:hover:not(:disabled) { transform: translateY(-1px); }
+    .action-button.primary { color: white; border-color: var(--green); background: var(--green); }
+    .action-button.primary:hover:not(:disabled) { background: #1d5148; }
+    .action-button:disabled { opacity: 0.42; cursor: not-allowed; }
+
+    .result-view { display: flex; flex: 1; flex-direction: column; justify-content: center; animation: arrive 350ms ease both; }
+    .result-kicker { margin: 0 0 10px; color: var(--green); font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+    .result-title { max-width: 620px; margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(32px, 5vw, 52px); font-weight: 500; line-height: 1.07; }
+    .result-score { display: flex; align-items: baseline; gap: 12px; margin: 22px 0 10px; }
+    .result-score strong { color: var(--green); font-family: Georgia, serif; font-size: 70px; font-weight: 500; line-height: 1; }
+    .result-score span { color: var(--muted); font-size: 13px; }
+    .result-copy { max-width: 510px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
+    .result-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 25px; }
+    .result-stats { display: flex; gap: 22px; margin-top: 28px; padding-top: 17px; border-top: 1px solid var(--line); }
+    .result-stats div { display: grid; gap: 5px; }
+    .result-stats strong { font-family: Georgia, serif; font-size: 21px; font-weight: 500; }
+    .result-stats span { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
+
+    .source-note { margin: 18px 0 0; color: #77817d; font-size: 10px; line-height: 1.55; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+    @keyframes arrive { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 760px) {
+      .intro { align-items: start; flex-direction: column; gap: 15px; }
+      .toolbar { align-items: start; flex-direction: column; }
+      .workspace { grid-template-columns: 1fr; }
+      .sidebar { order: 2; border-top: 1px solid var(--line); border-right: 0; }
+      .quiz-panel { min-height: 500px; }
+      .question-grid { grid-template-columns: repeat(10, 1fr); }
+      .number-button { font-size: 10px; }
+      .side-bottom { padding-top: 18px; }
+      .score-note { max-width: 300px; }
+    }
+
+    @media (max-width: 430px) {
+      main { width: min(100% - 24px, 1160px); padding-top: 28px; }
+      .site-header { min-height: 64px; padding: 0 16px; }
+      .header-note { font-size: 9px; letter-spacing: 1px; }
+      .toolbar { padding: 12px; }
+      .toolbar-group { gap: 6px; }
+      .micro-label { width: 100%; }
+      .question-grid { grid-template-columns: repeat(5, 1fr); }
+      .quiz-panel { min-height: 520px; padding: 21px 17px; }
+      .answer-option { grid-template-columns: 28px minmax(0, 1fr) 14px; gap: 9px; padding: 10px; }
+      .answer-text { font-size: 12px; }
+      .panel-footer { align-items: end; }
+      .keyboard-hint { max-width: 100px; line-height: 1.45; }
+      .action-button { padding: 0 12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+<style>.prompt-box{margin-top:18px;padding:14px 16px;border:1px dashed rgb(32 51 49 / 30%);border-radius:10px;background:rgb(255 255 255 / 55%)}.prompt-box h3{margin:0 0 8px;font-size:12px;letter-spacing:1px;text-transform:uppercase}.prompt-box textarea{width:100%;min-height:150px;font:13px/1.45 ui-monospace,monospace;border:1px solid rgb(32 51 49 / 18%);border-radius:8px;padding:10px;box-sizing:border-box;background:#fff;color:inherit}.prompt-box button{margin-top:8px}</style></head>
+<body>
+  <header class="site-header">
+    <div class="wordmark"><span class="mark" aria-hidden="true">R</span><span>Risk Notes</span></div>
+    <div class="header-note"><span class="live-dot" aria-hidden="true"></span>Independent study tool</div>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">FRM Part I / Book 1 · Foundations of Risk Management</p>
+        <h1 id="page-title">Foundations of Risk Management,<br>one question at a time.</h1>
+        <p class="intro-copy">62 original exam-style questions across Book 1, Foundations of Risk Management, with an explanation for every answer.</p>
+      </div>
+      <div class="edition" id="edition">original questions</div>
+    </section>
+
+    <section class="toolbar" aria-label="Quiz settings">
+      <div class="toolbar-group">
+        <span class="micro-label">Session</span>
+        <div class="segmented" role="group" aria-label="Quiz mode">
+          <button type="button" data-mode="practice" aria-pressed="true">Practice</button>
+          <button type="button" data-mode="exam" aria-pressed="false">Exam</button>
+        </div>
+      </div>
+      <div class="toolbar-group">
+        <span class="micro-label">Book</span>
+        <div class="segmented" role="group" aria-label="Topic filter" style="flex-wrap:wrap">
+          <button type="button" data-book="all" aria-pressed="true">All</button>
+          <button type="button" data-book="found" aria-pressed="false">Foundations</button>
+        </div>
+      </div>
+      <div class="toolbar-group">
+        <span class="micro-label">Question set</span>
+        <div class="segmented" role="group" aria-label="Quiz length">
+          <button type="button" data-length="10" aria-pressed="false">10</button>
+          <button type="button" data-length="20" aria-pressed="true">20</button>
+          <button type="button" data-length="50" aria-pressed="false">50</button>
+          <button type="button" data-length="100" aria-pressed="false">100</button>
+          <button type="button" data-length="999" aria-pressed="false">All</button>
+        </div>
+        <span class="micro-label">questions</span>
+      </div>
+    </section>
+
+    <section class="workspace" aria-label="Quiz workspace">
+      <aside class="sidebar" aria-label="Question navigation">
+        <div class="sidebar-head">
+          <span class="micro-label">Your progress</span>
+          <span class="progress-copy" id="progress-copy">0 / 20</span>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="Questions answered" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0" id="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <nav class="question-grid" id="question-grid" aria-label="Jump to question"></nav>
+        <div class="side-bottom">
+          <button class="shuffle-button" type="button" id="shuffle-button" aria-pressed="false">
+            <span class="shuffle-icon" aria-hidden="true">↝</span>Shuffle questions
+          </button>
+          <div class="score-note"><span>Best practice score</span><strong id="best-score">—</strong></div>
+        </div>
+      </aside>
+
+      <section class="quiz-panel" id="quiz-panel" aria-live="polite"></section>
+    </section>
+    <p class="source-note">Questions are newly written, not copied from commercial or official question banks; every calculation was checked by hand. Topic references: <a href="https://www.garp.org/frm/study-materials" target="_blank" rel="noreferrer">GARP study materials</a>, the FRM Part I curriculum (four books). Independent study aid; not official GARP material.</p>
+  </main>
+
+  <script>
+const questions = [
+{
+"book": "found",
+"topic": "Ch 1 · Building Blocks of Risk Management",
+"prompt": "A bank makes a loan with exposure at default of €10 million, loss given default of 40% and a one-year probability of default of 2%. The one-year expected loss is:",
+"options": [
+"€8,000.",
+"€80,000.",
+"€200,000.",
+"€4,000,000."
+],
+"answer": 1,
+"rationale": "EL = PD × LGD × EAD = 0.02 × 0.40 × €10m = €80,000. €200,000 omits LGD; €4m omits PD."
+},
+{
+"book": "found",
+"topic": "Ch 1 · Building Blocks of Risk Management",
+"prompt": "A loan portfolio has 1,000 loans of €100,000 each. Each has a 1.5% probability of default and an expected recovery rate of 35%. The portfolio’s expected loss is closest to:",
+"options": [
+"€525,000.",
+"€650,000.",
+"€975,000.",
+"€1,500,000."
+],
+"answer": 2,
+"rationale": "LGD = 1 − 35% = 65%. EL = €100m × 1.5% × 65% = €975,000. €525,000 wrongly uses the recovery rate as LGD; €1.5m ignores recovery."
+},
+{
+"book": "found",
+"topic": "Ch 1 · Building Blocks of Risk Management",
+"prompt": "A bank prices its loans with a credit spread that covers average annual default losses and holds equity capital against losses well above that average. Which statement best describes this practice?",
+"options": [
+"The spread covers unexpected loss; capital covers expected loss.",
+"Both expected and unexpected loss should be covered by provisions only.",
+"The spread covers expected loss; capital covers unexpected loss.",
+"Capital is needed only if the correlation between defaults is zero."
+],
+"answer": 2,
+"rationale": "Expected loss is a cost of doing business, priced into the spread and provisions. Capital absorbs unexpected loss, which grows when defaults are correlated."
+},
+{
+"book": "found",
+"topic": "Ch 1 · Building Blocks of Risk Management",
+"prompt": "Which of the following best illustrates Knightian uncertainty rather than risk?",
+"options": [
+"The probability that a fair die shows a six.",
+"Annual default rates on a large, well-seasoned mortgage pool.",
+"Daily changes in a liquid equity index modeled with 20 years of data.",
+"The impact of a never-before-seen regulation whose content and likelihood are unknown."
+],
+"answer": 3,
+"rationale": "Risk can be assigned meaningful probabilities; uncertainty cannot. A novel regulation with unknown content and odds is uncertainty."
+},
+{
+"book": "found",
+"topic": "Ch 1 · Building Blocks of Risk Management",
+"prompt": "A commodity price crash causes an oil producer to default on its bank loans. The bank’s depositors, worried about losses, start withdrawing funds and the bank must sell bonds at depressed prices. This chain best illustrates:",
+"options": [
+"how risk types interact and can cascade from credit to liquidity to market risk.",
+"that market risk can always be diversified away.",
+"that operational risk is the root of all bank losses.",
+"that expected losses rise but unexpected losses fall in a crisis."
+],
+"answer": 0,
+"rationale": "The reading stresses that risk types are linked: a market shock creates credit losses, which trigger funding and market-liquidity stress. That is why risks cannot simply be added up in silos."
+},
+{
+"book": "found",
+"topic": "Ch 2 · How Firms Manage Financial Risk",
+"prompt": "A U.S. exporter will receive €25 million in six months and wants to remove the currency risk on this receivable without paying an upfront premium. The most appropriate hedge is to:",
+"options": [
+"buy euros forward.",
+"sell euros forward for dollars.",
+"buy a euro call option.",
+"enter a pay-fixed interest rate swap."
+],
+"answer": 1,
+"rationale": "A future euro inflow is a long-euro exposure; selling euros forward locks in the dollar amount at no upfront cost. A euro put (not call) would also hedge but costs a premium."
+},
+{
+"book": "found",
+"topic": "Ch 2 · How Firms Manage Financial Risk",
+"prompt": "Which argument against corporate hedging follows from the Modigliani–Miller framework?",
+"options": [
+"Hedging always reduces firm value because derivatives are costly.",
+"Hedging increases the probability of financial distress.",
+"In perfect capital markets shareholders can hedge or diversify on their own, so corporate hedging adds no value.",
+"Hedging is prohibited by accounting standards."
+],
+"answer": 2,
+"rationale": "With no taxes, distress costs or information frictions, investors can replicate any hedge themselves. Hedging adds value only because real markets have such frictions."
+},
+{
+"book": "found",
+"topic": "Ch 2 · How Firms Manage Financial Risk",
+"prompt": "A bank decides to exit its leveraged-loan underwriting business entirely because the risks exceed its risk appetite. This is an example of which risk management choice?",
+"options": [
+"Transfer.",
+"Retain.",
+"Mitigate.",
+"Avoid."
+],
+"answer": 3,
+"rationale": "Stopping the activity that creates the risk is risk avoidance. Mitigation reduces it internally, transfer passes it to others, retention keeps it."
+},
+{
+"book": "found",
+"topic": "Ch 2 · How Firms Manage Financial Risk",
+"prompt": "A firm hedges a highly predictable foreign-currency cost stream with a five-year swap, but its sales in that currency collapse after two years. Which hedging pitfall does this illustrate most directly?",
+"options": [
+"A hedge that no longer matches the underlying exposure, turning the hedge into a speculative position.",
+"Basis risk from using futures.",
+"Counterparty credit risk on exchange-traded contracts.",
+"Accounting hedge effectiveness that always increases earnings."
+],
+"answer": 0,
+"rationale": "When the underlying exposure disappears, the remaining derivative is an open position. Hedges must be sized to exposures that are reasonably certain and monitored over time."
+},
+{
+"book": "found",
+"topic": "Ch 3 · Governance of Risk Management",
+"prompt": "After the 2007–2009 crisis, which compensation practice for senior bank executives became regarded as best practice?",
+"options": [
+"Paying bonuses mainly in cash at year-end based on annual revenue.",
+"Deferring a significant part of variable pay, linking it to long-term risk-adjusted performance and allowing clawbacks.",
+"Allowing the CRO to set the CEO’s bonus.",
+"Linking pay mainly to short-term share price movements to align with shareholders."
+],
+"answer": 1,
+"rationale": "Deferral, risk adjustment and clawbacks align pay with the time horizon of the risks taken. The board’s compensation committee, not the CRO, sets executive pay."
+},
+{
+"book": "found",
+"topic": "Ch 3 · Governance of Risk Management",
+"prompt": "Which design for a bank’s board risk committee is most consistent with good governance?",
+"options": [
+"It is chaired by the CEO to ensure links with strategy.",
+"It is merged with the audit committee to save time.",
+"It is composed largely of independent directors, is separate from the audit committee and has direct access to the CRO.",
+"It approves individual trades above a size limit."
+],
+"answer": 2,
+"rationale": "The risk committee oversees risk appetite and the risk function; it should be independent, distinct from audit (which looks back at controls and reporting), and in direct contact with the CRO. Approving trades is a management task."
+},
+{
+"book": "found",
+"topic": "Ch 3 · Governance of Risk Management",
+"prompt": "Which role is typically responsible for day-to-day risk supervision and may approve temporary breaches of risk limits within board-approved parameters?",
+"options": [
+"The chief risk officer",
+"The audit committee",
+"The compensation committee",
+"The external auditor"
+],
+"answer": 0,
+"rationale": "The CRO runs day-to-day risk oversight and can approve temporary limit breaches. The board and risk committee set appetite and oversee the CRO."
+},
+{
+"book": "found",
+"topic": "Ch 3 · Governance of Risk Management",
+"prompt": "Which arrangement best supports the independence of the risk management function?",
+"options": [
+"The CRO reports only to the head of the largest trading desk.",
+"The CRO's bonus is based mainly on trading revenues.",
+"The CRO has a direct reporting line and access to the board's risk committee.",
+"The CEO also chairs the risk committee."
+],
+"answer": 2,
+"rationale": "Independence comes from a direct line to the board's risk committee. Tying the CRO to business heads or to revenue creates conflicts of interest."
+},
+{
+"book": "found",
+"topic": "Ch 3 · Governance of Risk Management",
+"prompt": "Which of the following is LEAST likely to be a responsibility of the audit committee?",
+"options": [
+"Overseeing the accuracy of financial statements and regulatory reporting",
+"Setting trading limits for business lines",
+"Assessing the independence of the external auditor",
+"Reviewing the effectiveness of internal controls"
+],
+"answer": 1,
+"rationale": "The audit committee gives independent oversight of reporting, controls and auditors. Setting business-line limits is a management and risk-function job, and it would undermine the committee's independence."
+},
+{
+"book": "found",
+"topic": "Ch 3 · Governance of Risk Management",
+"prompt": "A US bank holding company wants to expand a desk that trades securities with the bank's own capital purely to profit from short-term price moves. Which post-crisis provision most directly restricts this activity?",
+"options": [
+"The Basel III leverage ratio",
+"The Volcker Rule under the Dodd-Frank Act",
+"The orderly liquidation authority",
+"The Consumer Financial Protection Bureau"
+],
+"answer": 1,
+"rationale": "The Volcker Rule, part of Dodd-Frank, partly re-imposes Glass-Steagall by prohibiting banks from proprietary trading, meaning trading for their own account."
+},
+{
+"book": "found",
+"topic": "Ch 3 · Governance of Risk Management",
+"prompt": "Under the Dodd-Frank Act, a systemically important financial institution must submit a 'living will' to the Fed. What is the purpose of this document?",
+"options": [
+"To set out how the firm would be resolved in an orderly way if it fell into severe distress",
+"To disclose executive compensation to shareholders",
+"To report the firm's daily VaR to regulators",
+"To name the successor CEO in case of resignation"
+],
+"answer": 0,
+"rationale": "A living will is a resolution plan. It supports Dodd-Frank's aim of ending 'too big to fail' by preparing for an orderly wind-down of a large firm without a taxpayer bailout."
+},
+{
+"book": "found",
+"topic": "Ch 4 · Credit Risk Transfer Mechanisms",
+"prompt": "A bank buys five-year CDS protection on $20 million notional at a spread of 150 bp per year. The reference entity defaults and the recovery rate is 40%. Ignoring accrued premium, the bank receives a payment of:",
+"options": [
+"$300,000.",
+"$8,000,000.",
+"$12,000,000.",
+"$20,000,000."
+],
+"answer": 2,
+"rationale": "Payoff = notional × (1 − recovery) = $20m × 60% = $12m. $300,000 is the annual premium the bank pays; $8m is the recovery value."
+},
+{
+"book": "found",
+"topic": "Ch 4 · Credit Risk Transfer Mechanisms",
+"prompt": "A $1 billion CDO has a mezzanine tranche attaching at 5% and detaching at 15% of the pool. If pool losses reach 8%, the loss as a percentage of the mezzanine tranche’s principal is:",
+"options": [
+"3%.",
+"8%.",
+"30%.",
+"80%."
+],
+"answer": 2,
+"rationale": "Tranche size = 10% × $1bn = $100m. Losses above 5% hit it: (8% − 5%) × $1bn = $30m, i.e., 30% of the tranche. The equity tranche (0–5%) is wiped out first."
+},
+{
+"book": "found",
+"topic": "Ch 4 · Credit Risk Transfer Mechanisms",
+"prompt": "A bank has three derivatives with the same counterparty, with mark-to-market values (to the bank) of +$50 million, −$30 million and +$10 million, all under one enforceable netting agreement. The bank’s current credit exposure is:",
+"options": [
+"$10 million.",
+"$30 million.",
+"$60 million.",
+"$90 million."
+],
+"answer": 1,
+"rationale": "Net value = 50 − 30 + 10 = $30m. Without netting, exposure would be the sum of positive values, $60m, while the bank would still owe the $30m."
+},
+{
+"book": "found",
+"topic": "Ch 4 · Credit Risk Transfer Mechanisms",
+"prompt": "A bank’s loan to an oil producer is secured by oil reserves. Why does this create wrong-way risk?",
+"options": [
+"Because collateral is always valued below par.",
+"Because oil reserves cannot legally serve as collateral.",
+"Because the bank cannot net the loan against deposits.",
+"Because the factor that raises the borrower’s default probability (a fall in oil prices) also reduces the value of the collateral."
+],
+"answer": 3,
+"rationale": "Wrong-way risk means exposure or collateral value moves against the bank exactly when default becomes more likely."
+},
+{
+"book": "found",
+"topic": "Ch 5 · MPT and CAPM",
+"prompt": "A stock's covariance with the market is 0.018 and the market's standard deviation is 15%. What is the stock's beta?",
+"options": [
+"0.12",
+"0.80",
+"1.20",
+"0.27"
+],
+"answer": 1,
+"rationale": "Beta = Cov(i,M)/σ²_M = 0.018/0.0225 = 0.80. Dividing by σ_M instead of σ²_M gives the 0.12 trap."
+},
+{
+"book": "found",
+"topic": "Ch 5 · MPT and CAPM",
+"prompt": "A stock has volatility of 30%, the market has volatility of 20%, and their correlation is 0.6. What is the stock's beta?",
+"options": [
+"0.40",
+"1.50",
+"0.90",
+"0.60"
+],
+"answer": 2,
+"rationale": "Beta = ρ × σ_i/σ_M = 0.6 × 0.30/0.20 = 0.90."
+},
+{
+"book": "found",
+"topic": "Ch 5 · MPT and CAPM",
+"prompt": "The risk-free rate is 3%, the expected market return is 9%, and a stock has a beta of 1.2. An analyst forecasts the stock will return 11%. Based on the CAPM, the stock is:",
+"options": [
+"Undervalued, because it plots above the SML.",
+"Overvalued, because it plots above the SML.",
+"Fairly valued, because its forecast exceeds the market return.",
+"Overvalued, because its beta exceeds 1."
+],
+"answer": 0,
+"rationale": "Required return = 3% + 1.2 × (9% − 3%) = 10.2%. The forecast of 11% is above the required return, so the stock plots above the SML and is undervalued (buy)."
+},
+{
+"book": "found",
+"topic": "Ch 5 · MPT and CAPM",
+"prompt": "A stock has a forecast return of 8% and a beta of 1.5. The risk-free rate is 2% and the market risk premium is 5%. What is the stock's expected alpha, and where does it plot?",
+"options": [
+"+1.5%, above the SML",
+"−1.5%, below the SML",
+"−1.5%, above the SML",
+"+0.5%, on the SML"
+],
+"answer": 1,
+"rationale": "Required = 2% + 1.5 × 5% = 9.5%. Alpha = 8% − 9.5% = −1.5%, so it plots below the SML and is overvalued."
+},
+{
+"book": "found",
+"topic": "Ch 5 · MPT and CAPM",
+"prompt": "Which statement about the capital market line (CML) and the security market line (SML) is correct?",
+"options": [
+"The CML measures risk with beta, while the SML uses total standard deviation.",
+"Both lines apply to individual securities and to inefficient portfolios.",
+"The SML measures risk with beta and applies to all securities and portfolios, while the CML uses standard deviation and applies only to efficient portfolios.",
+"The slope of the SML is the market Sharpe ratio."
+],
+"answer": 2,
+"rationale": "The CML plots efficient portfolios (combinations of the risk-free asset and the market) against σ. The SML prices any asset against beta. The CML's slope is the market Sharpe ratio, and the SML's slope is the market risk premium."
+},
+{
+"book": "found",
+"topic": "Ch 5 · MPT and CAPM",
+"prompt": "A fairly priced individual stock with substantial firm-specific risk will most likely plot:",
+"options": [
+"On both the CML and the SML.",
+"Above the CML and on the SML.",
+"Below the SML and on the CML.",
+"On the SML but below the CML."
+],
+"answer": 3,
+"rationale": "Fair pricing puts it on the SML, since only systematic risk (beta) is rewarded. Its total risk includes unsystematic risk that earns no premium, so it plots below the CML."
+},
+{
+"book": "found",
+"topic": "Ch 5 · MPT and CAPM",
+"prompt": "The risk-free rate is 3%, the market's expected return is 9%, and market volatility is 15%. What is the expected return of an efficient portfolio on the CML with volatility of 10%?",
+"options": [
+"7.0%",
+"6.0%",
+"9.0%",
+"4.0%"
+],
+"answer": 0,
+"rationale": "E(Rp) = rf + [(E(Rm) − rf)/σ_M] × σ_p = 3% + (6%/15%) × 10% = 7.0%."
+},
+{
+"book": "found",
+"topic": "Ch 5 · MPT and CAPM",
+"prompt": "A portfolio returned 11% with volatility of 16% and a beta of 0.8. The risk-free rate is 3%. What is its Treynor measure?",
+"options": [
+"0.50",
+"0.10",
+"0.0875",
+"0.1375"
+],
+"answer": 1,
+"rationale": "Treynor = (Rp − rf)/β = (11% − 3%)/0.8 = 10%. The 0.50 option is the Sharpe ratio (8%/16%)."
+},
+{
+"book": "found",
+"topic": "Ch 5 · MPT and CAPM",
+"prompt": "A portfolio returned 12% with a beta of 1.1. The risk-free rate was 2% and the market returned 10%. What is Jensen's alpha?",
+"options": [
+"+2.0%",
+"−1.2%",
+"+0.8%",
+"+1.2%"
+],
+"answer": 3,
+"rationale": "CAPM return = 2% + 1.1 × (10% − 2%) = 10.8%. Alpha = 12% − 10.8% = +1.2%."
+},
+{
+"book": "found",
+"topic": "Ch 5 · MPT and CAPM",
+"prompt": "Which of the following is NOT an assumption of the CAPM?",
+"options": [
+"Investors can borrow and lend at the risk-free rate.",
+"Investors have heterogeneous expectations about asset returns.",
+"There are no taxes or transaction costs.",
+"Investors are rational and risk-averse, and care only about mean and variance."
+],
+"answer": 1,
+"rationale": "The CAPM assumes homogeneous expectations: all investors agree on expected returns, volatilities and correlations, so they all hold the same market portfolio."
+},
+{
+"book": "found",
+"topic": "Ch 5 · MPT and CAPM",
+"prompt": "A portfolio puts 60% in a stock with a beta of 1.4 and 40% in a stock with a beta of 0.5. What is the portfolio beta?",
+"options": [
+"0.95",
+"1.04",
+"0.90",
+"1.90"
+],
+"answer": 1,
+"rationale": "Portfolio beta is the weighted average: 0.6 × 1.4 + 0.4 × 0.5 = 0.84 + 0.20 = 1.04."
+},
+{
+"book": "found",
+"topic": "Ch 5 · MPT and CAPM",
+"prompt": "A stock has a standard deviation of 35% and an expected return of 14%. The market has an expected return of 10% and a standard deviation of 20%, and the stock's covariance with the market is 0.028. What is the stock's beta?",
+"options": [
+"0.14",
+"0.70",
+"1.75",
+"0.40"
+],
+"answer": 1,
+"rationale": "Beta = Cov(i,M)/σ²_M = 0.028/0.04 = 0.70. The stock's own volatility and both expected returns are extra information that isn't needed. Dividing by σ_M instead of σ²_M gives the 0.14 trap."
+},
+{
+"book": "found",
+"topic": "Ch 5 · MPT and CAPM",
+"prompt": "Which statement about diversification is correct?",
+"options": [
+"Adding more stocks to a portfolio eliminates systematic risk.",
+"Investors are compensated with higher expected returns for bearing unsystematic risk.",
+"Unsystematic (firm-specific) risk can be diversified away, so in the CAPM only systematic risk, measured by beta, earns a risk premium.",
+"A well-diversified portfolio has a beta of zero."
+],
+"answer": 2,
+"rationale": "Diversification removes firm-specific risk but not market risk, so only beta is priced. A well-diversified portfolio still has market exposure, with a beta near that of the market, not zero."
+},
+{
+"book": "found",
+"topic": "Ch 6 · APT and Multifactor Models",
+"prompt": "A stock has an expected return of 10%. Under a two-factor model its sensitivity to GDP growth is 1.5 and to inflation is −0.8. Over the year GDP growth surprises by +1% and inflation surprises by +2%; there is no firm-specific news. The stock’s realized return is closest to:",
+"options": [
+"8.4%.",
+"9.9%.",
+"11.5%.",
+"13.1%."
+],
+"answer": 1,
+"rationale": "R = E(R) + β_GDP × surprise_GDP + β_inf × surprise_inf = 10 + 1.5(1) + (−0.8)(2) = 10 + 1.5 − 1.6 = 9.9%. Only surprises, not expected factor values, move returns away from expectation."
+},
+{
+"book": "found",
+"topic": "Ch 6 · APT and Multifactor Models",
+"prompt": "Using the Fama-French three-factor model: risk-free rate 3%, market risk premium 6%, SMB premium 2%, HML premium 4%. A fund has a market beta of 1.1, an SMB beta of 0.4 and an HML beta of −0.3. Its expected return is closest to:",
+"options": [
+"8.0%.",
+"9.2%.",
+"10.4%.",
+"11.6%."
+],
+"answer": 1,
+"rationale": "E(R) = 3 + 1.1(6) + 0.4(2) − 0.3(4) = 3 + 6.6 + 0.8 − 1.2 = 9.2%. 11.6% ignores the sign of the HML beta."
+},
+{
+"book": "found",
+"topic": "Ch 6 · APT and Multifactor Models",
+"prompt": "A fund’s Fama-French regression shows a positive SMB beta and a negative HML beta. This indicates the fund is tilted toward:",
+"options": [
+"small-cap growth stocks.",
+"small-cap value stocks.",
+"large-cap value stocks.",
+"large-cap growth stocks."
+],
+"answer": 0,
+"rationale": "Positive SMB loading = small-cap tilt; negative HML loading = low book-to-market, i.e., growth."
+},
+{
+"book": "found",
+"topic": "Ch 6 · APT and Multifactor Models",
+"prompt": "A $10 million portfolio has a sensitivity of 1.2 to factor 1 and 0.5 to factor 2. A factor-1 tracking portfolio has a sensitivity of 1.0 to factor 1 and zero to factor 2. To hedge only factor-1 risk, the manager should:",
+"options": [
+"short $5 million of the factor-1 portfolio.",
+"short $12 million of the factor-1 portfolio.",
+"short $10 million of the factor-1 portfolio.",
+"buy $12 million of the factor-1 portfolio."
+],
+"answer": 1,
+"rationale": "Factor-1 exposure = 1.2 × $10m = $12m; shorting $12m of a pure factor-1 portfolio sets the factor-1 beta to zero while leaving factor-2 exposure intact."
+},
+{
+"book": "found",
+"topic": "Ch 6 · APT and Multifactor Models",
+"prompt": "In a single-factor world with a risk-free rate of 4%, well-diversified Portfolio A has beta 1.0 and expected return 12%, and well-diversified Portfolio B has beta 0.5 and expected return 7%. Which trade exploits the arbitrage?",
+"options": [
+"Buy B; short a 50/50 mix of A and the risk-free asset.",
+"Buy A; short B in equal dollar amounts.",
+"Short B; buy a 50/50 mix of A and the risk-free asset.",
+"No arbitrage exists because both lie on the same line."
+],
+"answer": 2,
+"rationale": "A 50/50 mix of A and Rf has beta 0.5 and return 8%. B has the same beta but only 7%, so B is overpriced: short B, buy the mix, earning about 1% with zero net investment and zero factor risk. (Equal-dollar A vs B leaves net beta of 0.5.)"
+},
+{
+"book": "found",
+"topic": "Ch 6 · APT and Multifactor Models",
+"prompt": "Which statement best contrasts APT with the CAPM?",
+"options": [
+"APT requires the market portfolio to be mean-variance efficient.",
+"APT holds only for individual securities, not portfolios.",
+"APT assumes investors have quadratic utility.",
+"APT derives expected returns from a no-arbitrage condition and allows multiple systematic factors, without specifying which ones."
+],
+"answer": 3,
+"rationale": "APT rests on no-arbitrage and a factor model; it does not identify factors or require an efficient market portfolio, quadratic utility or normal returns."
+},
+{
+"book": "found",
+"topic": "Ch 7 · Data Aggregation and Risk Reporting",
+"prompt": "During a market crisis a bank’s board asks for daily rather than monthly liquidity risk reports. Which BCBS 239 risk reporting principle most directly addresses this?",
+"options": [
+"Frequency.",
+"Comprehensiveness.",
+"Distribution.",
+"Completeness."
+],
+"answer": 0,
+"rationale": "Principle 10 (frequency): report frequency should increase with the speed of risk changes and in times of stress. Completeness is a data aggregation (not reporting) principle."
+},
+{
+"book": "found",
+"topic": "Ch 7 · Data Aggregation and Risk Reporting",
+"prompt": "Supervisors ask a bank to produce, within hours, its total exposure to a sovereign that has just defaulted, broken down by legal entity and instrument. Which BCBS 239 data aggregation principle is being tested?",
+"options": [
+"Accuracy and integrity.",
+"Adaptability.",
+"Governance.",
+"Clarity and usefulness."
+],
+"answer": 1,
+"rationale": "Adaptability (Principle 6): the ability to generate ad hoc aggregated risk data quickly in stress or on request."
+},
+{
+"book": "found",
+"topic": "Ch 7 · Data Aggregation and Risk Reporting",
+"prompt": "Which practice is most consistent with BCBS 239?",
+"options": [
+"Aggregating risk data mainly by legal entity because that is how accounts are kept.",
+"Relying primarily on manual spreadsheets for speed.",
+"Reconciling risk data with accounting data and documenting any manual workarounds.",
+"Letting each business line define its own counterparty identifiers."
+],
+"answer": 2,
+"rationale": "Accuracy and integrity require reconciliation with sources/accounting and documented manual processes; data should be aggregated along the bank’s risk view with consistent group-wide identifiers."
+},
+{
+"book": "found",
+"topic": "Ch 8 · ERM and Future Trends",
+"prompt": "A bank wants to identify the scenarios that would make its capital fall below regulatory minimums and threaten its business model. Which tool is designed for this?",
+"options": [
+"Sensitivity analysis.",
+"Risk mapping.",
+"Historical VaR backtesting.",
+"Reverse stress testing."
+],
+"answer": 3,
+"rationale": "Reverse stress testing starts from the failure outcome and works back to find scenarios that would cause it."
+},
+{
+"book": "found",
+"topic": "Ch 8 · ERM and Future Trends",
+"prompt": "Division A of a firm is long USD 40 million and Division B is short USD 35 million. Under a silo approach each hedges its own exposure. Under ERM, the firm would most likely:",
+"options": [
+"hedge only the net exposure of USD 5 million.",
+"hedge both gross exposures, total USD 75 million.",
+"avoid hedging because ERM prohibits derivatives.",
+"hedge only the larger exposure, USD 40 million."
+],
+"answer": 0,
+"rationale": "ERM sees the natural offset and hedges the net position, avoiding overhedging and saving costs."
+},
+{
+"book": "found",
+"topic": "Ch 8 · ERM and Future Trends",
+"prompt": "What is the main advantage of ERM over managing risks in separate silos?",
+"options": [
+"It removes the need for business-unit risk managers.",
+"It captures interactions and correlations between risks across the firm, giving an integrated view of total risk.",
+"It guarantees that the firm will not suffer large losses.",
+"It lets each department set its own risk appetite independently."
+],
+"answer": 1,
+"rationale": "ERM looks at risks together across the enterprise, including diversification and concentrations that silos miss. It does not eliminate risk or replace business-line risk management."
+},
+{
+"book": "found",
+"topic": "Ch 8 · ERM and Future Trends",
+"prompt": "Which observation most strongly suggests a weak risk culture?",
+"options": [
+"Staff are rewarded for escalating potential limit breaches.",
+"Risk appetite is communicated clearly throughout the firm.",
+"Limit breaches by profitable traders are routinely tolerated without consequences.",
+"The board regularly discusses emerging risks."
+],
+"answer": 2,
+"rationale": "Tolerating breaches when they are profitable signals that risk limits are not taken seriously, which is a classic sign of poor risk culture."
+},
+{
+"book": "found",
+"topic": "Ch 8 · ERM and Future Trends",
+"prompt": "A bank's stress tests replay only the 2008 crisis and the 1998 LTCM event. What is the main weakness of this approach?",
+"options": [
+"Historical scenarios are too severe to be useful.",
+"Historical scenarios cannot be applied to credit portfolios.",
+"Regulators prohibit historical scenarios.",
+"It may miss new risks that have no historical precedent, so forward-looking hypothetical scenarios are also needed."
+],
+"answer": 3,
+"rationale": "Historical scenarios are credible but backward-looking. Good practice adds hypothetical and reverse stress tests to capture risks the firm has not seen before."
+},
+{
+"book": "found",
+"topic": "Ch 8 · ERM and Future Trends",
+"prompt": "Which statement correctly distinguishes risk appetite from risk capacity?",
+"options": [
+"Risk appetite is the amount of risk the firm is willing to take, and it should not exceed risk capacity, the maximum risk the firm can bear.",
+"Risk capacity is set by the CRO, and risk appetite is set by regulators.",
+"Risk appetite must always equal risk capacity.",
+"Risk capacity is a qualitative statement, while risk appetite is always quantitative."
+],
+"answer": 0,
+"rationale": "Risk capacity is the maximum risk the firm could absorb, limited by capital, liquidity and regulation. Risk appetite, set by the board, is the amount it chooses to take, and it is set at or below capacity."
+},
+{
+"book": "found",
+"topic": "Ch 9 · Learning from Financial Disasters",
+"prompt": "Metallgesellschaft sold long-dated fixed-price oil supply contracts and hedged them with a stack of short-dated futures that it rolled. Which factor most directly caused its problems in 1993?",
+"options": [
+"Its futures position was short, so rising prices created losses.",
+"Falling oil prices and contango generated large margin calls and roll losses on the long futures, creating a funding crisis before the forward contracts matured.",
+"Its customers defaulted on the supply contracts.",
+"A rogue trader hid losses in an error account."
+],
+"answer": 1,
+"rationale": "The stack-and-roll hedge was long futures. When spot prices fell and the market moved into contango, the futures produced immediate cash losses while the offsetting gains on the forward sales would only be realized years later: a funding liquidity problem from a maturity mismatch."
+},
+{
+"book": "found",
+"topic": "Ch 9 · Learning from Financial Disasters",
+"prompt": "Orange County’s 1994 losses resulted mainly from:",
+"options": [
+"a rogue trader concealing losses in an error account.",
+"a cyberattack on the county’s payment systems.",
+"a leveraged bet, via reverse repos and inverse floaters, that interest rates would stay low, which failed when the Fed raised rates.",
+"misreported revenues using special purpose entities."
+],
+"answer": 2,
+"rationale": "Treasurer Robert Citron leveraged the fund about 3x through reverse repos and bought inverse floaters and other rate-sensitive structured notes; the 1994 rate hikes caused about $1.6 billion of losses and bankruptcy."
+},
+{
+"book": "found",
+"topic": "Ch 9 · Learning from Financial Disasters",
+"prompt": "In the 2012 London Whale case at JPMorgan, which action is the clearest model-risk lesson?",
+"options": [
+"The bank ignored reputational risk from emissions testing.",
+"The traders used too little leverage.",
+"The bank relied on exchange-traded futures with no counterparty risk.",
+"A new VaR model was introduced that roughly halved the measured VaR of the synthetic credit portfolio, letting limit breaches disappear."
+],
+"answer": 3,
+"rationale": "Changing models or marks to make breaches vanish is a red flag; the new model also had spreadsheet errors. Model changes need independent validation, especially when they reduce risk numbers."
+},
+{
+"book": "found",
+"topic": "Ch 9 · Learning from Financial Disasters",
+"prompt": "Victor Niederhoffer’s fund collapsed in 1997 mainly because it:",
+"options": [
+"sold large amounts of deep out-of-the-money put options, assuming a large market fall was very unlikely.",
+"bought credit protection that expired worthless.",
+"was defrauded by a counterparty in Thailand.",
+"held too much cash during a bull market."
+],
+"answer": 0,
+"rationale": "Writing far-out-of-the-money puts earns steady premiums but has huge tail exposure; the October 1997 crash triggered margin calls the fund could not meet. The lesson is model risk from underestimating tail events."
+},
+{
+"book": "found",
+"topic": "Ch 9 · Learning from Financial Disasters",
+"prompt": "Which statement best describes the failure of Continental Illinois in 1984?",
+"options": [
+"It lost money on interest-rate swaps during the S&amp;L crisis.",
+"It had bought large volumes of bad energy loans (e.g., from Penn Square) and relied heavily on volatile wholesale and foreign funding, which ran when the losses became known.",
+"It was brought down by a rogue trader in Singapore.",
+"It failed because of a cyber theft through SWIFT."
+],
+"answer": 1,
+"rationale": "Poor credit quality was the spark, but the fatal weakness was dependence on uninsured wholesale funding: a classic funding liquidity run."
+},
+{
+"book": "found",
+"topic": "Ch 9 · Learning from Financial Disasters",
+"prompt": "Volkswagen’s 2015 “Dieselgate” case is studied in the FRM curriculum primarily as an example of:",
+"options": [
+"model risk in derivative pricing.",
+"funding liquidity risk.",
+"reputational risk arising from deliberate misconduct (emissions defeat devices), with legal and financial consequences.",
+"interest rate risk from asset-liability mismatch."
+],
+"answer": 2,
+"rationale": "Installing software to cheat emissions tests destroyed trust with customers, regulators and investors, costing tens of billions in fines, recalls and lost value."
+},
+{
+"book": "found",
+"topic": "Ch 9 · Learning from Financial Disasters",
+"prompt": "In the 2016 Bangladesh Bank cyber heist, which feature made it a key case on cyber risk?",
+"options": [
+"Hackers broke the encryption of the SWIFT network itself.",
+"The bank lost money because an employee rogue-traded futures.",
+"The losses came from a failed currency hedge.",
+"Attackers compromised the bank’s own systems and credentials to send fraudulent SWIFT payment orders, stealing about $81 million."
+],
+"answer": 3,
+"rationale": "The SWIFT network was not breached; the bank’s local environment was. Requests for about $951 million were sent; most were blocked, but about $81 million was lost. Endpoint security is as important as network security."
+},
+{
+"book": "found",
+"topic": "Ch 9 · Learning from Financial Disasters",
+"prompt": "Sachsen Landesbank needed a rescue in 2007 mainly because:",
+"options": [
+"an off-balance-sheet conduit funded long-term structured credit with short-term ABCP, and the bank had to provide liquidity support when the ABCP market froze.",
+"its Leipzig traders hid losses in an error account.",
+"it lost money on inverse floaters when the Fed raised rates.",
+"it was fined for emissions fraud."
+],
+"answer": 0,
+"rationale": "Its Irish conduit (Ormond Quay) held US subprime-linked assets funded with commercial paper. Liquidity lines far larger than the bank’s capital were drawn when funding dried up."
+},
+{
+"book": "found",
+"topic": "Ch 10 · Anatomy of the 2007-09 Crisis",
+"prompt": "A bank finances $100 million of mortgage-backed securities with repo at a 2% haircut. During the crisis the haircut rises to 20%. Holding the position constant, the additional equity the bank must provide is:",
+"options": [
+"$2 million.",
+"$18 million.",
+"$20 million.",
+"$80 million."
+],
+"answer": 1,
+"rationale": "Equity needed goes from 2% × $100m = $2m to 20% × $100m = $20m, so $18m more. Rising haircuts were a key channel of the 2007–2009 run on repo; firms unable to raise equity had to sell assets."
+},
+{
+"book": "found",
+"topic": "Ch 10 · Anatomy of the 2007-09 Crisis",
+"prompt": "AIG required a government rescue in September 2008 primarily because:",
+"options": [
+"its insurance subsidiaries faced a run by policyholders.",
+"it had sold huge amounts of CDS protection on mortgage-related CDOs and could not meet collateral calls as prices fell and its rating was cut.",
+"it held too much cash.",
+"it was a large buyer of protection whose counterparties defaulted."
+],
+"answer": 1,
+"rationale": "AIG Financial Products wrote protection without hedging or adequate capital; collateral calls triggered by mark-to-market losses and downgrades created a liquidity crisis."
+},
+{
+"book": "found",
+"topic": "Ch 10 · Anatomy of the 2007-09 Crisis",
+"prompt": "After Lehman’s failure, the Reserve Primary Fund “broke the buck,” triggering a run on money market funds. Which policy response directly targeted this run?",
+"options": [
+"Requiring banks to hold more equity capital immediately.",
+"Raising the federal funds rate.",
+"The U.S. Treasury’s temporary guarantee of money market fund shares.",
+"Suspending trading in mortgage-backed securities."
+],
+"answer": 2,
+"rationale": "The Treasury guaranteed MMF shares, and the Fed set up facilities to support ABCP held by MMFs. Raising rates would have worsened the crisis."
+},
+{
+"book": "found",
+"topic": "Ch 11 · GARP Code of Conduct",
+"prompt": "A risk manager, FRM, is told by her desk head to change the volatility input in a VaR model so that the desk appears to stay within its limit. Under the GARP Code of Conduct she should:",
+"options": [
+"comply, since the desk head is responsible for the limit.",
+"comply but disclose the change in a footnote.",
+"resign immediately without reporting.",
+"refuse to knowingly misrepresent the risk results and escalate the issue through appropriate channels."
+],
+"answer": 3,
+"rationale": "Members must act with integrity and must not knowingly misrepresent analysis or results. Escalation (e.g., to the CRO or compliance) is the appropriate response; resignation may follow but is not the first required step."
+},
+{
+"book": "found",
+"topic": "Ch 11 · GARP Code of Conduct",
+"prompt": "Which of the following is not one of the main principle areas of the GARP Code of Conduct?",
+"options": [
+"Fiduciary duty to maximize client returns.",
+"Conflicts of interest.",
+"Confidentiality.",
+"Professional integrity and ethical conduct."
+],
+"answer": 0,
+"rationale": "The Code covers professional integrity and ethical conduct, conflicts of interest, confidentiality, fundamental responsibilities and best practices. There is no duty to maximize returns."
+},
+{
+"book": "found",
+"topic": "Ch 11 · GARP Code of Conduct",
+"prompt": "Under the GARP Code’s best-practice standards, a member who uses a risk model should most appropriately:",
+"options": [
+"use the model only if it is industry standard, without further disclosure.",
+"understand and communicate the model’s limitations and key assumptions to those relying on its results.",
+"avoid communicating model limitations to avoid confusing management.",
+"rely on vendor documentation without independent judgment."
+],
+"answer": 1,
+"rationale": "Members must exercise reasonable judgment, take into account the limitations of models and communicate them clearly to users of the results."
+}
+];
+
+    const BOOKS = { found: "Foundations", quant: "Quantitative Analysis", mkts: "Markets & Products", val: "Valuation & Risk Models" };
+
+    const state = {
+      mode: "practice",
+      length: 20,
+      shuffled: false,
+      book: "all",
+      run: [],
+      optionOrders: [],
+      current: 0,
+      answers: new Map(),
+      checked: new Set(),
+      finished: false
+    };
+
+    const panel = document.querySelector("#quiz-panel");
+    const grid = document.querySelector("#question-grid");
+    const progressCopy = document.querySelector("#progress-copy");
+    const progressFill = document.querySelector("#progress-fill");
+    const progressTrack = document.querySelector("#progress-track");
+    const bestScore = document.querySelector("#best-score");
+
+    function makeRun() {
+      let pool = questions.map((_, index) => index).filter((index) => state.book === "all" || questions[index].book === state.book);
+      if (state.shuffled) shuffle(pool);
+      state.run = pool.slice(0, state.length);
+      const answerSlots = shuffle(Array.from({ length: state.run.length }, (_, index) => index % 4));
+      state.optionOrders = state.run.map((questionIndex, runIndex) => {
+        const order = shuffle([0, 1, 2, 3]);
+        const correctIndex = questions[questionIndex].answer;
+        const currentSlot = order.indexOf(correctIndex);
+        [order[currentSlot], order[answerSlots[runIndex]]] = [order[answerSlots[runIndex]], order[currentSlot]];
+        return order;
+      });
+      state.current = 0;
+      state.answers = new Map();
+      state.checked = new Set();
+      state.finished = false;
+      render();
+    }
+
+    function shuffle(values) {
+      for (let index = values.length - 1; index > 0; index -= 1) {
+        const swapIndex = Math.floor(Math.random() * (index + 1));
+        [values[index], values[swapIndex]] = [values[swapIndex], values[index]];
+      }
+      return values;
+    }
+
+    function answeredCount() {
+      return state.answers.size;
+    }
+
+    function score() {
+      return state.run.reduce((total, questionIndex, runIndex) =>
+        total + (state.answers.get(runIndex) === questions[questionIndex].answer ? 1 : 0), 0);
+    }
+
+    function updateBest() {
+      const key = "risk-notes-frm1-best-practice";
+      const currentBest = Number(localStorage.getItem(key+"-b1") || 0);
+      bestScore.textContent = currentBest ? `${currentBest}%` : "—";
+    }
+
+    function updateProgress() {
+      const count = answeredCount();
+      progressCopy.textContent = `${count} / ${state.run.length}`;
+      progressFill.style.width = `${(count / state.run.length) * 100}%`;
+      progressTrack.setAttribute("aria-valuemax", String(state.run.length));
+      progressTrack.setAttribute("aria-valuenow", String(count));
+      grid.querySelectorAll(".number-button").forEach((button, index) => {
+        const selected = state.answers.has(index);
+        button.classList.toggle("is-answered", selected);
+          const feedbackVisible = state.mode === "exam" ? state.finished : state.checked.has(index);
+          button.classList.toggle("is-correct", selected && feedbackVisible && state.answers.get(index) === questions[state.run[index]].answer);
+          button.classList.toggle("is-wrong", selected && feedbackVisible && state.answers.get(index) !== questions[state.run[index]].answer);
+        if (index === state.current) button.setAttribute("aria-current", "step");
+        else button.removeAttribute("aria-current");
+      });
+    }
+
+    function renderGrid() {
+      grid.replaceChildren(...state.run.map((_, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "number-button";
+        button.textContent = String(index + 1);
+        button.setAttribute("aria-label", `Go to question ${index + 1}`);
+        button.addEventListener("click", () => {
+          state.current = index;
+          render();
+        });
+        return button;
+      }));
+      updateProgress();
+    }
+
+    function _renderQuestion() {
+      const runIndex = state.current;
+      const question = questions[state.run[runIndex]];
+      const optionOrder = state.optionOrders[runIndex];
+      const chosen = state.answers.get(runIndex);
+      const revealed = state.mode === "practice" && state.checked.has(runIndex);
+      const answered = state.answers.has(runIndex);
+      const isLast = runIndex === state.run.length - 1;
+      const correctDisplayIndex = optionOrder.indexOf(question.answer);
+      const options = optionOrder.map((optionIndex, displayIndex) => {
+        const option = question.options[optionIndex];
+        const isChosen = chosen === optionIndex;
+        const isCorrect = revealed && optionIndex === question.answer;
+        const isIncorrect = revealed && isChosen && !isCorrect;
+        const disabled = state.mode === "exam" ? state.finished : revealed;
+        return `<button type="button" class="answer-option${isChosen ? " is-selected" : ""}${isCorrect ? " is-correct" : ""}${isIncorrect ? " is-incorrect" : ""}" data-option="${displayIndex}" ${disabled ? "disabled" : ""} aria-pressed="${isChosen}">
+          <span class="answer-letter">${String.fromCharCode(65 + displayIndex)}</span><span class="answer-text">${option}</span><span class="answer-mark" aria-hidden="true">${isCorrect ? "✓" : isIncorrect ? "×" : ""}</span>
+        </button>`;
+      }).join("");
+
+      let rationale = "";
+      if (revealed) {
+        const correct = chosen === question.answer;
+        rationale = `<div class="rationale${correct ? "" : " is-wrong"}"><strong>${correct ? "Correct" : `Not quite · answer ${String.fromCharCode(65 + correctDisplayIndex)}`}</strong>${question.rationale}</div>`;
+      }
+
+      let actionLabel;
+      let actionDisabled;
+      if (state.mode === "practice") {
+        actionLabel = revealed ? (isLast ? "See results" : "Next question") : "Check answer";
+        actionDisabled = !revealed && !answered;
+      } else {
+        actionLabel = state.finished ? (isLast ? "See results" : "Next question") : (isLast ? "Finish exam" : "Next question");
+        actionDisabled = state.finished ? false : (isLast ? answeredCount() !== state.run.length : false);
+      }
+
+      panel.innerHTML = `<div class="question-meta"><span class="topic-tag">${BOOKS[question.book]} · ${question.topic}</span><span class="question-count">${String(runIndex + 1).padStart(2, "0")} <span aria-hidden="true">/</span> ${String(state.run.length).padStart(2, "0")}</span></div>
+        <h2 class="question-title" id="question-title">${question.prompt}</h2>
+        <div class="answers" role="group" aria-labelledby="question-title">${options}</div>${rationale}
+        <div class="panel-footer"><span class="keyboard-hint">Keys 1–4 to answer · Enter to continue</span>
+          <div class="footer-actions">${runIndex > 0 ? `<button type="button" class="action-button" data-action="previous">Back</button>` : ""}<button type="button" class="action-button primary" data-action="advance" ${actionDisabled ? "disabled" : ""}>${actionLabel}</button></div>
+        </div>`;
+
+      panel.querySelectorAll("[data-option]").forEach((button) => {
+        button.addEventListener("click", () => {
+          if (state.mode === "practice" && state.checked.has(runIndex)) return;
+          state.answers.set(runIndex, optionOrder[Number(button.dataset.option)]);
+          render();
+        });
+      });
+      panel.querySelector('[data-action="previous"]')?.addEventListener("click", () => {
+        state.current -= 1;
+        render();
+      });
+      panel.querySelector('[data-action="advance"]')?.addEventListener("click", advance);
+      updateProgress();
+    }
+
+
+    const plain = (s) => { const d = document.createElement("div"); d.innerHTML = String(s).replace(/<br\s*\/?>/gi, "\n").replace(/<\/tr>/gi, "\n").replace(/<\/t[dh]>/gi, "  "); return d.textContent.trim(); };
+    const L = (i) => "ABCD"[i];
+    function chapterOf(q) { const m = /^Ch (\d+) · (.*)$/.exec(q.topic); return m ? { n: m[1], title: m[2] } : { n: "?", title: q.topic }; }
+    function wrongPrompt(q, mine) {
+      const c = chapterOf(q);
+      return `I'm studying for FRM Part I (May 2027 exam), Book 1 Foundations of Risk Management, Chapter ${c.n}: ${c.title}.\nI got this practice question wrong:\n\n${plain(q.prompt)}\n\nOptions:\n${q.options.map((o, i) => `${L(i)}. ${plain(o)}`).join("\n")}\n\nI picked ${L(mine)}. The answer key says ${L(q.answer)}.\nKey's explanation: ${plain(q.rationale)}\n\nPlease explain why ${L(q.answer)} is right and why ${L(mine)} is wrong, then teach me the underlying concept in plain terms. Show any formula with a worked example. Then give me two new exam-style questions on the same point, with the answers hidden at the end. If the answer key or the wording looks wrong, say so.`;
+    }
+    function promptBox(title, text) {
+      const box = document.createElement("div"); box.className = "prompt-box";
+      box.innerHTML = `<h3>${title}</h3><textarea readonly></textarea><button type="button" class="action-button">Copy prompt</button>`;
+      box.querySelector("textarea").value = text;
+      const b = box.querySelector("button");
+      b.addEventListener("click", async () => { try { await navigator.clipboard.writeText(text); } catch (e) { const t = box.querySelector("textarea"); t.select(); document.execCommand("copy"); } b.textContent = "Copied"; setTimeout(() => b.textContent = "Copy prompt", 1500); });
+      return box;
+    }
+    function renderQuestion() {
+      _renderQuestion();
+      const i = state.current, q = questions[state.run[i]];
+      const shown = state.mode === "practice" ? state.checked.has(i) : state.finished;
+      if (shown && state.answers.has(i) && state.answers.get(i) !== q.answer) panel.appendChild(promptBox("Ask for an explanation", wrongPrompt(q, state.answers.get(i))));
+    }
+    function reviewPrompt() {
+      const by = {}; const misses = [];
+      state.run.forEach((qi, i) => { const q = questions[qi], c = chapterOf(q), k = c.n; by[k] = by[k] || { title: c.title, right: 0, total: 0 }; by[k].total++; const a = state.answers.get(i); if (a === q.answer) by[k].right++; else misses.push({ q, c, a }); });
+      const pts = state.run.length - misses.length;
+      const rows = Object.keys(by).sort((a, b) => a - b).map((k) => `- Ch ${k} ${by[k].title}: ${by[k].right}/${by[k].total} (${Math.round(100 * by[k].right / by[k].total)}%)`).join("\n");
+      const ml = misses.map((m, j) => `${j + 1}. [Ch ${m.c.n}] ${plain(m.q.prompt).replace(/\s+/g, " ").slice(0, 220)}\n   Picked: ${m.a === undefined ? "no answer" : L(m.a) + ". " + plain(m.q.options[m.a])} | Correct: ${L(m.q.answer)}. ${plain(m.q.options[m.q.answer])}`).join("\n");
+      return `I'm preparing for FRM Part I (May 2027 exam). I just did a ${state.mode} session of ${state.run.length} questions on Book 1, Foundations of Risk Management, and scored ${pts}/${state.run.length} (${Math.round(100 * pts / state.run.length)}%).\n\nScore by chapter:\n${rows}\n\nQuestions I got wrong:\n${ml || "none"}\n\nBased on these misses, which chapters and concepts should I review first, and in what order? Spot any pattern in my mistakes (a concept, a formula, or misreading questions). Build me a short study plan and give me 5 targeted exam-style questions per weak chapter, with the answers hidden at the end. If any answer key above looks wrong, say so.`;
+    }
+    function renderResult(points, percent) {
+      _renderResult(points, percent);
+      const host = panel.querySelector(".result-view") || panel;
+      host.appendChild(promptBox("Ask for a review of this session", reviewPrompt()));
+    }
+    function finish() {
+      state.finished = true;
+      const points = score();
+      const percent = Math.round((points / state.run.length) * 100);
+      if (state.mode === "practice") {
+        const key = "risk-notes-frm1-best-practice";
+        const previous = Number(localStorage.getItem(key+"-b1") || 0);
+        if (percent > previous) localStorage.setItem(key+"-b1", String(percent));
+      }
+      renderResult(points, percent);
+    }
+
+    function advance() {
+      if (state.mode === "practice" && !state.checked.has(state.current)) {
+        state.checked.add(state.current);
+        render();
+        return;
+      }
+      if (state.current === state.run.length - 1) {
+        finish();
+        return;
+      }
+      state.current += 1;
+      render();
+    }
+
+    function _renderResult(points, percent) {
+      const message = percent >= 85 ? "Strong command of the Part I mechanics. Keep pressure-testing the edge cases." : percent >= 65 ? "A solid base. Review the missed rationales, then take another pass." : "Good diagnostic run. The rationales will show where the framework needs another look.";
+      panel.innerHTML = `<div class="result-view"><p class="result-kicker">${state.mode === "exam" ? "Exam complete" : "Practice complete"}</p><h2 class="result-title">Risk is measured<br>in the details.</h2>
+        <div class="result-score"><strong>${percent}%</strong><span>${points} of ${state.run.length} correct</span></div><p class="result-copy">${message}</p>
+        <div class="result-actions"><button class="action-button primary" type="button" data-result="review">Review answers</button>${points < state.run.length ? `<button class="action-button" type="button" data-result="misses">Review misses (${state.run.length - points})</button>` : ""}<button class="action-button" type="button" data-result="retry">Start again</button></div>
+        <div class="result-stats"><div><strong>${answeredCount()}</strong><span>Answered</span></div><div><strong>${state.run.length - points}</strong><span>To revisit</span></div><div><strong>${state.mode === "exam" ? "Deferred" : "Instant"}</strong><span>Feedback</span></div></div></div>`;
+      panel.querySelector('[data-result="review"]').addEventListener("click", () => {
+        state.mode = "practice";
+        state.finished = false;
+        state.checked = new Set(state.run.map((_, index) => index));
+        document.querySelectorAll("[data-mode]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.mode === "practice")));
+        state.current = 0;
+        render();
+      });
+      panel.querySelector('[data-result="retry"]').addEventListener("click", makeRun);
+      panel.querySelector('[data-result="misses"]')?.addEventListener("click", reviewMisses);
+      updateBest();
+    }
+
+    function render() {
+      renderGrid();
+      if (state.finished) {
+        renderResult(score(), Math.round((score() / state.run.length) * 100));
+      } else {
+        renderQuestion();
+      }
+    }
+
+    document.querySelectorAll("[data-mode]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.mode = button.dataset.mode;
+        document.querySelectorAll("[data-mode]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        makeRun();
+      });
+    });
+
+    function reviewMisses() {
+      const keep = state.run.map((q, i) => i).filter((i) => state.answers.get(i) !== questions[state.run[i]].answer);
+      const answers = new Map();
+      keep.forEach((oldIndex, newIndex) => { if (state.answers.has(oldIndex)) answers.set(newIndex, state.answers.get(oldIndex)); });
+      state.run = keep.map((i) => state.run[i]);
+      state.optionOrders = keep.map((i) => state.optionOrders[i]);
+      state.answers = answers;
+      state.mode = "practice";
+      state.finished = false;
+      state.checked = new Set(state.run.map((_, index) => index));
+      document.querySelectorAll("[data-mode]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.mode === "practice")));
+      state.current = 0;
+      render();
+    }
+
+    document.querySelectorAll("[data-book]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.book = button.dataset.book;
+        document.querySelectorAll("[data-book]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        makeRun();
+      });
+    });
+
+    document.querySelector("#edition").textContent = `${questions.length} original questions · Book 1`;
+
+    document.querySelectorAll("[data-length]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.length = Number(button.dataset.length);
+        document.querySelectorAll("[data-length]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        makeRun();
+      });
+    });
+
+    document.querySelector("#shuffle-button").addEventListener("click", (event) => {
+      state.shuffled = !state.shuffled;
+      event.currentTarget.setAttribute("aria-pressed", String(state.shuffled));
+      makeRun();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      if (/^[1-4]$/.test(event.key)) {
+        const option = panel.querySelector(`[data-option="${Number(event.key) - 1}"]`);
+        if (option && !option.disabled) option.click();
+      } else if (event.key === "Enter" && !event.repeat) {
+        const active = document.activeElement;
+        if (active === document.body || active === panel) {
+          const advanceButton = panel.querySelector('[data-action="advance"]');
+          if (advanceButton && !advanceButton.disabled) advanceButton.click();
+        }
+      }
+    });
+
+    updateBest();
+    makeRun();
+  </script>
+  <script>
+    // PWA: register the service worker for offline use (no effect on quiz logic)
+    if ("serviceWorker" in navigator && location.protocol !== "file:") {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("sw.js", { scope: "./" }).catch(function (err) {
+          console.warn("Service worker registration failed:", err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
