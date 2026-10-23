@@ -1,5 +1,5 @@
 /* FRM Quiz service worker: cache-first, fully offline. Bump CACHE_VERSION when any file changes. */
-const CACHE_VERSION = "frm-quiz-v4";
+const CACHE_VERSION = "frm-quiz-v5";
 const PRECACHE = [
   "./",
   "./index.html",
