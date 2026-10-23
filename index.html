@@ -12,7 +12,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="application-name" content="FRM Quiz">
   <meta name="theme-color" content="#f1f0e9">
-  <title>Risk Notes — FRM I Book 1 Quiz + Study Prompts (public)</title>
+  <title>Risk Notes — FRM I Quiz (Book 1 + Quant Ch 12–15) + Study Prompts</title>
   <style>
     :root {
       color-scheme: light;
@@ -231,6 +231,8 @@
     .topic-tag { padding: 7px 9px; color: var(--green); background: var(--green-soft); border-radius: 2px; font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
     .question-count { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
 
+    .question-title table { border-collapse: collapse; margin: 14px 0; font-size: 0.8em; font-weight: 400; }
+    .question-title th, .question-title td { border: 1px solid currentColor; padding: 4px 12px; text-align: center; opacity: .9; }
     .question-title {
       max-width: 730px;
       margin: 26px 0 23px;
@@ -368,9 +370,9 @@
   <main>
     <section class="intro" aria-labelledby="page-title">
       <div>
-        <p class="eyebrow">FRM Part I / Book 1 · Foundations of Risk Management</p>
-        <h1 id="page-title">Foundations of Risk Management,<br>one question at a time.</h1>
-        <p class="intro-copy">62 original exam-style questions across Book 1, Foundations of Risk Management, with an explanation for every answer.</p>
+        <p class="eyebrow">FRM Part I / Book 1 Foundations · Book 2 Quantitative Analysis, Ch 12–15</p>
+        <h1 id="page-title">Risk and probability,<br>one question at a time.</h1>
+        <p class="intro-copy">109 original exam-style questions: all of Book 1, Foundations of Risk Management, plus the first four chapters of Book 2, Quantitative Analysis (probability, random variables, distributions, multivariate). Every answer comes with an explanation.</p>
       </div>
       <div class="edition" id="edition">original questions</div>
     </section>
@@ -388,6 +390,7 @@
         <div class="segmented" role="group" aria-label="Topic filter" style="flex-wrap:wrap">
           <button type="button" data-book="all" aria-pressed="true">All</button>
           <button type="button" data-book="found" aria-pressed="false">Foundations</button>
+          <button type="button" data-book="quant" aria-pressed="false">Quant</button>
         </div>
       </div>
       <div class="toolbar-group">
@@ -1233,6 +1236,617 @@ const questions = [
 ],
 "answer": 1,
 "rationale": "Members must exercise reasonable judgment, take into account the limitations of models and communicate them clearly to users of the results."
+},
+{
+"book": "quant",
+"topic": "Ch 12 · Fundamentals of Probability",
+"prompt": "Events A and B are independent, with P(A) = 0.30 and P(B) = 0.40. What is P(A or B)?",
+"options": [
+"0.12",
+"0.58",
+"0.70",
+"0.46"
+],
+"answer": 1,
+"rationale": "P(A∪B) = P(A) + P(B) − P(A∩B). Independence gives P(A∩B) = 0.30 × 0.40 = 0.12, so P(A∪B) = 0.70 − 0.12 = 0.58. 0.70 forgets to subtract the overlap; 0.12 is the joint probability."
+},
+{
+"book": "quant",
+"topic": "Ch 12 · Fundamentals of Probability",
+"prompt": "Two events A and B each have a positive probability and are mutually exclusive. Which statement is correct?",
+"options": [
+"A and B are also independent.",
+"A and B are dependent, because P(A∩B) = 0 while P(A)·P(B) > 0.",
+"P(A|B) = P(A).",
+"P(A∪B) = P(A) + P(B) − P(A)·P(B)."
+],
+"answer": 1,
+"rationale": "Mutually exclusive means they cannot happen together, so P(A∩B) = 0. Independence would need P(A∩B) = P(A)P(B) > 0, so they are dependent: knowing B happened tells you A did not (P(A|B) = 0). For exclusive events P(A∪B) = P(A) + P(B)."
+},
+{
+"book": "quant",
+"topic": "Ch 12 · Fundamentals of Probability",
+"prompt": "P(A∩B) = 0.12 and P(B) = 0.40. What is P(A | B)?",
+"options": [
+"0.048",
+"0.12",
+"0.30",
+"0.52"
+],
+"answer": 2,
+"rationale": "P(A|B) = P(A∩B) / P(B) = 0.12 / 0.40 = 0.30. 0.048 multiplies instead of dividing."
+},
+{
+"book": "quant",
+"topic": "Ch 12 · Fundamentals of Probability",
+"prompt": "5% of a bank's borrowers are classed as weak. Over a year, 60% of weak borrowers are downgraded, against 10% of all other borrowers. A borrower picked at random has just been downgraded. What is the probability that the borrower is weak?",
+"options": [
+"5%",
+"24%",
+"30%",
+"60%"
+],
+"answer": 1,
+"rationale": "Bayes' rule. P(downgrade) = 0.05 × 0.60 + 0.95 × 0.10 = 0.030 + 0.095 = 0.125. P(weak | downgrade) = 0.030 / 0.125 = 24%. 60% is P(downgrade | weak), the reverse conditional."
+},
+{
+"book": "quant",
+"topic": "Ch 12 · Fundamentals of Probability",
+"prompt": "An analyst assigns a 70% probability to an expansion and 30% to a recession next year. A firm's default probability is 1% in an expansion and 5% in a recession. What is the unconditional default probability?",
+"options": [
+"2.2%",
+"3.0%",
+"3.8%",
+"6.0%"
+],
+"answer": 0,
+"rationale": "Law of total probability: 0.70 × 1% + 0.30 × 5% = 0.7% + 1.5% = 2.2%. 3.0% is the simple average of 1% and 5%, ignoring the scenario weights."
+},
+{
+"book": "quant",
+"topic": "Ch 12 · Fundamentals of Probability",
+"prompt": "The defaults of two firms are independent once you condition on the state of the economy, and both firms are more likely to default in a recession. Without conditioning on the economy, the two defaults are best described as:",
+"options": [
+"independent, because conditional independence implies unconditional independence.",
+"positively dependent, because both depend on the same economic state.",
+"mutually exclusive.",
+"negatively dependent, because one default lowers the other firm's competition."
+],
+"answer": 1,
+"rationale": "Conditional independence does not imply unconditional independence. A shared driver (the economy) raises both default probabilities together, so seeing one default makes a recession more likely and so raises the chance of the other: the defaults are positively dependent. This is the idea behind one-factor default models."
+},
+{
+"book": "quant",
+"topic": "Ch 12 · Fundamentals of Probability",
+"prompt": "Two bonds default independently over the year with probabilities 2% and 3%. What is the probability that at least one of them defaults?",
+"options": [
+"0.06%",
+"4.94%",
+"5.00%",
+"95.06%"
+],
+"answer": 1,
+"rationale": "P(at least one) = 1 − P(neither) = 1 − 0.98 × 0.97 = 1 − 0.9506 = 4.94%. 5.00% adds the probabilities and double-counts the joint default (0.06%). 95.06% is the probability that neither defaults."
+},
+{
+"book": "quant",
+"topic": "Ch 12 · Fundamentals of Probability",
+"prompt": "Using the same two bonds (independent defaults with probabilities 2% and 3%), what is the probability that exactly one of them defaults?",
+"options": [
+"4.88%",
+"4.94%",
+"5.00%",
+"0.06%"
+],
+"answer": 0,
+"rationale": "P(exactly one) = 0.02 × 0.97 + 0.98 × 0.03 = 0.0194 + 0.0294 = 4.88%. Check: P(at least one) 4.94% minus P(both) 0.06% = 4.88%."
+},
+{
+"book": "quant",
+"topic": "Ch 12 · Fundamentals of Probability",
+"prompt": "A fund manager with no skill has a 50% chance of beating the benchmark each year, independently across years. What is the probability of beating it in at least one of the next three years?",
+"options": [
+"12.5%",
+"50.0%",
+"87.5%",
+"150%"
+],
+"answer": 2,
+"rationale": "P(at least one) = 1 − P(none) = 1 − 0.5³ = 1 − 0.125 = 87.5%. 12.5% is the probability of beating it in all three years."
+},
+{
+"book": "quant",
+"topic": "Ch 12 · Fundamentals of Probability",
+"prompt": "A fraud screen flags 90% of fraudulent payments and also wrongly flags 5% of legitimate ones. 2% of payments are fraudulent. Given that a payment is flagged, the probability it is fraudulent is closest to:",
+"options": [
+"2%",
+"27%",
+"90%",
+"95%"
+],
+"answer": 1,
+"rationale": "Bayes: P(flag) = 0.02 × 0.90 + 0.98 × 0.05 = 0.018 + 0.049 = 0.067. P(fraud | flag) = 0.018 / 0.067 ≈ 26.9%. A low base rate means most flags are false positives even with a 90% hit rate."
+},
+{
+"book": "quant",
+"topic": "Ch 12 · Fundamentals of Probability",
+"prompt": "Which statement about probabilities is always true?",
+"options": [
+"P(A∩B) = P(A) · P(B).",
+"If event A is a subset of event B, then P(A) ≤ P(B).",
+"P(A|B) = P(B|A).",
+"P(A∪B) = P(A) + P(B)."
+],
+"answer": 1,
+"rationale": "If every outcome in A is also in B, B is at least as likely as A. The other statements hold only in special cases: the product rule needs independence, P(A|B) = P(B|A) needs P(A) = P(B), and plain addition needs mutually exclusive events."
+},
+{
+"book": "quant",
+"topic": "Ch 13 · Random Variables",
+"prompt": "A trade pays −10 with probability 0.2, 0 with probability 0.5 and +20 with probability 0.3. What is its expected payoff?",
+"options": [
+"3.3",
+"4.0",
+"6.0",
+"10.0"
+],
+"answer": 1,
+"rationale": "E[X] = −10 × 0.2 + 0 × 0.5 + 20 × 0.3 = −2 + 0 + 6 = 4.0. 6.0 ignores the loss; 3.3 is the simple average of the three outcomes."
+},
+{
+"book": "quant",
+"topic": "Ch 13 · Random Variables",
+"prompt": "For the same trade (−10 w.p. 0.2, 0 w.p. 0.5, +20 w.p. 0.3), what is the variance of the payoff?",
+"options": [
+"16",
+"124",
+"140",
+"156"
+],
+"answer": 1,
+"rationale": "E[X²] = 100 × 0.2 + 0 + 400 × 0.3 = 20 + 120 = 140. Var = E[X²] − (E[X])² = 140 − 4² = 124. 140 forgets to subtract the squared mean."
+},
+{
+"book": "quant",
+"topic": "Ch 13 · Random Variables",
+"prompt": "X has mean 1 and variance 5. Y = 3 − 2X. What are the mean and variance of Y?",
+"options": [
+"Mean 1, variance 20",
+"Mean 1, variance −10",
+"Mean −2, variance 10",
+"Mean 5, variance 23"
+],
+"answer": 0,
+"rationale": "E[Y] = 3 − 2 × 1 = 1. Var(Y) = (−2)² × Var(X) = 4 × 5 = 20. The constant does not affect the variance, and the scale factor is squared, so the variance can never be negative."
+},
+{
+"book": "quant",
+"topic": "Ch 13 · Random Variables",
+"prompt": "A random variable has E[X] = 2 and E[X²] = 13. Its standard deviation is:",
+"options": [
+"3",
+"√13 ≈ 3.61",
+"9",
+"11"
+],
+"answer": 0,
+"rationale": "Var(X) = E[X²] − (E[X])² = 13 − 4 = 9, so the standard deviation is 3. 9 is the variance; √13 skips subtracting the squared mean."
+},
+{
+"book": "quant",
+"topic": "Ch 13 · Random Variables",
+"prompt": "A loss distribution has a long right tail (positive skew) and a single peak. Typically, the mean, median and mode are ordered as:",
+"options": [
+"mean < median < mode",
+"mode < median < mean",
+"mean = median = mode",
+"median < mode < mean"
+],
+"answer": 1,
+"rationale": "With positive skew, a few large values pull the mean to the right of the median, which in turn sits right of the peak (mode). Equality holds for symmetric distributions such as the normal."
+},
+{
+"book": "quant",
+"topic": "Ch 13 · Random Variables",
+"prompt": "A return distribution has kurtosis of 5. Compared with a normal distribution, it has:",
+"options": [
+"excess kurtosis of 5 and thinner tails.",
+"excess kurtosis of 2 and fatter tails.",
+"excess kurtosis of −2 and thinner tails.",
+"the same tails, since kurtosis only measures asymmetry."
+],
+"answer": 1,
+"rationale": "The normal has kurtosis 3, so excess kurtosis = 5 − 3 = 2. Positive excess kurtosis (leptokurtic) means fatter tails, so extreme returns are more likely than the normal predicts. Asymmetry is measured by skewness, not kurtosis."
+},
+{
+"book": "quant",
+"topic": "Ch 13 · Random Variables",
+"prompt": "A continuous random variable X on [0, 1] has CDF F(x) = x². What is P(0.5 < X ≤ 0.8)?",
+"options": [
+"0.30",
+"0.39",
+"0.64",
+"0.89"
+],
+"answer": 1,
+"rationale": "P(a < X ≤ b) = F(b) − F(a) = 0.8² − 0.5² = 0.64 − 0.25 = 0.39. 0.30 is just the width of the interval, which would be right only for a uniform distribution."
+},
+{
+"book": "quant",
+"topic": "Ch 13 · Random Variables",
+"prompt": "For the same X with CDF F(x) = x² on [0, 1], what are its expected value and median?",
+"options": [
+"Mean 0.50, median 0.50",
+"Mean 0.67, median 0.71",
+"Mean 0.71, median 0.67",
+"Mean 0.67, median 0.50"
+],
+"answer": 1,
+"rationale": "The PDF is f(x) = 2x, so E[X] = ∫ x · 2x dx from 0 to 1 = 2/3 ≈ 0.67. The median solves F(m) = 0.5, so m² = 0.5 and m = √0.5 ≈ 0.71. The mean is below the median because the distribution has a longer left tail."
+},
+{
+"book": "quant",
+"topic": "Ch 13 · Random Variables",
+"prompt": "A one-day loss L (in €m) is 0 with probability 0.90, 5 with probability 0.06, 20 with probability 0.03 and 50 with probability 0.01. What is the 95% quantile of L (the 95% VaR)?",
+"options": [
+"0",
+"5",
+"20",
+"50"
+],
+"answer": 1,
+"rationale": "The cumulative probabilities are 0.90 at 0, 0.96 at 5, 0.99 at 20 and 1.00 at 50. The 95% quantile is the smallest loss whose cumulative probability is at least 0.95, which is 5. At the 99% level the answer would be 20."
+},
+{
+"book": "quant",
+"topic": "Ch 13 · Random Variables",
+"prompt": "For a random variable X and a convex function g (for example g(x) = x²), which relation holds?",
+"options": [
+"E[g(X)] = g(E[X]) always.",
+"E[g(X)] ≥ g(E[X]).",
+"E[g(X)] ≤ g(E[X]).",
+"E[g(X)] = 0 when E[X] = 0."
+],
+"answer": 1,
+"rationale": "Jensen's inequality: for convex g, E[g(X)] ≥ g(E[X]). With g(x) = x² this is E[X²] ≥ (E[X])², i.e. variance is never negative. Expectation passes through only linear functions exactly."
+},
+{
+"book": "quant",
+"topic": "Ch 13 · Random Variables",
+"prompt": "For a continuous random variable X with PDF f and CDF F, which statement is correct?",
+"options": [
+"P(X = x) = f(x) for every x.",
+"f(x) can never exceed 1.",
+"P(X = x) = 0 for every x, and F′(x) = f(x).",
+"F(x) can decrease as x increases."
+],
+"answer": 2,
+"rationale": "For a continuous variable, the probability of any single point is zero; probabilities come from areas under the PDF, and the PDF is the derivative of the CDF. A density can exceed 1 (e.g. uniform on [0, 0.5] has f = 2), and a CDF never decreases."
+},
+{
+"book": "quant",
+"topic": "Ch 14 · Common Univariate Random Variables",
+"prompt": "A portfolio holds 10 bonds, each defaulting independently with probability 5% this year. The probability that exactly one bond defaults is closest to:",
+"options": [
+"5.0%",
+"31.5%",
+"40.1%",
+"59.9%"
+],
+"answer": 1,
+"rationale": "Binomial: P(X = 1) = C(10,1) × 0.05 × 0.95⁹ = 10 × 0.05 × 0.6302 ≈ 31.5%. 59.9% is P(X = 0) = 0.95¹⁰; 40.1% is P(at least one default)."
+},
+{
+"book": "quant",
+"topic": "Ch 14 · Common Univariate Random Variables",
+"prompt": "The number of defaults among 100 independent loans, each with a 2% default probability, follows a binomial distribution. Its mean and variance are:",
+"options": [
+"mean 2, variance 1.96",
+"mean 2, variance 2",
+"mean 0.02, variance 0.0196",
+"mean 2, variance 1.40"
+],
+"answer": 0,
+"rationale": "For a binomial, mean = np = 100 × 0.02 = 2 and variance = np(1 − p) = 2 × 0.98 = 1.96. 1.40 is the standard deviation (√1.96), not the variance."
+},
+{
+"book": "quant",
+"topic": "Ch 14 · Common Univariate Random Variables",
+"prompt": "Operational loss events arrive as a Poisson process with an average of 3 per month. The probability of exactly 2 events next month is closest to:",
+"options": [
+"5.0%",
+"14.9%",
+"22.4%",
+"42.3%"
+],
+"answer": 2,
+"rationale": "Poisson: P(X = k) = λᵏ e^(−λ) / k!. P(X = 2) = 3² × e^(−3) / 2 = 4.5 × 0.0498 ≈ 22.4%. 5.0% is P(X = 0) = e^(−3); 14.9% is 3 × e^(−3), P(X = 1)."
+},
+{
+"book": "quant",
+"topic": "Ch 14 · Common Univariate Random Variables",
+"prompt": "Annual returns are normal with mean 8% and standard deviation 20%. The 5th percentile of the return distribution is closest to:",
+"options": [
+"−12.0%",
+"−24.9%",
+"−32.0%",
+"−38.6%"
+],
+"answer": 1,
+"rationale": "The 5% one-tailed z-value is −1.645. 8% − 1.645 × 20% = 8% − 32.9% = −24.9%. −38.6% uses z = 2.33, the 1st percentile. −12.0% subtracts only one standard deviation."
+},
+{
+"book": "quant",
+"topic": "Ch 14 · Common Univariate Random Variables",
+"prompt": "For a standard normal variable Z, P(−1.96 < Z < 1.96) is closest to:",
+"options": [
+"68%",
+"90%",
+"95%",
+"99%"
+],
+"answer": 2,
+"rationale": "±1.96 standard deviations covers about 95% of a normal distribution, leaving 2.5% in each tail. ±1 covers about 68%, ±1.645 about 90%, and ±2.576 about 99%."
+},
+{
+"book": "quant",
+"topic": "Ch 14 · Common Univariate Random Variables",
+"prompt": "The log of a gross return, ln(S), is normally distributed with mean 0.05 and standard deviation 0.20. E[S] is closest to:",
+"options": [
+"1.0513",
+"1.0725",
+"1.0942",
+"1.2690"
+],
+"answer": 1,
+"rationale": "For a lognormal, E[S] = exp(μ + σ²/2) = exp(0.05 + 0.04/2) = exp(0.07) ≈ 1.0725. exp(0.05) = 1.0513 forgets the variance adjustment; exp(0.09) adds the full σ² instead of half."
+},
+{
+"book": "quant",
+"topic": "Ch 14 · Common Univariate Random Variables",
+"prompt": "Which property makes the lognormal distribution popular for modelling asset prices?",
+"options": [
+"It is symmetric around its mean.",
+"It cannot take negative values and is right-skewed.",
+"Its kurtosis equals 3.",
+"Its mean equals its median."
+],
+"answer": 1,
+"rationale": "A lognormal variable is exp(normal), so it is always positive, like a price under limited liability, and has a long right tail. Its mean exceeds its median, and it is not symmetric."
+},
+{
+"book": "quant",
+"topic": "Ch 14 · Common Univariate Random Variables",
+"prompt": "A Student's t distribution with 6 degrees of freedom has variance of:",
+"options": [
+"1.0",
+"1.5",
+"2.0",
+"6.0"
+],
+"answer": 1,
+"rationale": "For ν > 2, Var = ν / (ν − 2) = 6 / 4 = 1.5, more than the standard normal's 1 because of its fatter tails. As ν grows, the t converges to the standard normal and the variance falls toward 1."
+},
+{
+"book": "quant",
+"topic": "Ch 14 · Common Univariate Random Variables",
+"prompt": "A variable is the sum of the squares of 5 independent standard normal variables. Its distribution and moments are:",
+"options": [
+"chi-squared with 5 degrees of freedom, mean 5, variance 10",
+"chi-squared with 5 degrees of freedom, mean 5, variance 5",
+"Student's t with 5 degrees of freedom, mean 0, variance 5/3",
+"normal with mean 0 and variance 5"
+],
+"answer": 0,
+"rationale": "The sum of k squared independent standard normals is chi-squared with k degrees of freedom, with mean k and variance 2k: here 5 and 10. It is non-negative and right-skewed, so it cannot be normal or t."
+},
+{
+"book": "quant",
+"topic": "Ch 14 · Common Univariate Random Variables",
+"prompt": "The F distribution is best described as the distribution of:",
+"options": [
+"a standard normal divided by the square root of a chi-squared variable over its degrees of freedom.",
+"the ratio of two independent chi-squared variables, each divided by its degrees of freedom.",
+"the sum of independent Bernoulli variables.",
+"the time between events in a Poisson process."
+],
+"answer": 1,
+"rationale": "F = (χ²₁/k₁) / (χ²₂/k₂) with independent chi-squared variables. Option A describes the Student's t, option C the binomial and option D the exponential."
+},
+{
+"book": "quant",
+"topic": "Ch 14 · Common Univariate Random Variables",
+"prompt": "X is uniformly distributed between 2 and 14. What are its mean and variance?",
+"options": [
+"Mean 8, variance 12",
+"Mean 8, variance 36",
+"Mean 6, variance 12",
+"Mean 8, variance 3.46"
+],
+"answer": 0,
+"rationale": "Uniform(a, b): mean = (a + b)/2 = 8 and variance = (b − a)²/12 = 144/12 = 12. 3.46 is the standard deviation (√12)."
+},
+{
+"book": "quant",
+"topic": "Ch 14 · Common Univariate Random Variables",
+"prompt": "A firm's time to default is exponential with a hazard rate of 0.5 per year. Which statement is correct?",
+"options": [
+"Expected time to default is 0.5 years and P(survive 2 years) = 50%.",
+"Expected time to default is 2 years and P(survive 2 years) ≈ 36.8%.",
+"Expected time to default is 2 years and P(survive 2 years) = 50%.",
+"The hazard rate rises over time, so survival cannot be computed."
+],
+"answer": 1,
+"rationale": "For an exponential with rate λ, the mean is 1/λ = 2 years and P(T > t) = e^(−λt) = e^(−1) ≈ 36.8%. The exponential has a constant hazard rate (it is memoryless), and the survival probability at the mean is below 50%."
+},
+{
+"book": "quant",
+"topic": "Ch 14 · Common Univariate Random Variables",
+"prompt": "A Bernoulli variable takes the value 1 with probability p and 0 otherwise. Its variance is largest when p equals:",
+"options": [
+"0",
+"0.25",
+"0.5",
+"1"
+],
+"answer": 2,
+"rationale": "Var = p(1 − p), which peaks at p = 0.5 with value 0.25. At p = 0 or 1 the outcome is certain and the variance is zero."
+},
+{
+"book": "quant",
+"topic": "Ch 15 · Multivariate Random Variables",
+"prompt": "X and Y are two default indicators (1 = default) with this joint distribution:<table><tr><th></th><th>Y = 0</th><th>Y = 1</th></tr><tr><td>X = 0</td><td>0.40</td><td>0.10</td></tr><tr><td>X = 1</td><td>0.20</td><td>0.30</td></tr></table>What is Cov(X, Y)?",
+"options": [
+"0.06",
+"0.10",
+"0.30",
+"0.41"
+],
+"answer": 1,
+"rationale": "Marginals: P(X = 1) = 0.20 + 0.30 = 0.50 and P(Y = 1) = 0.10 + 0.30 = 0.40. E[XY] = P(X = 1, Y = 1) = 0.30. Cov = E[XY] − E[X]E[Y] = 0.30 − 0.50 × 0.40 = 0.10. 0.41 is the correlation, 0.10 / √(0.25 × 0.24)."
+},
+{
+"book": "quant",
+"topic": "Ch 15 · Multivariate Random Variables",
+"prompt": "Using the same joint distribution (P(0,0) = 0.40, P(0,1) = 0.10, P(1,0) = 0.20, P(1,1) = 0.30), what is P(Y = 1 | X = 1), and are X and Y independent?",
+"options": [
+"0.30, independent",
+"0.40, independent",
+"0.60, not independent",
+"0.75, not independent"
+],
+"answer": 2,
+"rationale": "P(Y = 1 | X = 1) = P(X = 1, Y = 1) / P(X = 1) = 0.30 / 0.50 = 0.60. The unconditional P(Y = 1) is 0.40, so knowing X changes the probability of Y: they are dependent. 0.75 divides by P(Y = 1) instead, giving P(X = 1 | Y = 1)."
+},
+{
+"book": "quant",
+"topic": "Ch 15 · Multivariate Random Variables",
+"prompt": "A portfolio holds 60% in asset 1 (volatility 10%) and 40% in asset 2 (volatility 20%), with correlation 0.25. The portfolio volatility is closest to:",
+"options": [
+"10.0%",
+"11.1%",
+"12.4%",
+"14.0%"
+],
+"answer": 1,
+"rationale": "σ²ₚ = 0.6² × 0.10² + 0.4² × 0.20² + 2 × 0.6 × 0.4 × 0.25 × 0.10 × 0.20 = 0.0036 + 0.0064 + 0.0024 = 0.0124, so σₚ = √0.0124 ≈ 11.1%. 14.0% is the weighted average (correlation 1); 12.4% confuses the variance 0.0124 with a volatility."
+},
+{
+"book": "quant",
+"topic": "Ch 15 · Multivariate Random Variables",
+"prompt": "Var(X) = 4, Var(Y) = 9 and Cov(X, Y) = −1.5. What is the standard deviation of X − Y?",
+"options": [
+"√10 ≈ 3.16",
+"3.61",
+"4",
+"16"
+],
+"answer": 2,
+"rationale": "Var(X − Y) = Var(X) + Var(Y) − 2Cov(X, Y) = 4 + 9 − 2 × (−1.5) = 16, so the standard deviation is 4. Negative covariance raises the variance of a difference. 16 is the variance; √10 uses the sign as if it were X + Y."
+},
+{
+"book": "quant",
+"topic": "Ch 15 · Multivariate Random Variables",
+"prompt": "X is standard normal and Y = X². Which statement is correct?",
+"options": [
+"X and Y are independent, because their correlation is zero.",
+"Their correlation is zero, but they are not independent.",
+"Their correlation is positive because Y increases with X.",
+"Their correlation is 1 because Y is a function of X."
+],
+"answer": 1,
+"rationale": "Cov(X, X²) = E[X³] − E[X]E[X²] = 0 − 0 = 0, since the normal is symmetric. But Y is completely determined by X, so they are dependent. Correlation measures only linear dependence: zero correlation does not imply independence."
+},
+{
+"book": "quant",
+"topic": "Ch 15 · Multivariate Random Variables",
+"prompt": "Cov(X, Y) = 3. What is Cov(2X + 1, −3Y + 5)?",
+"options": [
+"−18",
+"−6",
+"6",
+"18"
+],
+"answer": 0,
+"rationale": "Cov(aX + b, cY + d) = ac Cov(X, Y) = 2 × (−3) × 3 = −18. Constants do not matter. The correlation flips sign but keeps its size, since correlation is unaffected by scale."
+},
+{
+"book": "quant",
+"topic": "Ch 15 · Multivariate Random Variables",
+"prompt": "X = 1 with probability 0.3 and X = 0 otherwise. E[Y | X = 1] = 10 and E[Y | X = 0] = 2. What is E[Y]?",
+"options": [
+"4.4",
+"6.0",
+"10.0",
+"12.0"
+],
+"answer": 0,
+"rationale": "Law of iterated expectations: E[Y] = E[E[Y | X]] = 0.3 × 10 + 0.7 × 2 = 3 + 1.4 = 4.4. 6.0 is the unweighted average of the two conditional means."
+},
+{
+"book": "quant",
+"topic": "Ch 15 · Multivariate Random Variables",
+"prompt": "Many assets each have volatility 30% and a pairwise correlation of 0.2. As the number of assets in an equally weighted portfolio grows very large, the portfolio volatility approaches:",
+"options": [
+"0%",
+"6.0%",
+"13.4%",
+"30.0%"
+],
+"answer": 2,
+"rationale": "σ²ₚ = ρσ² + (1 − ρ)σ²/n → ρσ² = 0.2 × 0.09 = 0.018 as n → ∞, so σₚ → √0.018 ≈ 13.4%. Diversification removes only the idiosyncratic part; 6.0% is ρσ, which forgets the square root."
+},
+{
+"book": "quant",
+"topic": "Ch 15 · Multivariate Random Variables",
+"prompt": "How many distinct covariances (excluding variances) must be estimated for the covariance matrix of 50 assets?",
+"options": [
+"50",
+"1,225",
+"2,450",
+"2,500"
+],
+"answer": 1,
+"rationale": "The matrix is symmetric, so the number of distinct off-diagonal terms is n(n − 1)/2 = 50 × 49 / 2 = 1,225. 2,450 double-counts (Cov(i, j) = Cov(j, i)), and 2,500 is the full number of cells."
+},
+{
+"book": "quant",
+"topic": "Ch 15 · Multivariate Random Variables",
+"prompt": "Daily returns are iid with volatility 1%. Assuming 250 trading days, the annual volatility of the summed daily returns is closest to:",
+"options": [
+"2.5%",
+"15.8%",
+"250%",
+"1%"
+],
+"answer": 1,
+"rationale": "For n iid variables, Var(sum) = nσ², so σ(sum) = σ√n = 1% × √250 ≈ 15.8%. Multiplying volatility by 250 instead of √250 is a common mistake; the covariances are zero because returns are independent."
+},
+{
+"book": "quant",
+"topic": "Ch 15 · Multivariate Random Variables",
+"prompt": "For n iid random variables with variance σ², the variance of their sample mean is:",
+"options": [
+"σ²",
+"nσ²",
+"σ²/n",
+"σ/√n"
+],
+"answer": 2,
+"rationale": "Var(X̄) = Var(ΣXᵢ)/n² = nσ²/n² = σ²/n. σ/√n is the standard error, the standard deviation of the mean, not its variance."
+},
+{
+"book": "quant",
+"topic": "Ch 15 · Multivariate Random Variables",
+"prompt": "If X and Y are independent, which of the following must hold?",
+"options": [
+"Corr(X, Y) = 1.",
+"E[XY] = E[X] · E[Y].",
+"Var(X + Y) = Var(X) + Var(Y) + 2Var(X)Var(Y).",
+"f(x, y) = f(x) + f(y)."
+],
+"answer": 1,
+"rationale": "Independence means the joint density factorises, f(x, y) = f(x)·f(y), which implies E[XY] = E[X]E[Y], zero covariance, and Var(X + Y) = Var(X) + Var(Y)."
 }
 ];
 
@@ -1397,7 +2011,7 @@ const questions = [
     function chapterOf(q) { const m = /^Ch (\d+) · (.*)$/.exec(q.topic); return m ? { n: m[1], title: m[2] } : { n: "?", title: q.topic }; }
     function wrongPrompt(q, mine) {
       const c = chapterOf(q);
-      return `I'm studying for FRM Part I (May 2027 exam), Book 1 Foundations of Risk Management, Chapter ${c.n}: ${c.title}.\nI got this practice question wrong:\n\n${plain(q.prompt)}\n\nOptions:\n${q.options.map((o, i) => `${L(i)}. ${plain(o)}`).join("\n")}\n\nI picked ${L(mine)}. The answer key says ${L(q.answer)}.\nKey's explanation: ${plain(q.rationale)}\n\nPlease explain why ${L(q.answer)} is right and why ${L(mine)} is wrong, then teach me the underlying concept in plain terms. Show any formula with a worked example. Then give me two new exam-style questions on the same point, with the answers hidden at the end. If the answer key or the wording looks wrong, say so.`;
+      return `I'm studying for FRM Part I (May 2027 exam), ${q.book === "quant" ? "Book 2 Quantitative Analysis" : "Book 1 Foundations of Risk Management"}, Chapter ${c.n}: ${c.title}.\nI got this practice question wrong:\n\n${plain(q.prompt)}\n\nOptions:\n${q.options.map((o, i) => `${L(i)}. ${plain(o)}`).join("\n")}\n\nI picked ${L(mine)}. The answer key says ${L(q.answer)}.\nKey's explanation: ${plain(q.rationale)}\n\nPlease explain why ${L(q.answer)} is right and why ${L(mine)} is wrong, then teach me the underlying concept in plain terms. Show any formula with a worked example. Then give me two new exam-style questions on the same point, with the answers hidden at the end. If the answer key or the wording looks wrong, say so.`;
     }
     function promptBox(title, text) {
       const box = document.createElement("div"); box.className = "prompt-box";
@@ -1419,7 +2033,7 @@ const questions = [
       const pts = state.run.length - misses.length;
       const rows = Object.keys(by).sort((a, b) => a - b).map((k) => `- Ch ${k} ${by[k].title}: ${by[k].right}/${by[k].total} (${Math.round(100 * by[k].right / by[k].total)}%)`).join("\n");
       const ml = misses.map((m, j) => `${j + 1}. [Ch ${m.c.n}] ${plain(m.q.prompt).replace(/\s+/g, " ").slice(0, 220)}\n   Picked: ${m.a === undefined ? "no answer" : L(m.a) + ". " + plain(m.q.options[m.a])} | Correct: ${L(m.q.answer)}. ${plain(m.q.options[m.q.answer])}`).join("\n");
-      return `I'm preparing for FRM Part I (May 2027 exam). I just did a ${state.mode} session of ${state.run.length} questions on Book 1, Foundations of Risk Management, and scored ${pts}/${state.run.length} (${Math.round(100 * pts / state.run.length)}%).\n\nScore by chapter:\n${rows}\n\nQuestions I got wrong:\n${ml || "none"}\n\nBased on these misses, which chapters and concepts should I review first, and in what order? Spot any pattern in my mistakes (a concept, a formula, or misreading questions). Build me a short study plan and give me 5 targeted exam-style questions per weak chapter, with the answers hidden at the end. If any answer key above looks wrong, say so.`;
+      return `I'm preparing for FRM Part I (May 2027 exam). I just did a ${state.mode} session of ${state.run.length} questions (${[...new Set(state.run.map((qi) => questions[qi].book))].map((b) => b === "quant" ? "Book 2 Quantitative Analysis" : "Book 1 Foundations of Risk Management").join(" and ")}) and scored ${pts}/${state.run.length} (${Math.round(100 * pts / state.run.length)}%).\n\nScore by chapter:\n${rows}\n\nQuestions I got wrong:\n${ml || "none"}\n\nBased on these misses, which chapters and concepts should I review first, and in what order? Spot any pattern in my mistakes (a concept, a formula, or misreading questions). Build me a short study plan and give me 5 targeted exam-style questions per weak chapter, with the answers hidden at the end. If any answer key above looks wrong, say so.`;
     }
     function renderResult(points, percent) {
       _renderResult(points, percent);
@@ -1511,7 +2125,7 @@ const questions = [
       });
     });
 
-    document.querySelector("#edition").textContent = `${questions.length} original questions · Book 1`;
+    document.querySelector("#edition").textContent = `${questions.length} original questions · Books 1–2`;
 
     document.querySelectorAll("[data-length]").forEach((button) => {
       button.addEventListener("click", () => {

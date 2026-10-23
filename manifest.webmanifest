@@ -1,7 +1,7 @@
 {
   "name": "FRM Part I Quiz",
   "short_name": "FRM Quiz",
-  "description": "FRM Part I, Book 1 (Foundations of Risk Management) practice quiz: 62 original questions, practice and exam modes, with study prompts.",
+  "description": "FRM Part I practice quiz: 109 original questions on Book 1 (Foundations) and Book 2 Ch 12–15 (Quantitative Analysis), practice and exam modes, with study prompts.",
   "id": "./",
   "start_url": "./",
   "scope": "./",
