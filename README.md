@@ -4,7 +4,7 @@ a repo with a quiz app in PWA
 
 FRM Part I Quiz (PWA)
 =====================
-Installable/offline quiz app with 109 original questions covering Book 1 (Foundations of Risk Management) and Book 2 Chapters 12-15 (Quantitative Analysis).
+Installable/offline quiz app with 120 original questions covering Book 1 (Foundations of Risk Management) and Book 2 Chapters 12-15 (Quantitative Analysis).
 PWA tags and a service-worker registration are included.
 
 Live site, once GitHub Pages is on: https://matti88.github.io/Exam_questions/
