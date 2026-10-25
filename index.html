@@ -12,7 +12,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="application-name" content="FRM Quiz">
   <meta name="theme-color" content="#f1f0e9">
-  <title>Risk Notes — FRM I Quiz (Book 1 + Quant Ch 12–15) + Study Prompts</title>
+  <title>Risk Notes — FRM I Quiz (Book 1 + Quant Ch 12–17) + Study Prompts</title>
   <style>
     :root {
       color-scheme: light;
@@ -370,9 +370,9 @@
   <main>
     <section class="intro" aria-labelledby="page-title">
       <div>
-        <p class="eyebrow">FRM Part I / Book 1 Foundations · Book 2 Quantitative Analysis, Ch 12–15</p>
+        <p class="eyebrow">FRM Part I / Book 1 Foundations · Book 2 Quantitative Analysis, Ch 12–17</p>
         <h1 id="page-title">Risk and probability,<br>one question at a time.</h1>
-        <p class="intro-copy">120 original exam-style questions: all of Book 1, Foundations of Risk Management, plus the first four chapters of Book 2, Quantitative Analysis (probability, random variables, distributions, multivariate). Every answer comes with an explanation.</p>
+        <p class="intro-copy">145 original exam-style questions: all of Book 1, Foundations of Risk Management, plus the first six chapters of Book 2, Quantitative Analysis (probability, random variables, distributions, multivariate, sample moments, hypothesis testing). Every answer comes with an explanation.</p>
       </div>
       <div class="edition" id="edition">original questions</div>
     </section>
@@ -1990,6 +1990,331 @@ const questions = [
 ],
 "answer": 1,
 "rationale": "For n iid variables, Var(sum) = nσ², so σ(sum) = σ√n = 1% × √250 ≈ 15.8%. Multiplying volatility by 250 instead of √250 is a common mistake; the covariances are zero because returns are independent."
+},
+{
+"book": "quant",
+"topic": "Ch 16 · Sample Moments",
+"prompt": "A sample of five annual returns (in %) is 2, 4, 6, 8 and 10. What is the unbiased sample variance?",
+"options": [
+"8",
+"10",
+"40",
+"3.16"
+],
+"answer": 1,
+"rationale": "The sample mean is 6. The squared deviations are 16, 4, 0, 4 and 16, summing to 40. The unbiased estimator divides by n − 1 = 4, giving 10. Dividing by n gives 8, which is biased downward; 3.16 is the standard deviation."
+},
+{
+"book": "quant",
+"topic": "Ch 16 · Sample Moments",
+"prompt": "The variance estimator that divides by n instead of n − 1 is:",
+"options": [
+"unbiased and consistent.",
+"biased downward, but consistent.",
+"biased upward and inconsistent.",
+"unbiased, but inconsistent."
+],
+"answer": 1,
+"rationale": "Its expected value is (n − 1)/n × σ², so it understates σ² in small samples. The bias shrinks to zero as n grows and the estimator converges to σ², so it is consistent. Bias and consistency are different properties."
+},
+{
+"book": "quant",
+"topic": "Ch 16 · Sample Moments",
+"prompt": "Monthly returns are iid with standard deviation 20%. The standard error of the sample mean from 100 observations is:",
+"options": [
+"0.2%",
+"2%",
+"20%",
+"0.04%"
+],
+"answer": 1,
+"rationale": "SE = σ / √n = 20% / √100 = 2%. 0.2% divides by n instead of √n; 0.04% is the variance of the mean (0.2² / 100), not its standard deviation."
+},
+{
+"book": "quant",
+"topic": "Ch 16 · Sample Moments",
+"prompt": "An analyst wants to halve the standard error of a sample mean. Holding everything else equal, the sample size must be:",
+"options": [
+"doubled.",
+"quadrupled.",
+"halved.",
+"increased by √2."
+],
+"answer": 1,
+"rationale": "SE = σ / √n, so halving it requires √n to double, which means n must be multiplied by 4."
+},
+{
+"book": "quant",
+"topic": "Ch 16 · Sample Moments",
+"prompt": "Which statement best describes the central limit theorem?",
+"options": [
+"The sample mean converges to the population mean as n grows.",
+"For large n, the sample mean of iid variables with finite variance is approximately normal, whatever their distribution.",
+"Any large sample of returns is normally distributed.",
+"The sample variance is unbiased when divided by n − 1."
+],
+"answer": 1,
+"rationale": "The CLT is about the distribution of the sample mean: approximately N(μ, σ²/n) for large n. Option A is the law of large numbers. The CLT does not make the data themselves normal."
+},
+{
+"book": "quant",
+"topic": "Ch 16 · Sample Moments",
+"prompt": "Monthly returns are iid with mean 1% and standard deviation 5%. Using the central limit theorem, the probability that the sample mean of 100 months exceeds 1.5% is closest to:",
+"options": [
+"2.5%",
+"15.9%",
+"34.1%",
+"46.0%"
+],
+"answer": 1,
+"rationale": "The sample mean is approximately N(1%, (5%/√100)²) = N(1%, 0.5%²). z = (1.5% − 1%) / 0.5% = 1, and P(Z > 1) ≈ 15.9%. 46.0% uses the 5% standard deviation of a single month (z = 0.1)."
+},
+{
+"book": "quant",
+"topic": "Ch 16 · Sample Moments",
+"prompt": "Eight observations, already sorted, are 3, 7, 8, 12, 15, 18, 21 and 25. What is the sample median?",
+"options": [
+"12",
+"13.5",
+"13.6",
+"15"
+],
+"answer": 1,
+"rationale": "With an even number of observations, the median is the average of the two middle values: (12 + 15) / 2 = 13.5. 13.6 is the mean (109 / 8)."
+},
+{
+"book": "quant",
+"topic": "Ch 16 · Sample Moments",
+"prompt": "A data set contains one extreme outlier. Which measure of location is least affected by it?",
+"options": [
+"The sample mean",
+"The median",
+"The standard deviation",
+"The sample kurtosis"
+],
+"answer": 1,
+"rationale": "The median depends only on the order of the observations, so a single extreme value barely moves it. The mean is pulled toward the outlier, and the standard deviation and kurtosis are not measures of location and are very sensitive to outliers."
+},
+{
+"book": "quant",
+"topic": "Ch 16 · Sample Moments",
+"prompt": "Paired observations are (X, Y) = (1, 2), (2, 4) and (3, 9). What is the sample covariance (dividing by n − 1)?",
+"options": [
+"2.33",
+"3.5",
+"7",
+"5"
+],
+"answer": 1,
+"rationale": "The means are 2 and 5. The products of deviations are (−1)(−3) = 3, (0)(−1) = 0 and (1)(4) = 4, summing to 7. Dividing by n − 1 = 2 gives 3.5; dividing by n gives 2.33."
+},
+{
+"book": "quant",
+"topic": "Ch 16 · Sample Moments",
+"prompt": "For the same data (1, 2), (2, 4), (3, 9), the sample covariance is 3.5, the sample standard deviation of X is 1 and that of Y is √13. The sample correlation is closest to:",
+"options": [
+"0.27",
+"0.97",
+"1.00",
+"3.5"
+],
+"answer": 1,
+"rationale": "Correlation = covariance / (sₓ × s_y) = 3.5 / (1 × 3.606) ≈ 0.97. The relation is strong and positive but not perfectly linear, so it is below 1."
+},
+{
+"book": "quant",
+"topic": "Ch 16 · Sample Moments",
+"prompt": "For iid data with finite variance, the sample mean is BLUE. This means that among all estimators that are:",
+"options": [
+"unbiased, it has the highest variance.",
+"linear in the data and unbiased, it has the lowest variance.",
+"consistent, it is the only one that is unbiased.",
+"linear, it has the smallest bias."
+],
+"answer": 1,
+"rationale": "BLUE stands for best linear unbiased estimator: among unbiased estimators that are weighted sums of the observations, the sample mean has the smallest variance. A non-linear or biased estimator can sometimes do better."
+},
+{
+"book": "quant",
+"topic": "Ch 16 · Sample Moments",
+"prompt": "A return series has a sample skewness of −0.8 and a sample kurtosis of 6. Compared with a normal distribution, it has:",
+"options": [
+"a longer right tail and thinner tails.",
+"a longer left tail and fatter tails.",
+"a longer left tail and thinner tails.",
+"the same shape, because sample moments are noisy."
+],
+"answer": 1,
+"rationale": "Negative skewness means the left tail is longer, so large losses are more common than large gains. Kurtosis of 6 is above the normal's 3, so the tails are fatter (excess kurtosis 3). This is the typical pattern for equity returns."
+},
+{
+"book": "quant",
+"topic": "Ch 17 · Hypothesis Testing",
+"prompt": "A Type I error occurs when an analyst:",
+"options": [
+"fails to reject a false null hypothesis.",
+"rejects a true null hypothesis.",
+"rejects a false null hypothesis.",
+"fails to reject a true null hypothesis."
+],
+"answer": 1,
+"rationale": "A Type I error is a false rejection, and its probability is the significance level α. Failing to reject a false null is a Type II error. The other two options are correct decisions."
+},
+{
+"book": "quant",
+"topic": "Ch 17 · Hypothesis Testing",
+"prompt": "The power of a test is:",
+"options": [
+"the probability of a Type I error.",
+"1 minus the probability of a Type II error.",
+"the significance level.",
+"the probability that the null hypothesis is true."
+],
+"answer": 1,
+"rationale": "Power = P(reject H₀ | H₀ is false) = 1 − β, where β is the probability of a Type II error. Classical tests never give the probability that the null is true."
+},
+{
+"book": "quant",
+"topic": "Ch 17 · Hypothesis Testing",
+"prompt": "A strategy's 64 monthly returns have a sample mean of 1.2% and a sample standard deviation of 4%. Testing H₀: μ = 0 against a two-sided alternative at the 5% level, the analyst:",
+"options": [
+"fails to reject, because t = 0.3.",
+"rejects, because t = 2.4 > 1.96.",
+"fails to reject, because t = 2.4 < 2.58.",
+"rejects, because t = 19.2."
+],
+"answer": 1,
+"rationale": "SE = 4% / √64 = 0.5%, so t = 1.2% / 0.5% = 2.4. At 5% two-sided, the critical value is about 1.96, so H₀ is rejected. 2.58 is the 1% critical value; 0.3 divides by the standard deviation instead of the standard error."
+},
+{
+"book": "quant",
+"topic": "Ch 17 · Hypothesis Testing",
+"prompt": "A test returns a p-value of 0.03. Which conclusion is correct?",
+"options": [
+"Reject H₀ at both the 5% and 1% levels.",
+"Reject H₀ at 5%, but not at 1%.",
+"There is a 3% probability that H₀ is true.",
+"Do not reject H₀ at 5%."
+],
+"answer": 1,
+"rationale": "Reject when the p-value is below α: 0.03 < 0.05, but 0.03 > 0.01. The p-value is the probability of a test statistic at least this extreme if H₀ were true, not the probability that H₀ is true."
+},
+{
+"book": "quant",
+"topic": "Ch 17 · Hypothesis Testing",
+"prompt": "A sample mean is 5.0 with a standard error of 0.5. The 95% confidence interval for the population mean is closest to:",
+"options": [
+"[4.50, 5.50]",
+"[4.02, 5.98]",
+"[4.18, 5.82]",
+"[3.71, 6.29]"
+],
+"answer": 1,
+"rationale": "5.0 ± 1.96 × 0.5 = 5.0 ± 0.98, giving [4.02, 5.98]. [4.18, 5.82] uses 1.645 (a 90% interval) and [3.71, 6.29] uses 2.58 (a 99% interval)."
+},
+{
+"book": "quant",
+"topic": "Ch 17 · Hypothesis Testing",
+"prompt": "At the 5% significance level with a large sample, the critical z-values for a one-sided test and a two-sided test are:",
+"options": [
+"1.96 and 1.645",
+"1.645 and 1.96",
+"1.645 and 2.33",
+"1.96 and 2.58"
+],
+"answer": 1,
+"rationale": "A one-sided test puts all 5% in one tail (z = 1.645). A two-sided test splits it, 2.5% per tail (z = 1.96). 2.33 and 2.58 are the 1% one-sided and two-sided values."
+},
+{
+"book": "quant",
+"topic": "Ch 17 · Hypothesis Testing",
+"prompt": "The 95% confidence interval for a fund's mean excess return is [0.2%, 1.4%]. For a two-sided test of H₀: μ = 0 at the 5% level:",
+"options": [
+"H₀ is rejected, because 0 lies outside the interval.",
+"H₀ is not rejected, because the interval is wide.",
+"nothing can be concluded without the p-value.",
+"H₀ is rejected only at the 1% level."
+],
+"answer": 0,
+"rationale": "A two-sided test at level α rejects exactly when the hypothesised value lies outside the (1 − α) confidence interval. Zero is outside [0.2%, 1.4%], so H₀ is rejected at 5%. Whether it is rejected at 1% would need the 99% interval."
+},
+{
+"book": "quant",
+"topic": "Ch 17 · Hypothesis Testing",
+"prompt": "Two independent strategies have mean returns of 3.0% and 2.0%, with standard errors of 0.3% and 0.4%. The samples are large, so use the normal critical value. Testing whether the means are equal, the test statistic and conclusion at the 5% two-sided level are:",
+"options": [
+"t = 1.43, do not reject",
+"t = 2.0, reject",
+"t = 1.0, do not reject",
+"t = 3.33, reject"
+],
+"answer": 1,
+"rationale": "For independent samples, SE of the difference = √(0.3² + 0.4²) = 0.5%. t = (3.0 − 2.0) / 0.5 = 2.0 > 1.96, so reject at 5% (but not at 1%). 1.43 wrongly adds the standard errors (0.7%)."
+},
+{
+"book": "quant",
+"topic": "Ch 17 · Hypothesis Testing",
+"prompt": "Holding the sample size fixed, lowering the significance level from 5% to 1% will:",
+"options": [
+"lower the probability of a Type I error and raise the probability of a Type II error.",
+"lower both error probabilities.",
+"raise the power of the test.",
+"raise the probability of a Type I error."
+],
+"answer": 0,
+"rationale": "A stricter α makes rejection harder: fewer false rejections (Type I) but more failures to reject a false null (Type II), so power falls. Only more data (or a larger true effect) reduces both errors together."
+},
+{
+"book": "quant",
+"topic": "Ch 17 · Hypothesis Testing",
+"prompt": "An analyst tests 20 trading rules, none of which has any true skill, each at the 5% level with independent tests. The probability that at least one rule looks significant is closest to:",
+"options": [
+"5%",
+"36%",
+"64%",
+"100%"
+],
+"answer": 2,
+"rationale": "P(no false rejection) = 0.95²⁰ ≈ 0.358, so P(at least one) ≈ 1 − 0.358 = 64%. This is the multiple-testing problem: test enough rules and some will look significant by chance. 36% is the probability of none."
+},
+{
+"book": "quant",
+"topic": "Ch 17 · Hypothesis Testing",
+"prompt": "Stretch question (backtesting idea from Valuation and Risk Models): A model says an event has a 1% probability each day, independently. Over 250 days it occurs 8 times. Using the normal approximation to the binomial, the test statistic for H₀: p = 1% is closest to:",
+"options": [
+"2.2",
+"3.5",
+"5.5",
+"0.8"
+],
+"answer": 1,
+"rationale": "Expected count = 250 × 0.01 = 2.5, and the standard deviation = √(250 × 0.01 × 0.99) ≈ 1.57. z = (8 − 2.5) / 1.57 ≈ 3.5, well above 1.96, so the 1% probability is rejected. 5.5 is the raw difference before dividing by the standard deviation."
+},
+{
+"book": "quant",
+"topic": "Ch 17 · Hypothesis Testing",
+"prompt": "An analyst wants to show that a fund's mean return is greater than zero. The hypotheses should be set up as:",
+"options": [
+"H₀: μ > 0, H₁: μ ≤ 0",
+"H₀: μ ≤ 0, H₁: μ > 0",
+"H₀: μ = 0, H₁: μ ≠ 0, with the result reported one-sided",
+"H₀: μ ≠ 0, H₁: μ = 0"
+],
+"answer": 1,
+"rationale": "The claim you want evidence for goes in the alternative; the null is what you try to reject. This gives a one-sided test with all of α in the right tail. The null always contains the equality."
+},
+{
+"book": "quant",
+"topic": "Ch 17 · Hypothesis Testing",
+"prompt": "Testing a mean with an unknown population variance estimated from a small sample of 15 observations, the test statistic follows:",
+"options": [
+"a standard normal distribution.",
+"a Student's t distribution with 14 degrees of freedom.",
+"a chi-squared distribution with 15 degrees of freedom.",
+"an F distribution."
+],
+"answer": 1,
+"rationale": "When σ is replaced by the sample standard deviation, (x̄ − μ₀) / (s/√n) follows a t distribution with n − 1 = 14 degrees of freedom (for normal data). With large samples the t is close to the standard normal."
 }
 ];
 
