@@ -2,12 +2,12 @@
 
 a repo with a quiz app in PWA
 
+**Live quiz:** [Risk Notes — FRM I Quiz](https://matti88.github.io/Exam_questions/)
+
 FRM Part I Quiz (PWA)
 =====================
 Installable/offline quiz app with 146 original questions covering Book 1 (Foundations of Risk Management) and Book 2 Chapters 12-17 (Quantitative Analysis).
 PWA tags and a service-worker registration are included.
-
-Live site, once GitHub Pages is on: https://matti88.github.io/Exam_questions/
 
 A PWA must be served over HTTPS (or http://localhost) to install. Opening index.html
 as a file:// works as a normal page but is NOT installable and won't cache offline.
