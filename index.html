@@ -12,7 +12,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="application-name" content="FRM Quiz">
   <meta name="theme-color" content="#f1f0e9">
-  <title>Risk Notes — FRM I Quiz (Book 1 + Quant Ch 12–17) + Study Prompts</title>
+  <title>Risk Notes — FRM I Quiz (Book 1 + Quant Ch 12–26) + Study Prompts</title>
   <style>
     :root {
       color-scheme: light;
@@ -139,6 +139,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
       gap: 16px;
       padding: 13px 16px;
       border: 1px solid var(--line);
@@ -165,6 +166,7 @@
     }
 
     .segmented button[aria-pressed="true"] { color: var(--ink); background: var(--surface); box-shadow: 0 1px 4px rgb(32 51 49 / 10%); }
+    .chapter-filter { min-height: 32px; max-width: min(320px, 100%); padding: 0 8px; border: 0; border-radius: 2px; color: var(--ink); background: var(--surface); font: inherit; font-size: 12px; font-weight: 700; }
     .length-button { min-width: 42px; border: 1px solid var(--line); background: var(--surface); }
     .length-button[aria-pressed="true"] { color: var(--green); border-color: var(--green); background: var(--green-soft); }
 
@@ -427,9 +429,9 @@
   <main>
     <section class="intro" aria-labelledby="page-title">
       <div>
-        <p class="eyebrow">FRM Part I / Book 1 Foundations · Book 2 Quantitative Analysis, Ch 12–17</p>
+        <p class="eyebrow">FRM Part I / Book 1 Foundations · Book 2 Quantitative Analysis, Ch 12–26</p>
         <h1 id="page-title">Risk and probability,<br>one question at a time.</h1>
-        <p class="intro-copy">146 original exam-style questions: all of Book 1, Foundations of Risk Management, plus the first six chapters of Book 2, Quantitative Analysis (probability, random variables, distributions, multivariate, sample moments, hypothesis testing). Every answer comes with an explanation.</p>
+        <p class="intro-copy">164 original exam-style questions: all of Book 1, Foundations of Risk Management, plus Book 2, Quantitative Analysis, Chapters 12–26. Chapters 12–17 are the larger set. Chapters 18–26 have two questions each and do not complete those chapters. Every answer comes with an explanation.</p>
       </div>
       <div class="edition" id="edition">original questions</div>
     </section>
@@ -449,6 +451,10 @@
           <button type="button" data-book="found" aria-pressed="false">Foundations</button>
           <button type="button" data-book="quant" aria-pressed="false">Quant</button>
         </div>
+      </div>
+      <div class="toolbar-group">
+        <label class="micro-label" for="chapter-filter">Chapter</label>
+        <select id="chapter-filter" class="chapter-filter" aria-label="Chapter filter"></select>
       </div>
       <div class="toolbar-group">
         <span class="micro-label">Question set</span>
@@ -483,7 +489,7 @@
 
       <section class="quiz-panel" id="quiz-panel" aria-live="polite"></section>
     </section>
-    <p class="source-note">Questions are newly written, not copied from commercial or official question banks; every calculation was checked by hand. Topic references: <a href="https://www.garp.org/frm/study-materials" target="_blank" rel="noreferrer">GARP study materials</a>, the FRM Part I curriculum (four books). Independent study aid; not official GARP material.</p>
+    <p class="source-note">Questions are newly written, not copied from commercial or official question banks; every calculation was checked by hand. Chapters 18–26 are a first pair of questions each, not complete coverage of those chapters. Topic labels continue this quiz’s own chapter sequence. <a href="https://www.garp.org/frm/study-materials" target="_blank" rel="noreferrer">GARP study materials</a> are the official curriculum; this is an independent study aid, not official GARP material.</p>
   </main>
 
   <script>
@@ -3698,6 +3704,266 @@ const questions = [
 ],
 "answer": 3,
 "rationale": "<p><i>Stretch question: this applies the backtesting idea from Valuation and Risk Models.</i></p><ol><li>Expected exceptions = 500 × 0.01 = 5.</li><li>Standard deviation = √(500 × 0.01 × 0.99) = √4.95 ≈ 2.22.</li><li>z = (11 − 5)/2.22 ≈ <b>2.7</b>, above 1.96, so the 1% exception rate is rejected at the 5% two-sided level.</li></ol><p>Wrong options: 6.0 is the raw excess of exceptions before standardising. 1.2 divides by the variance (4.95) instead of the standard deviation. 0.012 is the difference in exception rates (11/500 − 1%) without scaling by its standard error.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 18 · Linear Regression",
+  "prompt": "A market-risk analyst regresses a hedged portfolio’s weekly return on the return of a broad equity index using 82 observations. The regression includes an intercept and one slope. The estimated slope is 0.72 with a standard error of 0.18. The analyst tests whether the true slope equals 1.00, using a two-sided 5% test and a critical t-value of 1.990. Which conclusion and test statistic are correct?",
+  "options": [
+    "t = −1.56; do not reject the null hypothesis.",
+    "t = 4.00; reject the null hypothesis.",
+    "t = −1.56; reject the null hypothesis.",
+    "t = −0.28; do not reject the null hypothesis."
+  ],
+  "answer": 0,
+  "rationale": "<p><b>t = −1.56; do not reject the null hypothesis.</b> Correct. The statistic is (0.72 − 1.00)/0.18 = −1.5556, with 82 − 2 = 80 degrees of freedom. Its absolute value is below 1.990. Failure to reject does not prove the slope is 1.</p><p><b>t = 4.00; reject the null hypothesis.</b> Incorrect. 0.72/0.18 tests a zero slope, not the stated null of one.</p><p><b>t = −1.56; reject the null hypothesis.</b> Incorrect. The statistic lies inside the non-rejection region.</p><p><b>t = −0.28; do not reject the null hypothesis.</b> Incorrect. −0.28 is the difference in slopes before dividing by its standard error.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 18 · Linear Regression",
+  "prompt": "A risk manager estimates a simple OLS regression of a corporate bond fund’s monthly return on a credit index return, including an intercept. The fitted slope is negative, and the reported R-squared is 0.49. The manager wants to describe the sample correlation between the two returns without confusing correlation with explained variance. Assuming both variables have positive sample variance, which correlation is consistent with this regression?",
+  "options": [
+    "−0.49",
+    "−0.70",
+    "+0.70",
+    "+0.2401"
+  ],
+  "answer": 1,
+  "rationale": "<p><b>−0.49</b> Incorrect. R-squared is the squared correlation, not its absolute value.</p><p><b>−0.70</b> Correct. In simple regression with an intercept, R-squared equals the squared sample correlation. The slope supplies its sign: r = −sqrt(0.49) = −0.70.</p><p><b>+0.70</b> Incorrect. The magnitude is right, but a negative slope requires negative correlation.</p><p><b>+0.2401</b> Incorrect. Squaring R-squared again neither recovers the correlation nor supplies the correct sign.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 19 · Regression with Multiple Explanatory Variables",
+  "prompt": "A model-validation team compares two OLS models of monthly fund returns. Both include an intercept and use the same 65 observations. Model A contains three explanatory variables and has R-squared of 0.70. Model B adds a fourth explanatory variable and has R-squared of 0.71. The team selects solely by adjusted R-squared, not by economic interpretation or out-of-sample performance. Which model should it choose?",
+  "options": [
+    "Model A, because adding a regressor must reduce adjusted R-squared.",
+    "Model B, with adjusted R-squared of exactly 0.71.",
+    "Model B, with adjusted R-squared of approximately 0.6907.",
+    "Model A, with adjusted R-squared of approximately 0.7188."
+  ],
+  "answer": 2,
+  "rationale": "<p><b>Model A, because adding a regressor must reduce adjusted R-squared.</b> Incorrect. Adjusted R-squared can rise if the fit improves enough to offset the additional parameter.</p><p><b>Model B, with adjusted R-squared of exactly 0.71.</b> Incorrect. 0.71 is the unadjusted measure; the complexity penalty lowers it.</p><p><b>Model B, with adjusted R-squared of approximately 0.6907.</b> Correct. Adjusted R-squared is 1 − (1 − R-squared)(n − 1)/(n − k − 1). Model A gives 1 − 0.30(64/61) = 0.6852. Model B gives 1 − 0.29(64/60) = 0.6907, so B wins on the stated criterion.</p><p><b>Model A, with adjusted R-squared of approximately 0.7188.</b> Incorrect. This reverses the adjustment. With an intercept and nonnegative k, adjusted R-squared cannot exceed R-squared.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 19 · Regression with Multiple Explanatory Variables",
+  "prompt": "A quantitative analyst tests whether two additional market factors jointly improve an existing return regression. Both nested models use the same 84 observations and include an intercept. The restricted model has residual sum of squares 150. The unrestricted model has four slope coefficients and residual sum of squares 120. For the test of the two restrictions, use an F critical value of 3.11. What is the correct statistic and conclusion?",
+  "options": [
+    "F = 0.25; do not reject the joint null hypothesis.",
+    "F = 19.75; reject the joint null hypothesis.",
+    "F = 10.50; reject the joint null hypothesis.",
+    "F = 9.875; reject the joint null hypothesis."
+  ],
+  "answer": 3,
+  "rationale": "<p><b>F = 0.25; do not reject the joint null hypothesis.</b> Incorrect. 30/120 ignores both restrictions and residual degrees of freedom.</p><p><b>F = 19.75; reject the joint null hypothesis.</b> Incorrect. This omits division by the two restrictions.</p><p><b>F = 10.50; reject the joint null hypothesis.</b> Incorrect. This uses 84 rather than 79 for the unrestricted residual degrees of freedom.</p><p><b>F = 9.875; reject the joint null hypothesis.</b> Correct. F = [(150 − 120)/2]/[120/(84 − 4 − 1)] = 15/(120/79) = 9.875. This exceeds 3.11, so the two added slopes are not jointly zero.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 20 · Regression Diagnostics",
+  "prompt": "A bank estimates a cross-sectional OLS regression of loan spreads on borrower characteristics. Residual plots suggest that the error variance rises with borrower size. Assume the conditional mean model is correctly specified, regressors are exogenous, errors are independent across loans, and there is no perfect multicollinearity. The validator wants valid large-sample coefficient tests without changing the fitted OLS slopes. Which recommendation is most appropriate?",
+  "options": [
+    "Keep the OLS slopes and use heteroskedasticity-consistent standard errors.",
+    "Discard the slopes because heteroskedasticity alone makes OLS biased.",
+    "Keep conventional standard errors because unbiased slopes imply valid t-tests.",
+    "Add an exact duplicate of borrower size to remove the heteroskedasticity."
+  ],
+  "answer": 0,
+  "rationale": "<p><b>Keep the OLS slopes and use heteroskedasticity-consistent standard errors.</b> Correct. Under the stated exogeneity assumptions, heteroskedasticity need not bias OLS slopes, but conventional variance estimates are generally invalid. Robust standard errors address large-sample inference without changing the slopes.</p><p><b>Discard the slopes because heteroskedasticity alone makes OLS biased.</b> Incorrect. Heteroskedasticity alone does not violate the zero conditional mean assumption.</p><p><b>Keep conventional standard errors because unbiased slopes imply valid t-tests.</b> Incorrect. Unbiased point estimates do not guarantee valid conventional standard errors.</p><p><b>Add an exact duplicate of borrower size to remove the heteroskedasticity.</b> Incorrect. An exact duplicate causes perfect multicollinearity and does not model the error variance.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 20 · Regression Diagnostics",
+  "prompt": "A credit analyst models annual loan losses as a function of unemployment and commercial-property vacancy rates. In the population, both variables raise losses, and vacancy rates are positively correlated with unemployment. The analyst then fits a regression containing only an intercept and unemployment. Assume the full two-variable model is correctly specified and exogenous, with no other omitted relevant variables. What happens to the unemployment slope when vacancy rates are omitted?",
+  "options": [
+    "It is biased downward because one explanatory variable has been removed.",
+    "It is biased upward because the omitted effect and regressor correlation are both positive.",
+    "It remains unbiased because the retained regressor is economically relevant.",
+    "Only its variance changes; omitted-variable bias requires perfect correlation."
+  ],
+  "answer": 1,
+  "rationale": "<p><b>It is biased downward because one explanatory variable has been removed.</b> Incorrect. The direction follows the omitted effect and covariance, not the number of regressors.</p><p><b>It is biased upward because the omitted effect and regressor correlation are both positive.</b> Correct. The omitted-variable bias is the vacancy slope multiplied by Cov(unemployment, vacancy)/Var(unemployment). Both factors are positive, producing upward bias.</p><p><b>It remains unbiased because the retained regressor is economically relevant.</b> Incorrect. Relevance of the retained variable does not eliminate correlation with an omitted relevant variable.</p><p><b>Only its variance changes; omitted-variable bias requires perfect correlation.</b> Incorrect. Nonzero correlation suffices for bias here; perfect correlation is not required.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 21 · Stationary Time Series",
+  "prompt": "A treasury team models the daily deviation of a funding spread from a benchmark as x(t) = 1.2 + 0.6x(t−1) + e(t), measured in basis points. Innovations have mean zero, are independent over time, and have finite constant variance. Today’s deviation is 8 bp. The team wants the process’s long-run mean and its conditional forecast two days ahead. Which pair is correct?",
+  "options": [
+    "Long-run mean 1.2 bp; two-day forecast 2.88 bp.",
+    "Long-run mean 3.0 bp; two-day forecast 6.0 bp.",
+    "Long-run mean 3.0 bp; two-day forecast 4.8 bp.",
+    "Long-run mean 8.0 bp; two-day forecast 8.0 bp."
+  ],
+  "answer": 2,
+  "rationale": "<p><b>Long-run mean 1.2 bp; two-day forecast 2.88 bp.</b> Incorrect. The intercept is not the unconditional mean, and 0.6 squared times 8 omits the intercept contribution.</p><p><b>Long-run mean 3.0 bp; two-day forecast 6.0 bp.</b> Incorrect. 6.0 bp is the one-day forecast.</p><p><b>Long-run mean 3.0 bp; two-day forecast 4.8 bp.</b> Correct. The stationary mean is 1.2/(1 − 0.6) = 3. The forecast is 3 + 0.6 squared times (8 − 3) = 4.8. Equivalently, one day is 6.0 and two days is 1.2 + 0.6(6.0) = 4.8.</p><p><b>Long-run mean 8.0 bp; two-day forecast 8.0 bp.</b> Incorrect. A stationary AR(1) forecast converges towards its long-run mean rather than remaining at today’s value.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 21 · Stationary Time Series",
+  "prompt": "A model-risk specialist considers a stationary MA(1) process for daily valuation errors: x(t) = e(t) + 0.5e(t−1). The innovation sequence is independent with mean zero and variance 4. The specialist is checking the implied serial dependence before comparing the model with sample autocorrelations. What are the theoretical lag-one and lag-two autocorrelations of this process?",
+  "options": [
+    "Lag one 0.50; lag two 0.25.",
+    "Lag one 0.80; lag two 0.00.",
+    "Lag one −0.40; lag two 0.00.",
+    "Lag one 0.40; lag two 0.00."
+  ],
+  "answer": 3,
+  "rationale": "<p><b>Lag one 0.50; lag two 0.25.</b> Incorrect. Geometric decay is an AR(1) property, not the MA(1) autocorrelation pattern.</p><p><b>Lag one 0.80; lag two 0.00.</b> Incorrect. This does not divide the lag-one covariance by the full variance.</p><p><b>Lag one −0.40; lag two 0.00.</b> Incorrect. The lag coefficient is positive in the specified equation, giving positive lag-one covariance.</p><p><b>Lag one 0.40; lag two 0.00.</b> Correct. Var(x) = 4(1 + 0.5 squared) = 5 and lag-one covariance = 0.5(4) = 2. Thus rho(1) = 2/5 = 0.40. At lag two there are no shared innovations, so covariance and correlation are zero.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 22 · Non-Stationary Time Series",
+  "prompt": "A rates desk models a daily yield level as y(t) = y(t−1) + 0.02 + e(t), where the drift is in basis points per day. Innovations are independent, have mean zero and variance 9 bp squared, and future innovations are independent of today’s information. Starting from today’s observed yield, what are the expected change and conditional variance of the change over the next 16 trading days?",
+  "options": [
+    "Expected change 0.32 bp; variance 144 bp squared.",
+    "Expected change 0.02 bp; variance 9 bp squared.",
+    "Expected change 0.32 bp; variance 2,304 bp squared.",
+    "Expected change 0 bp; variance 144 bp squared."
+  ],
+  "answer": 0,
+  "rationale": "<p><b>Expected change 0.32 bp; variance 144 bp squared.</b> Correct. The expected accumulated drift is 16(0.02) = 0.32 bp. Independent innovation variances add, giving 16(9) = 144 bp squared. The forecast standard deviation would be 12 bp.</p><p><b>Expected change 0.02 bp; variance 9 bp squared.</b> Incorrect. These are one-day values, not 16-day values.</p><p><b>Expected change 0.32 bp; variance 2,304 bp squared.</b> Incorrect. Variance grows linearly with horizon for independent innovations, not with horizon squared.</p><p><b>Expected change 0 bp; variance 144 bp squared.</b> Incorrect. Mean-zero innovations do not remove the specified positive drift.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 22 · Non-Stationary Time Series",
+  "prompt": "A research analyst tests a yield series for a unit root using an augmented Dickey–Fuller regression with an intercept. The reported test statistic is −2.40. For the exact specification and sample size, the supplied 5% critical value is −2.90; rejection occurs for more negative statistics. The analyst must report only what this test establishes. Which statement is correct?",
+  "options": [
+    "Reject the unit-root null because the statistic is negative.",
+    "Do not reject the unit-root null; this does not prove that a unit root exists.",
+    "Reject the unit-root null because −2.40 is greater than −2.90.",
+    "Accept covariance stationarity because an ordinary normal critical value is −1.645."
+  ],
+  "answer": 1,
+  "rationale": "<p><b>Reject the unit-root null because the statistic is negative.</b> Incorrect. The critical value, not the sign alone, determines rejection.</p><p><b>Do not reject the unit-root null; this does not prove that a unit root exists.</b> Correct. −2.40 is not more negative than −2.90, so the statistic is outside the rejection region. Failure to reject is not proof of the null.</p><p><b>Reject the unit-root null because −2.40 is greater than −2.90.</b> Incorrect. The rejection region is in the lower tail, so the inequality is reversed.</p><p><b>Accept covariance stationarity because an ordinary normal critical value is −1.645.</b> Incorrect. Unit-root tests have nonstandard distributions; the supplied Dickey–Fuller critical value must be used.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 23 · Measuring Return, Volatility, and Correlation",
+  "prompt": "A fund starts with a unit price of 100 and pays no distributions. Its simple return is +25% in the first month and −20% in the second month. A performance analyst wants the two-month cumulative simple return and the arithmetic average of the two monthly continuously compounded returns. Ignore fees and rounding. Which pair is correct?",
+  "options": [
+    "Cumulative simple return 5%; average monthly log return 2.5%.",
+    "Cumulative simple return 0%; average monthly log return 2.5%.",
+    "Cumulative simple return 0%; average monthly log return 0%.",
+    "Cumulative simple return −5%; average monthly log return −2.5%."
+  ],
+  "answer": 2,
+  "rationale": "<p><b>Cumulative simple return 5%; average monthly log return 2.5%.</b> Incorrect. Adding simple returns does not give their compounded return; 2.5% is their arithmetic average, not the average log return.</p><p><b>Cumulative simple return 0%; average monthly log return 2.5%.</b> Incorrect. The cumulative return is correct, but the log-return average is not.</p><p><b>Cumulative simple return 0%; average monthly log return 0%.</b> Correct. The gross return is 1.25(0.80) = 1, giving zero cumulative return. The two log returns sum to ln(1.25) + ln(0.80) = ln(1) = 0, so their average is zero.</p><p><b>Cumulative simple return −5%; average monthly log return −2.5%.</b> Incorrect. The loss exactly offsets the gain in price levels; no net 5% loss occurs.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 23 · Measuring Return, Volatility, and Correlation",
+  "prompt": "A validator uses 240 daily observations to test whether portfolio returns are normally distributed. Sample skewness is 0.60 and sample kurtosis is 4.20, where a normal distribution has kurtosis 3. Use the Jarque–Bera statistic JB = n[S squared/6 + (K − 3) squared/24] and a 5% chi-squared critical value of 5.991. Which result is correct?",
+  "options": [
+    "JB = 14.4; reject normality.",
+    "JB = 190.8; reject normality.",
+    "JB = 0.12; do not reject normality.",
+    "JB = 28.8; reject normality."
+  ],
+  "answer": 3,
+  "rationale": "<p><b>JB = 14.4; reject normality.</b> Incorrect. This includes only one of the two equal contributions, ignoring either skewness or excess kurtosis.</p><p><b>JB = 190.8; reject normality.</b> Incorrect. This uses raw kurtosis squared rather than excess kurtosis squared.</p><p><b>JB = 0.12; do not reject normality.</b> Incorrect. This forgets to multiply the bracketed expression by the sample size.</p><p><b>JB = 28.8; reject normality.</b> Correct. JB = 240[0.36/6 + 1.44/24] = 240(0.06 + 0.06) = 28.8, exceeding 5.991.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 24 · Simulation and Bootstrapping",
+  "prompt": "A derivatives team estimates an option’s value by averaging 10,000 independent Monte Carlo payoffs. Its estimated standard error is EUR 0.12. The payoff distribution has finite variance, and the simulation method and variance per draw will remain unchanged. The team wants an estimated standard error of EUR 0.03 solely by increasing the number of independent draws. How many draws are required in total?",
+  "options": [
+    "160,000",
+    "40,000",
+    "20,000",
+    "2,500"
+  ],
+  "answer": 0,
+  "rationale": "<p><b>160,000</b> Correct. Standard error scales as 1/sqrt(N). Reducing it by a factor of four requires 4 squared = 16 times as many draws: 10,000(16) = 160,000.</p><p><b>40,000</b> Incorrect. Quadrupling the draws halves, rather than quarters, the standard error.</p><p><b>20,000</b> Incorrect. Doubling draws reduces standard error by sqrt(2), not four.</p><p><b>2,500</b> Incorrect. Reducing the number of draws increases sampling error.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 24 · Simulation and Bootstrapping",
+  "prompt": "A risk team forecasts multi-day losses using daily returns that display material serial dependence. An analyst proposes a conventional bootstrap that samples individual historical days independently with replacement and then joins them into simulated paths. The team has a sufficiently long history for resampling, but it wants the paths to preserve dependence across nearby days. Which criticism of the proposed procedure is most appropriate?",
+  "options": [
+    "A bootstrap cannot draw the same historical return more than once.",
+    "Independent day-by-day resampling destroys serial dependence; consider a suitably chosen block bootstrap.",
+    "A bootstrap automatically preserves all dependence because it uses historical data.",
+    "A bootstrap requires normally distributed returns, regardless of the resampling design."
+  ],
+  "answer": 1,
+  "rationale": "<p><b>A bootstrap cannot draw the same historical return more than once.</b> Incorrect. Resampling with replacement deliberately permits repeated observations.</p><p><b>Independent day-by-day resampling destroys serial dependence; consider a suitably chosen block bootstrap.</b> Correct. Independent resampling preserves the empirical marginal distribution but not temporal ordering. Resampling blocks can preserve within-block dependence, although block length matters and no design guarantees preservation of every feature.</p><p><b>A bootstrap automatically preserves all dependence because it uses historical data.</b> Incorrect. Historical observations do not preserve temporal dependence after independent reordering.</p><p><b>A bootstrap requires normally distributed returns, regardless of the resampling design.</b> Incorrect. Normality is not a general bootstrap requirement.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 25 · Machine Learning Models",
+  "prompt": "A bank develops a machine-learning model for predicting loan defaults. It has separate training, validation and test samples. The team repeatedly compares tree depths on the test sample, selects the depth with the lowest test error and quotes that same error as its final performance estimate. Which change best restores a credible assessment of generalisation?",
+  "options": [
+    "Tune depth on the training data and report the lowest training error as final performance.",
+    "Rename the existing test sample as validation and quote its selected error as unbiased test performance.",
+    "Tune depth on validation data, then evaluate once on a fresh untouched test sample.",
+    "Use test labels during every fit so that all available information enters model selection."
+  ],
+  "answer": 2,
+  "rationale": "<p><b>Tune depth on the training data and report the lowest training error as final performance.</b> Incorrect. Training error is optimistically biased for generalisation, particularly for a flexible tree.</p><p><b>Rename the existing test sample as validation and quote its selected error as unbiased test performance.</b> Incorrect. Renaming data does not undo the information used in model selection.</p><p><b>Tune depth on validation data, then evaluate once on a fresh untouched test sample.</b> Correct. Repeated model selection on test data leaks information into the choice. A new untouched test sample is needed for a final assessment; the old test sample can no longer serve that role for this workflow.</p><p><b>Use test labels during every fit so that all available information enters model selection.</b> Incorrect. Using test labels in fitting further contaminates the evaluation.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 25 · Machine Learning Models",
+  "prompt": "A quantitative analyst applies principal components analysis to four standardised risk indicators. The eigenvalues of the sample correlation matrix are 2.20, 1.00, 0.60 and 0.20. The analyst must retain the smallest number of components that explain at least 85% of the total variance, without using default labels or any other target variable. How many principal components should be retained?",
+  "options": [
+    "Two components, explaining 80% of total variance.",
+    "One component, explaining 55% of total variance.",
+    "Four components, because unsupervised methods cannot reduce dimension.",
+    "Three components, explaining 95% of total variance."
+  ],
+  "answer": 3,
+  "rationale": "<p><b>Two components, explaining 80% of total variance.</b> Incorrect. 80% does not meet the specified threshold.</p><p><b>One component, explaining 55% of total variance.</b> Incorrect. 55% is insufficient.</p><p><b>Four components, because unsupervised methods cannot reduce dimension.</b> Incorrect. PCA is specifically an unsupervised dimension-reduction method, and three components meet the requirement.</p><p><b>Three components, explaining 95% of total variance.</b> Correct. Total variance is the sum of eigenvalues, 4. The first two explain 3.20/4 = 80%, below 85%. Three explain 3.80/4 = 95%, so three is the smallest sufficient number.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 26 · Machine Learning and Prediction",
+  "prompt": "A model developer standardises a large set of correlated borrower features before fitting a penalised linear model. Management wants the fitted model itself to set some slope coefficients exactly to zero, rather than merely shrink all slopes. The developer may choose a positive penalty strength by validation and leave the intercept unpenalised. Which method best matches the requested feature-selection property?",
+  "options": [
+    "LASSO, using a penalty on the sum of absolute slope coefficients.",
+    "Ridge regression, using a penalty on the sum of squared slope coefficients.",
+    "Ordinary least squares, using no coefficient penalty.",
+    "Principal components analysis, guaranteeing zero coefficients on original variables."
+  ],
+  "answer": 0,
+  "rationale": "<p><b>LASSO, using a penalty on the sum of absolute slope coefficients.</b> Correct. LASSO uses an L1 penalty and can set slopes exactly to zero, providing embedded feature selection. The selected variables and sparsity depend on data and penalty strength.</p><p><b>Ridge regression, using a penalty on the sum of squared slope coefficients.</b> Incorrect. Ridge uses an L2 penalty and generally shrinks slopes without setting them exactly to zero.</p><p><b>Ordinary least squares, using no coefficient penalty.</b> Incorrect. OLS does not impose a sparsity-producing penalty.</p><p><b>Principal components analysis, guaranteeing zero coefficients on original variables.</b> Incorrect. PCA constructs components and does not guarantee sparse regression coefficients on the original features.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 26 · Machine Learning and Prediction",
+  "prompt": "A bank evaluates a binary default classifier on 1,000 previously unseen loans. A positive prediction means predicted default. The outcomes are shown in the exhibit. Management asks for precision, the fraction of predicted defaults that actually default, and recall, the fraction of actual defaults that the classifier identifies. Which pair is correct?",
+  "exhibit": {
+    "type": "table",
+    "caption": "Holdout classification outcomes",
+    "columns": [
+      "Outcome",
+      "Number of loans"
+    ],
+    "rows": [
+      [
+        "True positive",
+        "60"
+      ],
+      [
+        "False positive",
+        "40"
+      ],
+      [
+        "False negative",
+        "20"
+      ],
+      [
+        "True negative",
+        "880"
+      ]
+    ]
+  },
+  "options": [
+    "Precision 75%; recall 60%.",
+    "Precision 60%; recall 75%.",
+    "Precision 94%; recall 94%.",
+    "Precision 6%; recall 8%."
+  ],
+  "answer": 1,
+  "rationale": "<p><b>Precision 75%; recall 60%.</b> Incorrect. This reverses precision and recall.</p><p><b>Precision 60%; recall 75%.</b> Correct. Precision = TP/(TP + FP) = 60/(60 + 40) = 60%. Recall = TP/(TP + FN) = 60/(60 + 20) = 75%.</p><p><b>Precision 94%; recall 94%.</b> Incorrect. 94% is accuracy: (60 + 880)/1,000. It is neither of the requested metrics.</p><p><b>Precision 6%; recall 8%.</b> Incorrect. These divide true positives and actual defaults by the full sample rather than by the metric-specific denominators.</p>"
 }
 ];
 
@@ -3840,6 +4106,7 @@ const questions = [
       length: 20,
       shuffled: false,
       book: "all",
+      chapter: "all",
       run: [],
       optionOrders: [],
       current: 0,
@@ -3855,8 +4122,38 @@ const questions = [
     const progressTrack = document.querySelector("#progress-track");
     const bestScore = document.querySelector("#best-score");
 
+    const chapterFilter = document.querySelector("#chapter-filter");
+
+    function fillChapters() {
+      const seen = [];
+      questions.forEach((q) => {
+        if (state.book !== "all" && q.book !== state.book) return;
+        const c = chapterOf(q);
+        if (!seen.some((item) => item.key === c.n)) seen.push({ key: c.n, label: `Ch ${c.n} · ${c.title}` });
+      });
+      seen.sort((a, b) => Number(a.key) - Number(b.key));
+      if (!seen.some((item) => item.key === state.chapter)) state.chapter = "all";
+      chapterFilter.replaceChildren();
+      const all = document.createElement("option");
+      all.value = "all";
+      all.textContent = "All chapters";
+      chapterFilter.appendChild(all);
+      seen.forEach((item) => {
+        const option = document.createElement("option");
+        option.value = item.key;
+        option.textContent = item.label;
+        chapterFilter.appendChild(option);
+      });
+      chapterFilter.value = state.chapter;
+    }
+
     function makeRun() {
-      let pool = questions.map((_, index) => index).filter((index) => state.book === "all" || questions[index].book === state.book);
+      let pool = questions.map((_, index) => index).filter((index) => {
+        const question = questions[index];
+        if (state.book !== "all" && question.book !== state.book) return false;
+        if (state.chapter !== "all" && chapterOf(question).n !== state.chapter) return false;
+        return true;
+      });
       if (state.shuffled) shuffle(pool);
       state.run = pool.slice(0, state.length);
       const answerSlots = shuffle(Array.from({ length: state.run.length }, (_, index) => index % 4));
@@ -3899,8 +4196,9 @@ const questions = [
 
     function updateProgress() {
       const count = answeredCount();
-      progressCopy.textContent = `${count} / ${state.run.length}`;
-      progressFill.style.width = `${(count / state.run.length) * 100}%`;
+      const total = state.run.length;
+      progressCopy.textContent = `${count} / ${total}`;
+      progressFill.style.width = total ? `${(count / total) * 100}%` : "0%";
       progressTrack.setAttribute("aria-valuemax", String(state.run.length));
       progressTrack.setAttribute("aria-valuenow", String(count));
       grid.querySelectorAll(".number-button").forEach((button, index) => {
@@ -4078,6 +4376,10 @@ const questions = [
 
     function render() {
       renderGrid();
+      if (!state.run.length) {
+        panel.innerHTML = `<p class="question-title">No questions in this selection.</p>`;
+        return;
+      }
       if (state.finished) {
         renderResult(score(), Math.round((score() / state.run.length) * 100));
       } else {
@@ -4112,8 +4414,14 @@ const questions = [
       button.addEventListener("click", () => {
         state.book = button.dataset.book;
         document.querySelectorAll("[data-book]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        fillChapters();
         makeRun();
       });
+    });
+
+    chapterFilter.addEventListener("change", () => {
+      state.chapter = chapterFilter.value;
+      makeRun();
     });
 
     document.querySelector("#edition").textContent = `${questions.length} original questions · Books 1–2`;
@@ -4147,6 +4455,7 @@ const questions = [
     });
 
     updateBest();
+    fillChapters();
     makeRun();
   </script>
   <script>
