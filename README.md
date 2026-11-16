@@ -6,7 +6,7 @@ a repo with a quiz app in PWA
 
  Part I Quiz (PWA)
 =====================
-Installable/offline quiz app with 164 original questions covering Book 1 (Foundations of Risk Management) and Book 2 Chapters 12-26 (Quantitative Analysis). Chapters 18-26 are an initial two questions each, not complete coverage of those chapters.
+Installable/offline quiz app with 198 original questions covering Book 1 (Foundations of Risk Management) and Book 2 Chapters 12-26 (Quantitative Analysis). Chapters 18-26 are expanded but do not complete those chapters.
 PWA tags and a service-worker registration are included.
 
 A PWA must be served over HTTPS (or http://localhost) to install. Opening index.html

@@ -431,7 +431,7 @@
       <div>
         <p class="eyebrow">FRM Part I / Book 1 Foundations · Book 2 Quantitative Analysis, Ch 12–26</p>
         <h1 id="page-title">Risk and probability,<br>one question at a time.</h1>
-        <p class="intro-copy">164 original exam-style questions: all of Book 1, Foundations of Risk Management, plus Book 2, Quantitative Analysis, Chapters 12–26. Chapters 12–17 are the larger set. Chapters 18–26 have two questions each and do not complete those chapters. Every answer comes with an explanation.</p>
+        <p class="intro-copy">198 original exam-style questions: all of Book 1, Foundations of Risk Management, plus Book 2, Quantitative Analysis, Chapters 12–26. Chapters 12–17 are the larger set. Chapters 18–26 are expanded but do not complete those chapters. Every answer comes with an explanation.</p>
       </div>
       <div class="edition" id="edition">original questions</div>
     </section>
@@ -489,7 +489,7 @@
 
       <section class="quiz-panel" id="quiz-panel" aria-live="polite"></section>
     </section>
-    <p class="source-note">Questions are newly written, not copied from commercial or official question banks; every calculation was checked by hand. Chapters 18–26 are a first pair of questions each, not complete coverage of those chapters. Topic labels continue this quiz’s own chapter sequence. <a href="https://www.garp.org/frm/study-materials" target="_blank" rel="noreferrer">GARP study materials</a> are the official curriculum; this is an independent study aid, not official GARP material.</p>
+    <p class="source-note">Questions are newly written, not copied from commercial or official question banks; every calculation was checked by hand. Chapters 18–26 are expanded but do not complete those chapters. Topic labels continue this quiz’s own chapter sequence. <a href="https://www.garp.org/frm/study-materials" target="_blank" rel="noreferrer">GARP study materials</a> are the official curriculum; this is an independent study aid, not official GARP material.</p>
   </main>
 
   <script>
@@ -3964,6 +3964,742 @@ const questions = [
   ],
   "answer": 1,
   "rationale": "<p><b>Precision 75%; recall 60%.</b> Incorrect. This reverses precision and recall.</p><p><b>Precision 60%; recall 75%.</b> Correct. Precision = TP/(TP + FP) = 60/(60 + 40) = 60%. Recall = TP/(TP + FN) = 60/(60 + 20) = 75%.</p><p><b>Precision 94%; recall 94%.</b> Incorrect. 94% is accuracy: (60 + 880)/1,000. It is neither of the requested metrics.</p><p><b>Precision 6%; recall 8%.</b> Incorrect. These divide true positives and actual defaults by the full sample rather than by the metric-specific denominators.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 18 · Linear Regression",
+  "prompt": "A credit analyst regresses the change in a sector’s bond spreads on the change in an equity-volatility index using OLS. Reviewing the specification, the analyst lists four possible problems. In each case, everything else satisfies the standard OLS assumptions. Which problem would make the estimated slope biased and inconsistent?",
+  "options": [
+    "The errors are heteroskedastic, with larger variance when volatility is high.",
+    "The errors have fat tails, but finite variance, and the sample has 500 observations.",
+    "The volatility index is correlated with the error term, because a relevant driver of spreads that moves with volatility has been left out.",
+    "The volatility index varies a lot over the sample."
+  ],
+  "answer": 2,
+  "rationale": "<p><b>Correct: The volatility index is correlated with the error term, because a relevant driver of spreads that moves with volatility has been left out.</b> The key assumption for unbiased and consistent slopes is that the error has a conditional mean of zero given the explanatory variable, E[ε | X] = 0. Correlation between X and the error violates it and biases the slope even in large samples.</p><p><b>Incorrect: The errors are heteroskedastic, with larger variance when volatility is high.</b> Heteroskedasticity leaves OLS slopes unbiased and consistent. It invalidates the conventional standard errors, which robust standard errors can fix.</p><p><b>Incorrect: The errors have fat tails, but finite variance, and the sample has 500 observations.</b> Normal errors are not needed for unbiasedness. With finite variance and a large sample, OLS is consistent, and inference is approximately valid.</p><p><b>Incorrect: The volatility index varies a lot over the sample.</b> A large variance in X is helpful: it lowers the slope’s standard error. OLS only requires that X is not constant.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 18 · Linear Regression",
+  "prompt": "A treasury analyst estimates a bond fund’s sensitivity to rate changes by OLS with 60 monthly observations, and the slope has a standard error of 0.30. The analyst re-estimates the same model on 240 observations. In the new sample, the standard deviation of the explanatory variable is 1.5 times larger, and the error variance is unchanged. Using the large-sample formula for the slope’s standard error, what standard error should the analyst expect?",
+  "options": [
+    "0.10",
+    "0.15",
+    "0.067",
+    "0.05"
+  ],
+  "answer": 0,
+  "rationale": "<p><b>Correct: 0.10.</b> The slope’s standard error is about σ<sub>ε</sub>/(√n × σ<sub>X</sub>). Quadrupling n halves it, and a 1.5× larger σ<sub>X</sub> divides it by 1.5: 0.30 × ½ ÷ 1.5 = 0.10.</p><p><b>0.15 is incorrect.</b> This captures the larger sample but ignores the larger spread of the explanatory variable, which also improves precision.</p><p><b>0.067 is incorrect.</b> This divides by 1.5<sup>2</sup>, the variance ratio. The standard error depends on the standard deviation of X, not its variance.</p><p><b>0.05 is incorrect.</b> This scales by n rather than √n: 0.30 × ¼ ÷ 1.5. The standard error shrinks with the square root of the sample size.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 18 · Linear Regression",
+  "prompt": "An equity analyst regresses a bank stock’s monthly excess return on the market’s excess return using 62 months of data. The estimated beta is 1.32 with a standard error of 0.20. The two-sided 99% critical t-value with 60 degrees of freedom is 2.660. The analyst builds a 99% confidence interval for beta and uses it to test the null hypotheses β = 0.75 and β = 1.00. Which result is correct?",
+  "options": [
+    "The interval is 0.79 to 1.85; reject β = 0.75 but do not reject β = 1.00 at the 1% level.",
+    "The interval is 0.93 to 1.71; reject β = 0.75 but do not reject β = 1.00 at the 1% level.",
+    "The interval is 1.21 to 1.43; reject both β = 0.75 and β = 1.00.",
+    "The interval is 0.79 to 1.85; do not reject either null, because both values are below the estimate."
+  ],
+  "answer": 0,
+  "rationale": "<p><b>Correct: The interval is 0.79 to 1.85; reject β = 0.75 but do not reject β = 1.00 at the 1% level.</b></p><ol><li>CI = 1.32 ± 2.660 × 0.20 = 1.32 ± 0.532, or 0.788 to 1.852.</li><li>A two-sided test at the 1% level rejects any null value outside this interval. 0.75 lies outside, so it is rejected; 1.00 lies inside, so it is not.</li></ol><p><b>Incorrect: The interval is 0.93 to 1.71; reject β = 0.75 but do not reject β = 1.00 at the 1% level.</b> The conclusions happen to match, but the interval uses the 95% normal value, 1.96, rather than the 99% t-value of 2.660, so it is too narrow for a 1% test.</p><p><b>Incorrect: The interval is 1.21 to 1.43; reject both β = 0.75 and β = 1.00.</b> This multiplies the critical value by the squared standard error, 0.04, rather than the standard error.</p><p><b>Incorrect: The interval is 0.79 to 1.85; do not reject either null, because both values are below the estimate.</b> Being below the estimate is not the test. Only values outside the interval are rejected, and 0.75 is below the lower limit of 0.788.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 19 · Regression with Multiple Explanatory Variables",
+  "prompt": "A credit-risk modeller regresses quarterly loss rates on three macroeconomic variables, plus an intercept, using 48 observations. The software reports only the partial analysis-of-variance table shown in the exhibit. For the model documentation, the modeller must report the R-squared and the adjusted R-squared. Which pair is correct?",
+  "exhibit": {
+    "type": "table",
+    "caption": "Partial ANOVA table",
+    "columns": [
+      "Source",
+      "Degrees of freedom",
+      "Sum of squares"
+    ],
+    "rows": [
+      [
+        "Regression (explained)",
+        "3",
+        "—"
+      ],
+      [
+        "Residual",
+        "44",
+        "168.0"
+      ],
+      [
+        "Total",
+        "47",
+        "480.0"
+      ]
+    ]
+  },
+  "options": [
+    "R-squared 0.650; adjusted R-squared 0.626.",
+    "R-squared 0.650; adjusted R-squared 0.634.",
+    "R-squared 0.650; adjusted R-squared 0.672.",
+    "R-squared 0.350; adjusted R-squared 0.306."
+  ],
+  "answer": 0,
+  "rationale": "<p><b>Correct: R-squared 0.650; adjusted R-squared 0.626.</b></p><ol><li>ESS = TSS − RSS = 480 − 168 = 312, so R<sup>2</sup> = ESS/TSS = 312/480 = 0.650.</li><li>Adjusted R<sup>2</sup> = 1 − (1 − R<sup>2</sup>)(n − 1)/(n − k − 1) = 1 − 0.35 × 47/44 = 0.626.</li></ol><p><b>Incorrect: R-squared 0.650; adjusted R-squared 0.634.</b> This uses n − k = 45 in the denominator, forgetting that the intercept also uses a degree of freedom. The correct denominator is 44.</p><p><b>Incorrect: R-squared 0.650; adjusted R-squared 0.672.</b> This inverts the degrees-of-freedom ratio, giving an adjusted R<sup>2</sup> above R<sup>2</sup>. With regressors in the model, the adjustment always lowers R<sup>2</sup>.</p><p><b>Incorrect: R-squared 0.350; adjusted R-squared 0.306.</b> 0.350 is RSS/TSS, the unexplained share. R<sup>2</sup> is the explained share, ESS/TSS.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 19 · Regression with Multiple Explanatory Variables",
+  "prompt": "A bank estimates corporate loan spreads (%) by OLS: Spread = 1.10 + 0.45 × Leverage − 0.30 × Coverage + 0.08 × Size, where Leverage is debt/EBITDA, Coverage is EBITDA/interest and Size is log assets. Two borrowers are identical except that Borrower X has leverage 2.0 turns higher and coverage 1.5 turns lower than Borrower Y. By how much does the model’s predicted spread for X exceed that for Y?",
+  "options": [
+    "0.45 percentage points",
+    "2.45 percentage points",
+    "1.35 percentage points",
+    "0.15 percentage points"
+  ],
+  "answer": 2,
+  "rationale": "<p><b>Correct: 1.35 percentage points.</b> Each multiple-regression coefficient measures the effect of its variable holding the others constant. The difference is 0.45 × 2.0 + (−0.30) × (−1.5) = 0.90 + 0.45 = 1.35. Size is the same for both borrowers, and the intercept cancels.</p><p><b>0.45 percentage points is incorrect.</b> This gets the sign of the coverage effect wrong. Lower coverage raises the spread, because its coefficient is negative and the change is negative.</p><p><b>2.45 percentage points is incorrect.</b> This adds the intercept. In a difference between two borrowers the intercept cancels.</p><p><b>0.15 percentage points is incorrect.</b> This adds the two coefficients without multiplying by the size of each change.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 20 · Regression Diagnostics",
+  "prompt": "A risk analyst models a fund’s daily return on two factor returns, X<sub>1</sub> and X<sub>2</sub>, with 200 observations. To run a White test, the analyst regresses the squared residuals on an intercept, X<sub>1</sub>, X<sub>2</sub>, X<sub>1</sub><sup>2</sup>, X<sub>2</sub><sup>2</sup> and X<sub>1</sub>X<sub>2</sub>, giving an R-squared of 0.048. The 5% chi-squared critical values are 5.991 (2 df) and 11.070 (5 df). Which conclusion is correct?",
+  "options": [
+    "The test statistic is 9.60; reject homoskedasticity, because it exceeds 5.991.",
+    "The test statistic is 9.60; do not reject homoskedasticity at the 5% level.",
+    "The test statistic is 190.4; reject homoskedasticity.",
+    "The test statistic is 0.048; do not reject, because R-squared is close to zero."
+  ],
+  "answer": 1,
+  "rationale": "<p><b>Correct: The test statistic is 9.60; do not reject homoskedasticity at the 5% level.</b></p><ol><li>The White statistic is nR<sup>2</sup> from the auxiliary regression: 200 × 0.048 = 9.60.</li><li>Its degrees of freedom equal the number of auxiliary regressors excluding the intercept: 5.</li><li>9.60 &lt; 11.070, so homoskedasticity is not rejected.</li></ol><p><b>Incorrect: The test statistic is 9.60; reject homoskedasticity, because it exceeds 5.991.</b> This uses 2 degrees of freedom, as if only the original regressors were counted. The auxiliary regression has five slope terms.</p><p><b>Incorrect: The test statistic is 190.4; reject homoskedasticity.</b> This uses n(1 − R<sup>2</sup>). The statistic is n times the explained share, R<sup>2</sup>.</p><p><b>Incorrect: The test statistic is 0.048; do not reject, because R-squared is close to zero.</b> R<sup>2</sup> on its own is not the test statistic. It must be multiplied by n and compared with a chi-squared critical value.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 20 · Regression Diagnostics",
+  "prompt": "A bank models quarterly fee income using an intercept, dummy variables for all four calendar quarters, and two regressors: the equity-market return and the bond-market return. The two market returns have a sample correlation of 0.96. The software drops one variable automatically, and the remaining market coefficients have large standard errors. Which diagnosis is correct?",
+  "options": [
+    "The 0.96 correlation is perfect collinearity, which is why the software dropped a variable, and the dummies are fine.",
+    "Both problems bias the coefficients, so the market-return coefficients are no longer unbiased.",
+    "Multicollinearity can be fixed by adding a fifth quarterly dummy, which separates the two market returns.",
+    "The four quarter dummies plus the intercept are perfectly collinear, so OLS cannot be estimated until one is dropped; the 0.96 correlation is multicollinearity, which inflates standard errors but does not bias OLS."
+  ],
+  "answer": 3,
+  "rationale": "<p><b>Correct: The four quarter dummies plus the intercept are perfectly collinear, so OLS cannot be estimated until one is dropped; the 0.96 correlation is multicollinearity, which inflates standard errors but does not bias OLS.</b> The four dummies always sum to 1, which exactly duplicates the intercept (the dummy-variable trap), so the coefficients cannot be identified. High but imperfect correlation between regressors still allows estimation: the coefficients stay unbiased, but they are imprecise, with large standard errors and low t-statistics.</p><p><b>Incorrect: The 0.96 correlation is perfect collinearity, which is why the software dropped a variable, and the dummies are fine.</b> Perfect collinearity needs an exact linear relationship. A correlation of 0.96 is not exact; the exact dependence comes from the dummies and the intercept.</p><p><b>Incorrect: Both problems bias the coefficients, so the market-return coefficients are no longer unbiased.</b> Multicollinearity does not cause bias. It reduces precision. Perfect collinearity prevents estimation altogether rather than biasing it.</p><p><b>Incorrect: Multicollinearity can be fixed by adding a fifth quarterly dummy, which separates the two market returns.</b> Adding another dummy cannot affect the correlation between the market returns, and it would make the collinearity among the dummies worse.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 20 · Regression Diagnostics",
+  "prompt": "A model validator checks whether one observation, a crisis-month data point, drives an OLS regression with an intercept and three slopes. When that observation is removed and the model is re-estimated, the squared changes in the fitted values sum to 1.30 across all observations. The original regression’s residual variance is s<sup>2</sup> = 0.25. Using Cook’s distance, with k equal to the number of estimated coefficients including the intercept, and the usual threshold of 1, which conclusion is correct?",
+  "options": [
+    "Cook’s distance is 1.73, so the observation is influential and needs investigation.",
+    "Cook’s distance is 1.30, so the observation is influential and needs investigation.",
+    "Cook’s distance is 0.65, so the observation is not influential.",
+    "Cook’s distance cannot be computed, because it requires the observation’s residual to exceed three standard deviations."
+  ],
+  "answer": 1,
+  "rationale": "<p><b>Correct: Cook’s distance is 1.30, so the observation is influential and needs investigation.</b> D = Σ(ŷ<sub>i</sub><sup>(−j)</sup> − ŷ<sub>i</sub>)<sup>2</sup>/(k s<sup>2</sup>), where k counts all estimated coefficients, including the intercept, here 4. So D = 1.30/(4 × 0.25) = 1.30, which is above 1.</p><p><b>Incorrect: Cook’s distance is 1.73, so the observation is influential and needs investigation.</b> This uses k = 3, counting only the slopes. Some study notes define k as the number of explanatory variables, but the question specifies all estimated coefficients, including the intercept. The conclusion is the same, but the value is wrong.</p><p><b>Incorrect: Cook’s distance is 0.65, so the observation is not influential.</b> This divides by the residual standard deviation, 0.5, rather than the variance, 0.25, which halves the statistic and reverses the conclusion.</p><p><b>Incorrect: Cook’s distance cannot be computed, because it requires the observation’s residual to exceed three standard deviations.</b> Cook’s distance measures how much the fitted values change when the observation is dropped. It does not need a prior residual cut-off.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 21 · Stationary Time Series",
+  "prompt": "A quantitative analyst is screening candidate models for the daily changes in a bank’s deposit balances before fitting an ARMA model. In each candidate below, e(t) is white noise with constant variance and t is a time index. The analyst wants a process that is covariance stationary, with a constant mean, constant variance and autocovariances that depend only on the lag. Which process qualifies?",
+  "options": [
+    "x(t) = 0.4 + 0.95x(t−1) + e(t)",
+    "x(t) = 0.4 + x(t−1) + e(t)",
+    "x(t) = 0.4 + 0.02t + e(t)",
+    "x(t) = 1.05x(t−1) + e(t)"
+  ],
+  "answer": 0,
+  "rationale": "<p><b>Correct: x(t) = 0.4 + 0.95x(t−1) + e(t).</b> An AR(1) is covariance stationary when |φ| &lt; 1. With φ = 0.95, it has a constant mean, 0.4/(1 − 0.95) = 8, and a constant variance, even though it reverts to that mean slowly.</p><p><b>x(t) = 0.4 + x(t−1) + e(t) is incorrect.</b> This is a random walk with drift, which has a unit root. Its mean and variance grow with t.</p><p><b>x(t) = 0.4 + 0.02t + e(t) is incorrect.</b> The deterministic trend makes the mean, 0.4 + 0.02t, change over time, so the process is trend-stationary rather than covariance stationary.</p><p><b>x(t) = 1.05x(t−1) + e(t) is incorrect.</b> With |φ| &gt; 1, this is explosive: shocks grow over time, so the variance is not constant.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 21 · Stationary Time Series",
+  "prompt": "After fitting an ARMA model to daily equity-index returns, a model validator studies the residuals. They have a mean close to zero and a stable variance, and none of their sample autocorrelations up to lag 20 is significant. However, the squared residuals show strong, persistent positive autocorrelation. How should the validator classify the residual series?",
+  "options": [
+    "It is not white noise, because white noise requires the squared residuals to be uncorrelated.",
+    "It can be white noise, but it is not independent white noise, because dependence in the squared residuals shows the shocks are not independent.",
+    "It is Gaussian white noise, because uncorrelated residuals with a constant variance must be normally distributed.",
+    "It is independent white noise, because zero autocorrelation at every lag implies independence."
+  ],
+  "answer": 1,
+  "rationale": "<p><b>Correct: It can be white noise, but it is not independent white noise, because dependence in the squared residuals shows the shocks are not independent.</b> White noise only requires a zero mean, constant variance and zero autocorrelation, and the residuals meet all three. Independent white noise also requires the shocks to be independent. Autocorrelated squared residuals point to volatility clustering, a form of dependence that the uncorrelated levels do not show.</p><p><b>Incorrect: It is not white noise, because white noise requires the squared residuals to be uncorrelated.</b> The white-noise definition restricts only the autocorrelations of the levels. Uncorrelated squares is a property of independent white noise.</p><p><b>Incorrect: It is Gaussian white noise, because uncorrelated residuals with a constant variance must be normally distributed.</b> Zero autocorrelation says nothing about the distribution. Gaussian white noise is a special case that requires normality, which in turn implies independence; volatility clustering rules that out.</p><p><b>Incorrect: It is independent white noise, because zero autocorrelation at every lag implies independence.</b> Zero correlation does not imply independence. The autocorrelated squared residuals are direct evidence of dependence.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 21 · Stationary Time Series",
+  "prompt": "A liquidity-risk analyst studies 625 daily observations of a bank’s net intraday payment flows. The exhibit shows the sample autocorrelation (ACF) and partial autocorrelation (PACF) functions. The approximate 95% significance band is ±0.08. Based only on these patterns, which model is the most appropriate starting point?",
+  "exhibit": {
+    "type": "table",
+    "caption": "Sample autocorrelations, 625 observations",
+    "columns": [
+      "Lag",
+      "ACF",
+      "PACF"
+    ],
+    "rows": [
+      [
+        "1",
+        "0.31",
+        "0.31"
+      ],
+      [
+        "2",
+        "−0.16",
+        "−0.28"
+      ],
+      [
+        "3",
+        "0.02",
+        "0.18"
+      ],
+      [
+        "4",
+        "−0.03",
+        "−0.13"
+      ],
+      [
+        "5",
+        "0.01",
+        "0.10"
+      ]
+    ],
+    "note": "Approximate 95% band: ±2/√625 = ±0.08"
+  },
+  "options": [
+    "AR(2)",
+    "MA(2)",
+    "AR(1)",
+    "ARMA(1,1)"
+  ],
+  "answer": 1,
+  "rationale": "<p><b>Correct: MA(2).</b> The ACF is significant at lags 1 and 2 and then cuts off sharply, while the PACF dies out gradually with alternating signs. That is the signature of a moving-average process of order 2.</p><p><b>AR(2) is incorrect.</b> An AR(2) has the opposite pattern: its PACF cuts off after lag 2, and its ACF decays gradually.</p><p><b>AR(1) is incorrect.</b> An AR(1) has an ACF that decays geometrically and a PACF that cuts off after lag 1. Here the ACF cuts off after lag 2, and the PACF stays significant well beyond lag 1.</p><p><b>ARMA(1,1) is incorrect.</b> Both the ACF and the PACF of an ARMA(1,1) decay gradually. A clean ACF cut-off after lag 2 points to a pure MA model.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 21 · Stationary Time Series",
+  "prompt": "A model validator checks whether residuals from a monthly credit-spread model are serially uncorrelated. With 60 residuals, the first four sample autocorrelations are those shown in the exhibit. The validator uses the Ljung–Box statistic for the joint null hypothesis that all four autocorrelations are zero, at the 5% level. The chi-squared critical value with 4 degrees of freedom is 9.488. Which result is correct?",
+  "exhibit": {
+    "type": "table",
+    "caption": "Residual sample autocorrelations",
+    "columns": [
+      "Lag",
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "rows": [
+      [
+        "ρ̂",
+        "0.25",
+        "−0.18",
+        "0.20",
+        "0.12"
+      ]
+    ]
+  },
+  "options": [
+    "Ljung–Box Q ≈ 9.59; reject the null that the four autocorrelations are jointly zero.",
+    "Q ≈ 8.96; do not reject the null that the four autocorrelations are jointly zero.",
+    "Ljung–Box Q ≈ 9.59; do not reject, because the critical value with 60 degrees of freedom applies.",
+    "Q ≈ 0.15; do not reject, because the sum of squared autocorrelations is small."
+  ],
+  "answer": 0,
+  "rationale": "<p><b>Correct: Ljung–Box Q ≈ 9.59; reject the null that the four autocorrelations are jointly zero.</b></p><ol><li>Q<sub>LB</sub> = n(n + 2) Σ ρ̂<sub>k</sub><sup>2</sup>/(n − k) = 60 × 62 × (0.0625/59 + 0.0324/58 + 0.0400/57 + 0.0144/56).</li><li>This gives 3,720 × 0.002577 ≈ 9.59.</li><li>9.59 &gt; 9.488, so reject the null. The residuals still contain serial correlation.</li></ol><p><b>Incorrect: Q ≈ 8.96; do not reject the null that the four autocorrelations are jointly zero.</b> 8.96 is the Box–Pierce statistic, n Σ ρ̂<sub>k</sub><sup>2</sup>. In a sample this small, Ljung–Box applies a finite-sample correction that raises the statistic above the critical value.</p><p><b>Incorrect: Ljung–Box Q ≈ 9.59; do not reject, because the critical value with 60 degrees of freedom applies.</b> The degrees of freedom equal the number of autocorrelations tested, 4, not the sample size.</p><p><b>Incorrect: Q ≈ 0.15; do not reject, because the sum of squared autocorrelations is small.</b> 0.149 is only Σ ρ̂<sub>k</sub><sup>2</sup>. It must be scaled by the sample size before being compared with a chi-squared critical value.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 21 · Stationary Time Series",
+  "prompt": "An ALM analyst forecasts a bank’s monthly net interest margin deviation, in basis points, with the ARMA(1,1) model x(t) = 0.5 + 0.7x(t−1) + e(t) + 0.4e(t−1). The latest value is x(T) = 3.0 bp, and the latest estimated shock is e(T) = 2.0 bp. Future shocks have an expected value of zero. What is the two-step-ahead forecast, E[x(T+2)]?",
+  "options": [
+    "2.32 bp",
+    "2.88 bp",
+    "3.40 bp",
+    "1.67 bp"
+  ],
+  "answer": 1,
+  "rationale": "<p><b>Correct: 2.88 bp.</b></p><ol><li>One step ahead, the last shock still enters through the MA term: E[x(T+1)] = 0.5 + 0.7 × 3.0 + 0.4 × 2.0 = 3.40.</li><li>Two steps ahead, the MA term involves e(T+1), whose expected value is zero: E[x(T+2)] = 0.5 + 0.7 × 3.40 = 2.88.</li></ol><p><b>2.32 bp is incorrect.</b> This leaves out the MA term in the first step: 0.5 + 0.7 × (0.5 + 0.7 × 3.0). The known shock e(T) does affect the one-step forecast.</p><p><b>3.40 bp is incorrect.</b> This is the one-step-ahead forecast, not the two-step forecast.</p><p><b>1.67 bp is incorrect.</b> This is the long-run mean, 0.5/(1 − 0.7). Forecasts converge to it only as the horizon grows.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 21 · Stationary Time Series",
+  "prompt": "A retail bank models quarterly deviations of its card-default rate from target, in basis points, using a seasonal autoregression: x(t) = 1.0 + 0.5x(t−4) + e(t). The last four observations are shown in the exhibit, ending with Q4. What are the forecasts for Q4 next year and Q4 in two years’ time, and where do long-horizon forecasts settle?",
+  "exhibit": {
+    "type": "table",
+    "caption": "Latest quarterly observations (bp)",
+    "columns": [
+      "Quarter",
+      "Q1",
+      "Q2",
+      "Q3",
+      "Q4"
+    ],
+    "rows": [
+      [
+        "x(t)",
+        "3.2",
+        "1.4",
+        "2.6",
+        "4.4"
+      ]
+    ]
+  },
+  "options": [
+    "Q4 next year 3.20 bp; Q4 in two years 2.60 bp; long-horizon forecasts settle at 2.00 bp.",
+    "Q4 next year 3.20 bp; Q4 in two years 3.20 bp; forecasts stay at 3.20 bp.",
+    "Q4 next year 3.20 bp; Q4 in two years 2.60 bp; long-horizon forecasts settle at 1.00 bp.",
+    "Q4 next year 2.45 bp; Q4 in two years 2.23 bp; long-horizon forecasts settle at 2.00 bp."
+  ],
+  "answer": 0,
+  "rationale": "<p><b>Correct: Q4 next year 3.20 bp; Q4 in two years 2.60 bp; long-horizon forecasts settle at 2.00 bp.</b></p><ol><li>Each quarter depends on the same quarter a year earlier: E[x(Q4 next year)] = 1.0 + 0.5 × 4.4 = 3.20.</li><li>E[x(Q4 in two years)] = 1.0 + 0.5 × 3.20 = 2.60.</li><li>Because |0.5| &lt; 1, the model mean-reverts, so long-horizon forecasts approach 1.0/(1 − 0.5) = 2.00.</li></ol><p><b>Incorrect: Q4 next year 3.20 bp; Q4 in two years 3.20 bp; forecasts stay at 3.20 bp.</b> This treats the seasonal effect as permanent, like a seasonal random walk. With a coefficient of 0.5, the deviation halves each year.</p><p><b>Incorrect: Q4 next year 3.20 bp; Q4 in two years 2.60 bp; long-horizon forecasts settle at 1.00 bp.</b> The intercept is not the mean. The unconditional mean is 1.0/(1 − 0.5) = 2.00.</p><p><b>Incorrect: Q4 next year 2.45 bp; Q4 in two years 2.23 bp; long-horizon forecasts settle at 2.00 bp.</b> This uses the average of the last four quarters (2.9) as the lagged value. The model uses the same quarter one year earlier, 4.4.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 22 · Non-Stationary Time Series",
+  "prompt": "A deposit-pricing analyst fits a linear time trend to 80 quarters of a bank’s retail deposit balances (EUR billion), with t = 1 for the first quarter: ŷ(t) = 12.0 + 0.35t. The residuals are approximately normal with a standard deviation of 1.2. Ignoring parameter-estimation uncertainty, what are the point forecast and the 95% interval forecast four quarters after the end of the sample?",
+  "options": [
+    "Point forecast 41.40; 95% interval from 38.58 to 44.22.",
+    "Point forecast 41.40; 95% interval from 39.05 to 43.75.",
+    "Point forecast 40.00; 95% interval from 37.65 to 42.35.",
+    "Point forecast 13.40; 95% interval from 11.05 to 15.75."
+  ],
+  "answer": 1,
+  "rationale": "<p><b>Correct: Point forecast 41.40; 95% interval from 39.05 to 43.75.</b></p><ol><li>Four quarters after t = 80 is t = 84: 12.0 + 0.35 × 84 = 41.40.</li><li>The 95% interval is 41.40 ± 1.96 × 1.2 = 41.40 ± 2.35, or 39.05 to 43.75.</li></ol><p><b>Incorrect: Point forecast 41.40; 95% interval from 38.58 to 44.22.</b> The point forecast is right, but the interval multiplies 1.96 by the residual variance, 1.44, instead of the standard deviation, 1.2.</p><p><b>Incorrect: Point forecast 40.00; 95% interval from 37.65 to 42.35.</b> This is the fitted value at the last sample quarter, t = 80, not the forecast for t = 84.</p><p><b>Incorrect: Point forecast 13.40; 95% interval from 11.05 to 15.75.</b> This plugs in the horizon, h = 4, rather than the time index t = 84.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 22 · Non-Stationary Time Series",
+  "prompt": "A payments business models quarterly transaction volumes (millions) with a linear trend and seasonal dummies. Q1 is the base quarter, and the 40-quarter sample ends in Q4 at t = 40. The estimated coefficients are in the exhibit. A planning analyst needs the point forecast for Q3 of next year. Which forecast is correct?",
+  "exhibit": {
+    "type": "table",
+    "caption": "Trend-plus-seasonal regression (Q1 = base)",
+    "columns": [
+      "Term",
+      "Coefficient"
+    ],
+    "rows": [
+      [
+        "Intercept",
+        "20.0"
+      ],
+      [
+        "Time trend t",
+        "0.15"
+      ],
+      [
+        "Q2 dummy",
+        "1.8"
+      ],
+      [
+        "Q3 dummy",
+        "−0.6"
+      ],
+      [
+        "Q4 dummy",
+        "3.4"
+      ]
+    ]
+  },
+  "options": [
+    "26.45 million",
+    "19.85 million",
+    "31.05 million",
+    "25.85 million"
+  ],
+  "answer": 3,
+  "rationale": "<p><b>Correct: 25.85 million.</b></p><ol><li>Q3 of next year is three quarters after t = 40, so t = 43.</li><li>Only the Q3 dummy equals 1: 20.0 + 0.15 × 43 − 0.6 = 25.85.</li></ol><p><b>26.45 million is incorrect.</b> This leaves out the Q3 seasonal coefficient of −0.6, so it gives the trend value for a base-quarter (Q1) pattern.</p><p><b>19.85 million is incorrect.</b> This uses the horizon, t = 3, instead of the time index, t = 43.</p><p><b>31.05 million is incorrect.</b> This adds all three seasonal coefficients. In any quarter at most one dummy equals 1.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 22 · Non-Stationary Time Series",
+  "prompt": "A junior economist regresses the level of a regional house-price index on the level of cumulative software downloads in that region, using 25 years of quarterly data. Both series trend upwards, and unit-root tests do not reject a unit root in either one. The regression reports an R-squared of 0.81 and a slope t-statistic of 12.4. What should a reviewer conclude?",
+  "options": [
+    "The result may well be spurious: regressing one unit-root series on another can give a high R-squared and large t-statistic with no real relationship, so the series should be differenced (or tested for cointegration) first.",
+    "The relationship is strongly confirmed, because a t-statistic of 12.4 far exceeds any conventional critical value.",
+    "Adding a linear time trend to the regression fully solves the problem, because unit roots are just deterministic trends.",
+    "The problem disappears with a longer sample, because more observations always make spurious relationships vanish."
+  ],
+  "answer": 0,
+  "rationale": "<p><b>Correct: The result may well be spurious: regressing one unit-root series on another can give a high R-squared and large t-statistic with no real relationship, so the series should be differenced (or tested for cointegration) first.</b> With unit roots, the usual t and F distributions do not apply, and two unrelated random walks often appear strongly related in levels. Modelling first differences gives stationary series for which standard inference works. Only if the series are cointegrated is a levels regression meaningful.</p><p><b>Incorrect: The relationship is strongly confirmed, because a t-statistic of 12.4 far exceeds any conventional critical value.</b> Conventional critical values assume stationary series. Under unit roots, the t-statistic does not follow its usual distribution and is badly inflated.</p><p><b>Incorrect: Adding a linear time trend to the regression fully solves the problem, because unit roots are just deterministic trends.</b> A unit root is a stochastic trend: shocks are permanent. A deterministic trend term cannot remove it; differencing is the usual remedy.</p><p><b>Incorrect: The problem disappears with a longer sample, because more observations always make spurious relationships vanish.</b> With unit-root series, spurious significance does not go away as the sample grows; the t-statistic tends to grow with the sample size.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 22 · Non-Stationary Time Series",
+  "prompt": "A rates strategist compares two models for a long-term bond yield. Model T is trend-stationary: a deterministic linear trend plus stationary noise. Model R is a random walk with drift that has the same average slope. A sudden 50 bp shock hits the yield today. Which statement correctly contrasts how the two models treat this shock and their forecast uncertainty?",
+  "options": [
+    "Both models treat the shock as permanent, because both contain an upward-sloping trend.",
+    "Under Model R the shock fades, while under Model T it is permanent, because deterministic trends never revert.",
+    "Both models give forecast intervals that widen linearly with the horizon, because uncertainty always grows over time.",
+    "Under Model T the shock fades as the yield returns to trend, and interval width stays bounded; under Model R the shock is permanent and the forecast interval widens with the square root of the horizon."
+  ],
+  "answer": 3,
+  "rationale": "<p><b>Correct: Under Model T the shock fades as the yield returns to trend, and interval width stays bounded; under Model R the shock is permanent and the forecast interval widens with the square root of the horizon.</b> In a trend-stationary model, deviations from the trend are temporary, so long-horizon forecasts go back to the trend line and forecast variance converges to a constant. A random walk accumulates shocks: each one shifts all future forecasts by the full amount, and the forecast variance grows linearly with the horizon h, so the interval widens with √h.</p><p><b>Incorrect: Both models treat the shock as permanent, because both contain an upward-sloping trend.</b> A shared average slope does not make shocks behave the same way. Only the unit-root model keeps them permanently.</p><p><b>Incorrect: Under Model R the shock fades, while under Model T it is permanent, because deterministic trends never revert.</b> This reverses the two models. Deviations from a deterministic trend revert; random-walk shocks do not.</p><p><b>Incorrect: Both models give forecast intervals that widen linearly with the horizon, because uncertainty always grows over time.</b> Only the random walk has growing forecast variance, and its interval width grows with √h, not with h.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 23 · Measuring Return, Volatility, and Correlation",
+  "prompt": "A commodities analyst records the daily continuously compounded returns of a futures position over four trading days, shown in the exhibit. The position pays no income, and the analyst must report the holding-period return as a simple (discretely compounded) return for a client summary. What simple return should the analyst report for the four days combined?",
+  "exhibit": {
+    "type": "table",
+    "caption": "Daily continuously compounded returns",
+    "columns": [
+      "Day",
+      "Log return"
+    ],
+    "rows": [
+      [
+        "1",
+        "+2.0%"
+      ],
+      [
+        "2",
+        "−3.5%"
+      ],
+      [
+        "3",
+        "+1.0%"
+      ],
+      [
+        "4",
+        "+4.0%"
+      ]
+    ]
+  },
+  "options": [
+    "3.50%",
+    "3.39%",
+    "3.56%",
+    "3.44%"
+  ],
+  "answer": 2,
+  "rationale": "<p><b>Correct: 3.56%.</b> Log returns add over time, so the four-day log return is 2.0% − 3.5% + 1.0% + 4.0% = 3.5%. Converting to a simple return: R = e<sup>0.035</sup> − 1 = 3.56%.</p><p><b>3.50% is incorrect.</b> This is the four-day continuously compounded return. It has not been converted to a simple return.</p><p><b>3.39% is incorrect.</b> This compounds the log returns as if they were simple returns: 1.02 × 0.965 × 1.01 × 1.04 − 1. Log returns must be summed, not compounded.</p><p><b>3.44% is incorrect.</b> This applies the conversion the wrong way round: ln(1.035) turns a simple return into a log return, rather than the reverse.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 23 · Measuring Return, Volatility, and Correlation",
+  "prompt": "A risk analyst at an asset manager is told that a currency pair has an annualised volatility of 24%, using 252 trading days per year. Daily returns are assumed to be independent with constant variance. For a monthly stress report, the analyst needs the volatility over 21 trading days and also the daily variance rate. Which pair of figures is correct?",
+  "options": [
+    "21-day volatility of 2.00% and a daily variance rate of 0.000229.",
+    "21-day volatility of 6.93% and a daily variance rate of 0.0151.",
+    "21-day volatility of 0.48% and a daily variance rate of 0.000229.",
+    "21-day volatility of 6.93% and a daily variance rate of 0.000229."
+  ],
+  "answer": 3,
+  "rationale": "<p><b>Correct: 21-day volatility of 6.93% and a daily variance rate of 0.000229.</b></p><ol><li>Variance scales linearly with time, so volatility scales with the square root of time: 24% × √(21/252) = 6.93%.</li><li>The variance rate is variance per unit of time: 0.24² / 252 = 0.0576 / 252 = 0.000229 per day.</li></ol><p><b>Incorrect: 21-day volatility of 2.00% and a daily variance rate of 0.000229.</b> The variance rate is right, but 24%/12 scales volatility linearly with time. Only variance scales linearly.</p><p><b>Incorrect: 21-day volatility of 6.93% and a daily variance rate of 0.0151.</b> 0.0151 is the daily volatility, 24%/√252 = 1.51%. It is not the daily variance rate, which is its square.</p><p><b>Incorrect: 21-day volatility of 0.48% and a daily variance rate of 0.000229.</b> 0.0048 is the 21-day variance, 0.0576 × 21/252. It has been reported as if it were a volatility instead of taking its square root.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 23 · Measuring Return, Volatility, and Correlation",
+  "prompt": "A junior analyst on an equity derivatives desk notices that the volatility quoted next to a three-month index option differs from the standard deviation of the index’s returns over the last year. A senior colleague explains that the quoted figure is an implied volatility. Which statement best describes implied volatility?",
+  "options": [
+    "It is the volatility that makes an option-pricing model such as Black–Scholes–Merton reproduce the observed option price, so it reflects the market’s forward-looking view over the option’s life.",
+    "It is the sample standard deviation of past daily returns, annualised with the square-root-of-time rule.",
+    "It is a variance rate, so it rises in proportion to the option’s maturity and is never annualised.",
+    "It must equal historical volatility whenever markets are efficient, so any gap signals a pricing error."
+  ],
+  "answer": 0,
+  "rationale": "<p><b>Correct: It is the volatility that makes an option-pricing model such as Black–Scholes–Merton reproduce the observed option price, so it reflects the market’s forward-looking view over the option’s life.</b> Implied volatility is backed out of a market price by inverting a pricing model. It looks forward over the remaining life of the option and is quoted on an annualised basis, so it can differ from historical volatility. It can also include a risk premium.</p><p><b>Incorrect: It is the sample standard deviation of past daily returns, annualised with the square-root-of-time rule.</b> That describes historical (realised) volatility, which looks backwards at returns that have already happened.</p><p><b>Incorrect: It is a variance rate, so it rises in proportion to the option’s maturity and is never annualised.</b> Implied volatility is an annualised volatility, not a variance rate. A variance rate is variance per unit of time.</p><p><b>Incorrect: It must equal historical volatility whenever markets are efficient, so any gap signals a pricing error.</b> There is no such requirement. Implied volatility reflects expectations about the future and risk premia, so it routinely differs from past realised volatility.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 23 · Measuring Return, Volatility, and Correlation",
+  "prompt": "A market-risk modeller finds that daily losses on a credit portfolio beyond 2% of value follow a power law, P(L > x) = kx<sup>−α</sup>, with tail index α = 3. Historically, 4% of days show a loss above 2%. The modeller wants to estimate how often a loss above 4% should occur, without assuming normality. Which probability is consistent with the power law?",
+  "options": [
+    "1.00%",
+    "2.00%",
+    "0.25%",
+    "0.50%"
+  ],
+  "answer": 3,
+  "rationale": "<p><b>Correct: 0.50%.</b> Under a power law, P(L &gt; 4%)/P(L &gt; 2%) = (4/2)<sup>−3</sup> = 1/8. So P(L &gt; 4%) = 4% × 0.125 = 0.50%. This tail decays far more slowly than a normal tail, where doubling the threshold cuts the probability by much more than a factor of 8.</p><p><b>1.00% is incorrect.</b> This uses α = 2: 4% × 2<sup>−2</sup>. The stated tail index is 3.</p><p><b>2.00% is incorrect.</b> This halves the probability because the threshold doubles, as if tail probability were inversely proportional to the threshold. That corresponds to α = 1, not 3.</p><p><b>0.25% is incorrect.</b> This uses α = 4: 4% × 2<sup>−4</sup>, which makes the tail too thin.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 23 · Measuring Return, Volatility, and Correlation",
+  "prompt": "A volatility trader holds a straddle whose P&amp;L in a stress test is the square of the index move. Five scenarios give index moves of −2, −1, 0, 1 and 2 (in %) and straddle P&amp;L of 4, 1, 0, 1 and 4 (in EUR million). A risk analyst computes a Pearson correlation of exactly zero and concludes that the straddle P&amp;L does not depend on the index. Which assessment is correct?",
+  "options": [
+    "The analyst is right: a Pearson correlation of zero means the two variables are independent.",
+    "The analyst is wrong because the correlation must be positive: larger index moves always give larger P&amp;L.",
+    "The analyst is right only if both variables are normally distributed, which squaring guarantees.",
+    "The analyst is wrong: P&amp;L is an exact function of the index move, so the two are fully dependent even though their linear correlation is zero."
+  ],
+  "answer": 3,
+  "rationale": "<p><b>Correct: The analyst is wrong: P&amp;L is an exact function of the index move, so the two are fully dependent even though their linear correlation is zero.</b> The covariance is zero because the relationship is symmetric: positive and negative moves of the same size give identical P&amp;L. Correlation measures only linear association, so zero correlation does not imply independence. Here P&amp;L = (move)<sup>2</sup>, which is complete dependence.</p><p><b>Incorrect: The analyst is right: a Pearson correlation of zero means the two variables are independent.</b> Independence implies zero correlation, but not the reverse. A non-linear relationship can produce zero correlation.</p><p><b>Incorrect: The analyst is wrong because the correlation must be positive: larger index moves always give larger P&amp;L.</b> Only larger <i>absolute</i> moves give larger P&amp;L. A fall of 2% and a rise of 2% give the same P&amp;L, so the computed correlation really is zero.</p><p><b>Incorrect: The analyst is right only if both variables are normally distributed, which squaring guarantees.</b> Squaring a normal variable gives a chi-squared variable, not a normal one. The two variables are not jointly normal, which is exactly why zero correlation fails to imply independence here.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 23 · Measuring Return, Volatility, and Correlation",
+  "prompt": "A hedge-fund risk analyst wants a rank-based measure of dependence between two strategies’ monthly returns that is robust to outliers. Using the five months shown in the exhibit, the analyst computes Kendall’s tau from the numbers of concordant and discordant pairs. There are no ties. What is Kendall’s tau?",
+  "exhibit": {
+    "type": "table",
+    "caption": "Monthly returns of two strategies",
+    "columns": [
+      "Month",
+      "Strategy A",
+      "Strategy B"
+    ],
+    "rows": [
+      [
+        "Jan",
+        "+0.8%",
+        "−0.2%"
+      ],
+      [
+        "Feb",
+        "−1.1%",
+        "+0.4%"
+      ],
+      [
+        "Mar",
+        "+2.3%",
+        "+1.3%"
+      ],
+      [
+        "Apr",
+        "+0.2%",
+        "−0.9%"
+      ],
+      [
+        "May",
+        "+1.6%",
+        "+1.9%"
+      ]
+    ]
+  },
+  "options": [
+    "0.60",
+    "0.70",
+    "0.40",
+    "0.30"
+  ],
+  "answer": 2,
+  "rationale": "<p><b>Correct: 0.40.</b> There are 5 × 4/2 = 10 pairs of months. Seven pairs are concordant, with both returns moving in the same direction, and three are discordant: Jan–Feb, Feb–Apr and Mar–May. τ = (7 − 3)/10 = 0.40.</p><p><b>0.60 is incorrect.</b> 0.60 is Spearman’s rank correlation: the rank differences squared sum to 8, so 1 − 6 × 8/(5 × 24) = 0.60. It is a different rank measure.</p><p><b>0.70 is incorrect.</b> 0.70 is the share of concordant pairs, 7/10. Kendall’s tau subtracts the discordant share.</p><p><b>0.30 is incorrect.</b> 0.30 is the share of discordant pairs, 3/10, not the tau statistic.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 23 · Measuring Return, Volatility, and Correlation",
+  "prompt": "A credit-portfolio team models standardised asset returns of two borrowers with a one-factor model: Z<sub>i</sub> = β<sub>i</sub>F + √(1 − β<sub>i</sub><sup>2</sup>) ε<sub>i</sub>, where F and the ε<sub>i</sub> are independent standard normal variables. Borrower 1 has β = 0.8 and borrower 2 has β = 0.5. What correlation between the two borrowers’ asset returns does the model imply?",
+  "options": [
+    "0.65",
+    "0.40",
+    "0.16",
+    "0.21"
+  ],
+  "answer": 1,
+  "rationale": "<p><b>Correct: 0.40.</b> Both returns have unit variance, and they share only the common factor. So corr = cov = β<sub>1</sub>β<sub>2</sub> Var(F) = 0.8 × 0.5 = 0.40.</p><p><b>0.65 is incorrect.</b> This averages the two loadings. In a one-factor model the correlation is their product.</p><p><b>0.16 is incorrect.</b> This multiplies the squared loadings, 0.64 × 0.25. Squared loadings are the shares of each variance explained by the factor, not the cross-correlation.</p><p><b>0.21 is incorrect.</b> This also multiplies by the idiosyncratic weights √0.36 × √0.75. The idiosyncratic shocks are independent, so they add nothing to the covariance.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 23 · Measuring Return, Volatility, and Correlation",
+  "prompt": "A pension-fund risk officer compares two hedge-fund allocations using 10 years of monthly returns, summarised in the exhibit. Both have the same mean and the same volatility. An investment committee member argues that the two allocations therefore carry the same downside risk. Which response is most appropriate?",
+  "exhibit": {
+    "type": "table",
+    "caption": "Monthly return statistics, 120 months",
+    "columns": [
+      "Statistic",
+      "Fund P",
+      "Fund Q"
+    ],
+    "rows": [
+      [
+        "Mean",
+        "0.6%",
+        "0.6%"
+      ],
+      [
+        "Volatility",
+        "4.0%",
+        "4.0%"
+      ],
+      [
+        "Skewness",
+        "0.0",
+        "−1.2"
+      ],
+      [
+        "Kurtosis",
+        "3.0",
+        "7.5"
+      ]
+    ]
+  },
+  "options": [
+    "The committee member is right, because two return distributions with the same mean and variance have the same quantiles.",
+    "Fund Q is less risky, because negative skewness means most of its returns lie above the mean.",
+    "Fund Q probably has the larger extreme losses: its negative skewness and high kurtosis mean a VaR based only on the mean and volatility understates its left-tail risk.",
+    "Fund Q is riskier only because a kurtosis of 7.5 means its variance is higher than Fund P’s."
+  ],
+  "answer": 2,
+  "rationale": "<p><b>Correct: Fund Q probably has the larger extreme losses: its negative skewness and high kurtosis mean a VaR based only on the mean and volatility understates its left-tail risk.</b> The mean and variance describe a normal distribution completely, but not a non-normal one. Negative skewness puts more probability on large losses, and kurtosis above 3 means fatter tails. Both raise Fund Q’s extreme-loss quantiles above Fund P’s.</p><p><b>Incorrect: The committee member is right, because two return distributions with the same mean and variance have the same quantiles.</b> That holds only if both distributions belong to the same two-parameter family, such as the normal. Fund Q’s higher moments show that it does not.</p><p><b>Incorrect: Fund Q is less risky, because negative skewness means most of its returns lie above the mean.</b> A negatively skewed distribution often has a median above its mean, but its long left tail makes rare large losses more likely, so it carries more downside risk.</p><p><b>Incorrect: Fund Q is riskier only because a kurtosis of 7.5 means its variance is higher than Fund P’s.</b> Both funds have the same volatility, so their variances are equal. Kurtosis describes the tail shape for a given variance; it does not raise the variance.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 24 · Simulation and Bootstrapping",
+  "prompt": "A risk analyst is asked to estimate the one-year expected loss on a portfolio of structured credit using Monte Carlo simulation. The model and its parameters have already been specified. A colleague asks the analyst to outline the remaining steps of the simulation in order. Which sequence describes a correct Monte Carlo procedure?",
+  "options": [
+    "Generate one set of random draws; compute the loss; scale that loss by the number of replications to obtain the expected loss.",
+    "Compute the expected loss analytically first; then generate random draws until the simulated mean exactly matches it.",
+    "Average the input parameters first; compute a single loss from the averaged inputs; repeat with fresh draws only if the result looks implausible.",
+    "Generate pseudo-random draws from the assumed distributions; compute the portfolio loss for each set of draws; repeat for many replications; average the simulated losses and report the standard error."
+  ],
+  "answer": 3,
+  "rationale": "<p><b>Correct: Generate pseudo-random draws from the assumed distributions; compute the portfolio loss for each set of draws; repeat for many replications; average the simulated losses and report the standard error.</b> Once the data-generating process is specified, each replication draws random inputs and computes the quantity of interest. After many independent replications, the estimate is the sample mean, and its precision is measured by the standard error, s/√N.</p><p><b>Incorrect: Generate one set of random draws; compute the loss; scale that loss by the number of replications to obtain the expected loss.</b> A single draw gives one realisation, not an expectation. The estimate comes from averaging many independent replications.</p><p><b>Incorrect: Compute the expected loss analytically first; then generate random draws until the simulated mean exactly matches it.</b> Simulation is used because an analytical answer is unavailable. A simulated mean also never matches a target exactly; it is reported with a standard error.</p><p><b>Incorrect: Average the input parameters first; compute a single loss from the averaged inputs; repeat with fresh draws only if the result looks implausible.</b> For a non-linear payoff, the loss at average inputs is not the average loss (Jensen’s inequality). Monte Carlo averages the outputs.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 24 · Simulation and Bootstrapping",
+  "prompt": "A derivatives quant prices a barrier option with 20,000 independent Monte Carlo draws and gets a standard error of EUR 0.050. She then reruns it with antithetic variates: 10,000 draws plus their 10,000 sign-flipped mirror images, still 20,000 payoffs in total. The payoffs within each pair have a correlation of −0.6. Assuming the payoff variance is unchanged, what is the new standard error?",
+  "options": [
+    "EUR 0.0200",
+    "EUR 0.0632",
+    "EUR 0.0316",
+    "EUR 0.0500"
+  ],
+  "answer": 2,
+  "rationale": "<p><b>Correct: EUR 0.0316.</b></p><ol><li>Averaging a pair gives Var = σ<sup>2</sup>(1 + ρ)/2. With 10,000 pairs, the variance of the estimate is σ<sup>2</sup>(1 + ρ)/20,000.</li><li>That is the independent-draw variance times (1 + ρ) = 0.4.</li><li>So SE = 0.050 × √0.4 = 0.0316.</li></ol><p><b>EUR 0.0200 is incorrect.</b> This multiplies the standard error by (1 + ρ) = 0.4. That factor applies to the variance, so the standard error falls by √0.4.</p><p><b>EUR 0.0632 is incorrect.</b> This uses (1 − ρ) = 1.6. Negative correlation between paired payoffs reduces the variance; it does not increase it.</p><p><b>EUR 0.0500 is incorrect.</b> This assumes that pairing gives no benefit. Negative correlation within pairs offsets errors, which reduces sampling error for the same number of payoffs.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 24 · Simulation and Bootstrapping",
+  "prompt": "An equity-derivatives team values an arithmetic-average Asian option by simulation and gets EUR 4.20. Using the same random paths, the matching geometric-average Asian option is valued at EUR 3.95, but its exact closed-form value is EUR 3.80. The estimated control-variate coefficient is 0.9. What is the control-variate estimate of the arithmetic Asian option’s value?",
+  "options": [
+    "EUR 4.335",
+    "EUR 4.050",
+    "EUR 4.200",
+    "EUR 4.065"
+  ],
+  "answer": 3,
+  "rationale": "<p><b>Correct: EUR 4.065.</b> The control-variate estimator corrects the target by the error observed in the control: 4.20 − 0.9 × (3.95 − 3.80) = 4.20 − 0.135 = 4.065. On these paths the simulation overvalued the highly correlated control, so the target is adjusted downwards.</p><p><b>EUR 4.335 is incorrect.</b> This adds the correction. The control was overestimated, so the positively correlated target is probably overestimated too and should be reduced.</p><p><b>EUR 4.050 is incorrect.</b> This uses a coefficient of 1 instead of the estimated 0.9.</p><p><b>EUR 4.200 is incorrect.</b> This ignores the information in the control. The point of a control variate is to use its known exact value to cut sampling error.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 24 · Simulation and Bootstrapping",
+  "prompt": "A model validator reruns a bank’s Monte Carlo VaR engine three times and gets exactly the same 99% VaR each time. A colleague suspects that the random-number generator is broken. The engine documentation says the simulation uses a pseudo-random number generator initialised with a fixed seed. Which explanation is correct?",
+  "options": [
+    "The generator must be faulty, because pseudo-random numbers are truly random and should differ on every run.",
+    "The fixed seed biases the VaR estimate, so the seed should be changed before every single draw within a run.",
+    "Nothing is broken: pseudo-random generators are deterministic given the seed, so reusing the seed reproduces the same draws, which makes results replicable and lets models be compared on identical draws.",
+    "Running the engine many times with the same seed and averaging the results will reduce the sampling error."
+  ],
+  "answer": 2,
+  "rationale": "<p><b>Correct: Nothing is broken: pseudo-random generators are deterministic given the seed, so reusing the seed reproduces the same draws, which makes results replicable and lets models be compared on identical draws.</b> A pseudo-random generator produces a deterministic sequence that behaves statistically like random numbers. The seed fixes where the sequence starts. A fixed seed makes runs reproducible for validation, and using the same draws to compare two portfolios or models removes simulation noise from the comparison.</p><p><b>Incorrect: The generator must be faulty, because pseudo-random numbers are truly random and should differ on every run.</b> Pseudo-random numbers come from a deterministic algorithm; true randomness needs a physical source. Identical output from the same seed is expected.</p><p><b>Incorrect: The fixed seed biases the VaR estimate, so the seed should be changed before every single draw within a run.</b> A fixed seed does not create bias, and re-seeding within a run can damage the statistical properties of the sequence.</p><p><b>Incorrect: Running the engine many times with the same seed and averaging the results will reduce the sampling error.</b> Runs with the same seed are identical, so averaging them adds no information. Lower error needs more independent replications.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 24 · Simulation and Bootstrapping",
+  "prompt": "A market-risk team simulates 10-day losses for a multi-asset portfolio of equities, credit and FX. Historical daily returns show fat tails and stronger co-movement across asset classes during stress periods. Rather than fitting a multivariate normal distribution, the team resamples entire historical days of joint returns with replacement. What is the main advantage of this bootstrap?",
+  "options": [
+    "It can produce single-day returns more extreme than any observed in the history, so it captures unseen crises.",
+    "It needs much less historical data than a parametric Monte Carlo, because each day can be reused many times.",
+    "It keeps the empirical fat tails and cross-asset dependence in the data without having to specify a parametric distribution.",
+    "It automatically adjusts for structural changes in the market since the sample period."
+  ],
+  "answer": 2,
+  "rationale": "<p><b>Correct: It keeps the empirical fat tails and cross-asset dependence in the data without having to specify a parametric distribution.</b> Resampling whole historical return vectors keeps each day’s joint moves, including stress co-movement, and the observed tail shape. A parametric Monte Carlo would need a distribution, such as a multivariate normal, that may misrepresent both.</p><p><b>Incorrect: It can produce single-day returns more extreme than any observed in the history, so it captures unseen crises.</b> A bootstrap can only reuse observed days, so no single-day return can exceed the historical extremes. That is a limitation, not an advantage.</p><p><b>Incorrect: It needs much less historical data than a parametric Monte Carlo, because each day can be reused many times.</b> The bootstrap relies entirely on the sample, so it needs a long, representative history. Reuse does not create new information.</p><p><b>Incorrect: It automatically adjusts for structural changes in the market since the sample period.</b> The bootstrap assumes the future resembles the sample. If the market has changed structurally, resampled history can mislead.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 24 · Simulation and Bootstrapping",
+  "prompt": "A bank’s model-risk committee is reviewing a proposal to replace a closed-form valuation of a portfolio of callable notes with a large Monte Carlo simulation of a multi-factor interest-rate model. A committee member asks for the main drawback of relying on simulation for this problem. Which answer identifies a genuine disadvantage?",
+  "options": [
+    "The output is only as good as the assumed data-generating process: a misspecified model gives precise-looking but wrong values, and accurate results may need heavy computation.",
+    "Simulation cannot value path-dependent features such as call decisions, so it is unsuitable for callable notes.",
+    "Simulation error cannot be reduced, because increasing the number of replications has no effect on the standard error.",
+    "A simulation estimate is valid only if a closed-form solution exists to confirm every result."
+  ],
+  "answer": 0,
+  "rationale": "<p><b>Correct: The output is only as good as the assumed data-generating process: a misspecified model gives precise-looking but wrong values, and accurate results may need heavy computation.</b> Simulation reduces sampling error with more replications, but it cannot fix model error. Wrong dynamics or parameters give a confidently wrong answer. Complex models and many replications can also be computationally expensive.</p><p><b>Incorrect: Simulation cannot value path-dependent features such as call decisions, so it is unsuitable for callable notes.</b> Simulation handles path dependence well; that is one of its strengths. Early-exercise features need extra techniques, but they can be simulated.</p><p><b>Incorrect: Simulation error cannot be reduced, because increasing the number of replications has no effect on the standard error.</b> The standard error falls in proportion to 1/√N, and variance-reduction techniques lower it further.</p><p><b>Incorrect: A simulation estimate is valid only if a closed-form solution exists to confirm every result.</b> Simulation is most useful when no closed-form solution exists.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 25 · Machine Learning Models",
+  "prompt": "A data scientist at an insurer fits polynomial models of increasing complexity to predict claim severity. The exhibit plots training and validation mean squared error (MSE) against polynomial degree. The team must choose a model and diagnose what happens at the highest degrees. Which conclusion is best supported?",
+  "exhibit": {
+    "type": "chart",
+    "kind": "line",
+    "caption": "Training and validation MSE by polynomial degree",
+    "series": [
+      {
+        "label": "Training MSE",
+        "points": [
+          [
+            1,
+            4.1
+          ],
+          [
+            2,
+            2.6
+          ],
+          [
+            3,
+            1.9
+          ],
+          [
+            4,
+            1.4
+          ],
+          [
+            5,
+            0.9
+          ],
+          [
+            6,
+            0.5
+          ]
+        ]
+      },
+      {
+        "label": "Validation MSE",
+        "points": [
+          [
+            1,
+            4.3
+          ],
+          [
+            2,
+            2.9
+          ],
+          [
+            3,
+            2.2
+          ],
+          [
+            4,
+            2.7
+          ],
+          [
+            5,
+            3.6
+          ],
+          [
+            6,
+            4.9
+          ]
+        ]
+      }
+    ],
+    "xLabel": "Polynomial degree",
+    "yLabel": "MSE",
+    "yMin": 0
+  },
+  "options": [
+    "Choose degree 6, because it has the lowest training error and therefore the best predictive accuracy.",
+    "Choose degree 3: beyond it the validation error rises while training error keeps falling, which signals overfitting.",
+    "Choose degree 1: the rising validation error at high degrees shows underfitting, which simpler models avoid.",
+    "Choose degree 3, and fix the high-degree models by fitting them to more features, which reduces overfitting."
+  ],
+  "answer": 1,
+  "rationale": "<p><b>Correct: Choose degree 3: beyond it the validation error rises while training error keeps falling, which signals overfitting.</b> Training error always falls as complexity rises, so it cannot guide model choice. Validation error is lowest at degree 3. Beyond that, the model fits noise in the training data and generalises worse, which is overfitting. Degrees 1–2 have high errors on both samples, which indicates underfitting.</p><p><b>Incorrect: Choose degree 6, because it has the lowest training error and therefore the best predictive accuracy.</b> Low training error at high complexity is the classic sign of overfitting. Degree 6 has the worst validation error.</p><p><b>Incorrect: Choose degree 1: the rising validation error at high degrees shows underfitting, which simpler models avoid.</b> Rising validation error with falling training error is overfitting, not underfitting. Degree 1 actually underfits, with high errors on both samples.</p><p><b>Incorrect: Choose degree 3, and fix the high-degree models by fitting them to more features, which reduces overfitting.</b> Degree 3 is right, but adding features increases complexity and usually makes overfitting worse. Typical remedies are simplification, regularisation or more training data.</p>"
+},
+{
+  "book": "quant",
+  "topic": "Ch 26 · Machine Learning and Prediction",
+  "prompt": "A consumer lender predicts default with a logistic regression: z = −3.2 + 0.08 × DTI + 1.1 × Late, and P(default) = 1/(1 + e<sup>−z</sup>). DTI is the debt-to-income ratio in percent. Late is a dummy equal to 1 if the borrower has missed a payment in the past year and 0 otherwise. An applicant has a DTI of 25% and one missed payment last year. What is the predicted probability of default?",
+  "options": [
+    "52.5%",
+    "47.5%",
+    "90.5%",
+    "23.1%"
+  ],
+  "answer": 1,
+  "rationale": "<p><b>Correct: 47.5%.</b></p><ol><li>The dummy is coded 1, so z = −3.2 + 0.08 × 25 + 1.1 × 1 = −0.10.</li><li>P = 1/(1 + e<sup>0.10</sup>) = 1/2.105 = 0.475.</li></ol><p><b>52.5% is incorrect.</b> This uses 1/(1 + e<sup>z</sup>), dropping the minus sign in the logistic function, and so gives the probability of no default.</p><p><b>90.5% is incorrect.</b> This is e<sup>z</sup> = e<sup>−0.10</sup>, the odds of default, not the probability. Probability = odds/(1 + odds).</p><p><b>23.1% is incorrect.</b> This leaves out the late-payment dummy, as if it were 0. The applicant has a missed payment, so Late = 1.</p>"
 }
 ];
 
